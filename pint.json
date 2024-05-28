@@ -1,0 +1,5 @@
+{
+    "rules": {
+        "psr_autoloading": true
+    }
+}
