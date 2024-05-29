@@ -1,12 +1,22 @@
 @props(['reward' => null])
 @php
-    $defaulAmount = $reward ? $reward->min_amount->get() / 100 : 10;
+    $defaulAmount = $reward ? $reward->min_amount->get() : 10;
 @endphp
-<x-input
-    name="amount"
-    type="number"
-    placeholder="{{ __('Amount') }}"
-    min="{{ $reward?->min_amount->get() / 100 }}"
-    value="{{ old('amount') ?? $defaulAmount }}"
-    required
-/>
+<div
+    x-data="{
+        get displayValue() {
+            return (this.amount / 100).toFixed(2).replace('.', ',')
+        },
+        demaskValue(value) {
+            this.amount = value.replace(/[^0-9]/g, '')
+        }
+    }"
+    class="-mr-2"
+>
+    <x-input
+        type="text"
+        x-bind:value="displayValue"
+        x-on:input="demaskValue($el.value)"
+        placeholder="{{ __('Amount') }}"
+    />
+</div>

@@ -15,7 +15,7 @@
             </div>
         </div>
     </main>
-
+    @livewireScripts
 </body>
 
 </html>

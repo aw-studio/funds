@@ -1,4 +1,7 @@
-<div {{ $attributes->merge([]) }}>
+<div
+    {{ $attributes->merge([]) }}
+    x-data="stripeElements($data)"
+>
     <div id="payment-element">
         <!-- Elements will create form elements here -->
     </div>
@@ -8,147 +11,162 @@
     </div>
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Load the publishable key from the server. The publishable key
-            // is set in your .env file.
-            const publishableKey = @js($publishableKey);
-            const supportedDonationTypes = @js($supportedDonationTypes);
-            const stripe = Stripe(publishableKey);
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('stripeElements', ($data) => ({
+                stripe: null,
+                elements: null,
+                supportedDonationTypes: @js($supportedDonationTypes),
 
-            // get amount from form input element named amount
-            // of course this is crated from the server in the end, but some payment mehtods
-            // do want to show the amount before the payment
-            // TODO: how to update the amount?
-            const amountInput = document.querySelector('input[name="amount"]');
-            const amount = amountInput.value * 100;
+                init() {
+                    this.stripe = Stripe(@js($publishableKey));
+                    this.elements = this.initStripeElements();
 
-            const options = {
-                mode: 'payment',
-                amount: amount,
-                currency: 'eur',
-                paymentMethodCreation: 'manual',
-                appearance: {},
-            };
-            // Set up Stripe.js and Elements to use in checkout form
-            const elements = stripe.elements(options);
-            // Create and mount the Payment Element
-            const paymentElement = elements.create('payment');
-            paymentElement.mount('#payment-element');
-            const form = document.getElementById('payment-element').closest('form');
-            const submitBtn = document.getElementById('submit');
+                    this.$watch('amount', (value) => {
+                        this.updateStripeElements(value);
+                    })
 
-            const handleError = (error) => {
-                const messageContainer = document.querySelector('#error-message');
-                messageContainer.textContent = error.message;
-                submitBtn.disabled = false;
-            }
+                    this.registerFormSubmitListener()
+                },
 
-            form.addEventListener('submit', async (event) => {
-                const formData = new FormData(form);
-                const donationType = formData.get('donation_type');
-                if (!supportedDonationTypes.includes(donationType)) {
-                    // Exit early if the donation type is not supported
-                    // and let the system take over form submission
-                    console.log('Donation type not supported by stripe gateway');
-                    return;
+                initStripeElements() {
+                    const options = {
+                        mode: 'payment',
+                        amount: this.amount,
+                        currency: 'eur',
+                        paymentMethodCreation: 'manual',
+                        appearance: {},
+                    };
+
+                    // Set up Stripe.js and Elements to use in checkout form
+                    const elements = this.stripe.elements(options);
+                    // Create and mount the Payment Element
+                    const paymentElement = elements.create('payment');
+                    paymentElement.mount('#payment-element');
+                    return elements;
+                },
+
+                updateStripeElements(amount) {
+                    // Create and mount the Payment Element
+                    const paymentElement = this.elements.getElement('payment');
+
+                    paymentElement.update({
+                        amount: amount
+                    });
+                },
+
+
+                registerFormSubmitListener() {
+                    // could be a ref
+                    const form = document.getElementById('payment-element').closest('form');
+
+                    form.addEventListener('submit', async (event) => {
+                        if (this.submitEnabled === false) {
+                            return;
+                        }
+
+                        if (this.shouldTakeOverFormSubmission() == false) {
+                            return;
+                        }
+
+                        event.preventDefault();
+
+                        this.submitEnabled = false;
+                        this.submitStripeCheckoutForm(form);
+                    });
+                },
+
+                shouldTakeOverFormSubmission() {
+                    return this.supportedDonationTypes.includes(this.type);
+                },
+
+
+                async submitStripeCheckoutForm(form) {
+                    const formData = new FormData(form);
+
+                    let confirmationToken = await this.getConfirmationToken();
+                    formData.append('confirmation_token', confirmationToken.id);
+
+                    const res = await fetch(form.action, {
+                        method: form.method,
+                        headers: {
+                            'accept': 'application/json',
+                            'X-CSRF-TOKEN': formData.get('_token'),
+                        },
+                        body: formData
+                    });
+
+                    const data = await res.json();
+                    // Handle any next actions or errors. See the Handle any next actions step for implementation.
+                    this.handleServerResponse(data);
+                },
+
+                async getConfirmationToken() {
+                    const {
+                        error: submitError
+                    } = await this.elements.submit();
+
+                    if (submitError) {
+                        this.handleError(submitError);
+                        return;
+                    }
+
+                    // Create the ConfirmationToken using the details collected by the Payment Element
+                    // and additional shipping information
+                    const {
+                        error,
+                        confirmationToken
+                    } = await this.stripe.createConfirmationToken({
+                        elements: this.elements,
+                        params: {}
+                    });
+
+                    if (error) {
+                        // This point is only reached if there's an immediate error when
+                        // creating the ConfirmationToken. Show the error to your customer (for example, payment details incomplete)
+                        this.handleError(error);
+                        return;
+                    }
+
+                    return confirmationToken
+                },
+
+                async handleServerResponse(response) {
+                    console.log(response);
+
+                    if (response.error) {
+                        this.handleError(response.error);
+                        return
+                    }
+
+                    if (response.status === 'requires_action') {
+                        const {
+                            error,
+                            paymentIntent
+                        } = await this.stripe.handleNextAction({
+                            clientSecret: response.client_secret,
+                        });
+
+                        if (error) {
+                            this.handleError(error);
+                            return null;
+                        };
+
+                    }
+
+                    return this.redirectToSuccess(response.return_url);
+                },
+
+                redirectToSuccess(url) {
+                    window.location.href = url
+                },
+
+                handleError(error) {
+                    const messageContainer = document.querySelector('#error-message');
+                    messageContainer.textContent = error.message;
+                    this.submitEnabled = true;
                 }
-                event.preventDefault();
-                // Prevent multiple form submissions
-                if (submitBtn.disabled) {
-                    return;
-                }
-                // Disable form submission while loading
-                submitBtn.disabled = true;
 
-
-                let confirmationToken = await getConfirmationToken();
-
-                submitCheckoutForm(formData, confirmationToken);
-
-            });
-
-            const submitCheckoutForm = async (formData, confirmationToken) => {
-                formData.append('confirmation_token', confirmationToken.id);
-
-                const res = await fetch(form.action, {
-                    method: "POST",
-                    headers: {
-                        'accept': 'application/json',
-                        'X-CSRF-TOKEN': formData.get('_token'),
-                    },
-                    body: formData
-                });
-
-                const data = await res.json();
-                // Handle any next actions or errors. See the Handle any next actions step for implementation.
-                handleServerResponse(data);
-            }
-
-            const getConfirmationToken = async () => {
-                // Trigger form validation and wallet collection
-                const {
-                    error: submitError
-                } = await elements.submit();
-                if (submitError) {
-                    handleError(submitError);
-                    return;
-                }
-                // Create the ConfirmationToken using the details collected by the Payment Element
-                // and additional shipping information
-                const {
-                    error,
-                    confirmationToken
-                } = await stripe.createConfirmationToken({
-                    elements,
-                    params: {}
-                });
-
-                if (error) {
-                    // This point is only reached if there's an immediate error when
-                    // creating the ConfirmationToken. Show the error to your customer (for example, payment details incomplete)
-                    handleError(error);
-                    return;
-                }
-                return confirmationToken
-            }
-
-            const handleServerResponse = async (response) => {
-                console.log(response);
-
-                if (response.error) {
-                    handleError(response.error);
-                    return
-                }
-
-                if (response.status === 'requires_action') {
-                    return await handleStripeNextAction(
-                        response.client_secret,
-                        response.return_url,
-                    );
-                }
-
-                return redirectToSuccess(response.return_url);
-            };
-
-            const handleStripeNextAction = async (clientSecret, returnUrl) => {
-                const {
-                    error,
-                    paymentIntent
-                } = await stripe.handleNextAction({
-                    clientSecret
-                });
-
-                if (error) {
-                    handleError(error);
-                    return null;
-                };
-
-                return redirectToSuccess(returnUrl);
-            };
-
-            const redirectToSuccess = (url) => {
-                window.location.href = url
-            };
-        });
+            }))
+        })
     </script>
 </div>
