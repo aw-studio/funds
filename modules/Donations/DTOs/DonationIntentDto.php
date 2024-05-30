@@ -8,7 +8,7 @@ readonly class DonationIntentDto
         public string $email,
         public int $amount,
         public int $campaignId,
-        public ?int $donationId = null,
+        public ?string $donationId = null,
         public ?array $rewards = [],
         public string $type = 'donation',
     ) {

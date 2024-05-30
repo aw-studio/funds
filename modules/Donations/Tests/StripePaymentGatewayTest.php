@@ -27,6 +27,8 @@ test('processing a donation intent creates a payment intent', function () {
         'amount' => 1000,
     ]);
 
+    $intent->id = '1';
+
     $stripe = Mockery::mock(StripeClient::class);
     $paymentIntentService = Mockery::mock(PaymentIntentService::class);
 
@@ -39,7 +41,7 @@ test('processing a donation intent creates a payment intent', function () {
             'amount' => 1000,
             'currency' => 'eur',
             'confirmation_token' => 'my-confirmation-token',
-            'return_url' => 'http://funds.test/c/1/checkout/return',
+            'return_url' => 'http://funds.test/c/1/checkout/return/1',
         ])
         ->andReturn((object) [
             'id' => 'payment-intent-id',
@@ -61,5 +63,5 @@ test('processing a donation intent creates a payment intent', function () {
     expect($response->data)->toHaveKey('status');
     expect($response->data['status'])->toBe('requires_confirmation');
     expect($response->data)->toHaveKey('return_url');
-    expect($response->data['return_url'])->toBe('http://funds.test/c/1/checkout/return');
+    expect($response->data['return_url'])->toBe('http://funds.test/c/1/checkout/return/1');
 });

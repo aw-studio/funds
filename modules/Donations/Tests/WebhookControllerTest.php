@@ -12,6 +12,7 @@ test('It updates an order if an async payment succeeded', function () {
         'payment_intent' => 'testID',
     ]);
 
+    $this->withoutExceptionHandling();
     $this->postJson(route('stripe.webhook'), [
         'type' => 'payment_intent.succeeded',
         'data' => [
