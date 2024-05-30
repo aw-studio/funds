@@ -50,21 +50,22 @@ class CheckoutController
 
         return redirect()->route('public.checkout.return', [
             'campaign' => $campaign,
-            'donation_intent' => $intent,
+            'donationIntent' => $intent,
         ]);
 
     }
 
-    public function return(Request $request, Campaign $campaign, ?DonationIntent $donationIntent = null)
-    {
-        if ($donationIntent == null && $request->payment_intent) {
-            $donationIntent = DonationIntent::where('payment_intent', $request->payment_intent)->first();
-        }
+    public function return(
+        Request $request,
+        Campaign $campaign,
+        DonationIntent $donationIntent
+    ) {
+        $status = $request->get('redirect_status') ?? $donationIntent->status;
 
         return view('donations::public.checkout-completed', [
             'campaign' => $campaign,
             'donationIntent' => $donationIntent,
+            'status' => $status,
         ]);
-
     }
 }

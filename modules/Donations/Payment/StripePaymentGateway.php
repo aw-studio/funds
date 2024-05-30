@@ -56,6 +56,7 @@ class StripePaymentGateway implements PaymentGatewayInterface
                 'confirmation_token' => $validated['confirmation_token'],
                 'return_url' => $returnUrl = route('public.checkout.return', [
                     'campaign' => $intent->campaign,
+                    'donationIntent' => $intent,
                 ]),
             ]);
 

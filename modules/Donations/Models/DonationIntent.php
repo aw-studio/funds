@@ -5,6 +5,7 @@ namespace Funds\Donations\Models;
 use Funds\Campaign\Concerns\BelongsToCampaign;
 use Funds\Donations\DTOs\DonationIntentDto;
 use Funds\Donations\Events\DonationIntentSucceeded;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +18,7 @@ class DonationIntent extends Model
 {
     use BelongsToCampaign;
     use HasFactory;
+    use HasUlids;
 
     public $fillable = [
         'amount',

@@ -17,7 +17,7 @@ Route::group([
 ], function () {
     Route::get('c/{campaign}/donate/{reward?}', [CheckoutController::class, 'show'])->name('public.checkout');
     Route::post('c/{campaign}/donate/{reward?}', [CheckoutController::class, 'store'])->name('public.checkout.store');
-    Route::get('c/{campaign}/checkout/return', [CheckoutController::class, 'return'])->name('public.checkout.return');
+    Route::get('c/{campaign}/checkout/return/{donationIntent}', [CheckoutController::class, 'return'])->name('public.checkout.return');
 });
 
 Route::group([

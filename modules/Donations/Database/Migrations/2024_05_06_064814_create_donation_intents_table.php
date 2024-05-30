@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('donation_intents', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->string('email');
             $table->string('amount');
             $table->string('status');
