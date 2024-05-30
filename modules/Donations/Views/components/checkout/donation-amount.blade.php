@@ -8,7 +8,7 @@
             return (this.amount / 100).toFixed(2).replace('.', ',')
         },
         demaskValue(value) {
-            this.amount = value.replace(/[^0-9]/g, '')
+            this.amount = parseInt(value.replace(/[^0-9]/g, ''))
         }
     }"
     class="-mr-2"
@@ -18,5 +18,10 @@
         x-bind:value="displayValue"
         x-on:input="demaskValue($el.value)"
         placeholder="{{ __('Amount') }}"
+    />
+    <x-input
+        type="hidden"
+        name="amount"
+        x-model="amount"
     />
 </div>

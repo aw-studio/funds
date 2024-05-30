@@ -8,11 +8,11 @@ use Funds\Donations\Payment\PaymentResponseData;
 
 class DonationIntentService
 {
-    public function createIntent($email, $amount, $campaign, $type): DonationIntent
+    public function createIntent($email, $amountInCents, $campaign, $type): DonationIntent
     {
         $intent = DonationIntent::make([
             'email' => $email,
-            'amount' => $amount * 100,
+            'amount' => $amountInCents,
             // 'rewards' => $request->reward_id,
         ]);
 
