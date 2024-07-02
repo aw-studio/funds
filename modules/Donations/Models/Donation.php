@@ -40,6 +40,9 @@ class Donation extends Model
         $donation->amount = $intent->amount;
         $donation->campaign = $intent->campaign;
         $donation->intent_id = $intent->id;
+        if ($intent->recurring_donation_data !== null) {
+            $donation->type = 'recurring';
+        }
         $donation->save();
 
         return $donation;

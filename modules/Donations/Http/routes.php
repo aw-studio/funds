@@ -14,6 +14,10 @@ Route::app(function () {
     Route::get('intents', [DonationIntentController::class, 'index'])
         ->name('donations.intents.index')
         ->middleware(EnsureCampaignMiddleware::class);
+
+    Route::get('intents/{intent}', [DonationIntentController::class, 'show'])
+        ->name('donations.intents.show')
+        ->middleware(EnsureCampaignMiddleware::class);
 });
 
 // Public

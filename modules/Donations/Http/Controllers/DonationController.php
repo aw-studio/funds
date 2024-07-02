@@ -10,12 +10,12 @@ use Illuminate\Http\Request;
 
 class DonationController
 {
-    public function index()
+    public function index(Request $request)
     {
         return view('donations::index',
             [
-                // these shoudl be scoped by the campaign
-                'donations' => Donation::with('donor', 'reward', 'order')->get(),
+                'donations' => Donation::with('donor', 'reward', 'order')
+                    ->get(),
                 'pendingDonationsCount' => DonationIntent::where('status', 'pending')->count(),
             ]
         );
