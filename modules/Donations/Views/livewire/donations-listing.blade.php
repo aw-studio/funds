@@ -25,6 +25,8 @@ $delete = function ($id) {
             <th class="text-left">{{ __('Date') }}</th>
             <th class="text-left">{{ __('Donor') }}</th>
             <th class="text-left">{{ __('Amount') }}</th>
+            <th class="text-left">{{ __('Reward') }}</th>
+            <th class="text-left">{{ __('Shipment') }}</th>
             <th class="text-left">{{ __('Actions') }}</th>
         </thead>
         @foreach ($donations as $donation)
@@ -43,6 +45,12 @@ $delete = function ($id) {
                     {{ $donation->donor->email }}
                 </td>
                 <td>{{ $donation->amount->format() }}</td>
+                <td>
+                    {{ $donation->reward?->name }}
+                </td>
+                <td>
+                    {{ $donation->order?->status ?? __(' -') }}
+                </td>
                 <td>
                     <button wire:click="delete({{ $donation->id }})">Delete</button>
                 </td>

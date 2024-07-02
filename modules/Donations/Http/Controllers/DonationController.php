@@ -15,7 +15,7 @@ class DonationController
         return view('donations::index',
             [
                 // these shoudl be scoped by the campaign
-                'donations' => Donation::with('donor')->get(),
+                'donations' => Donation::with('donor', 'reward', 'order')->get(),
                 'pendingDonationsCount' => DonationIntent::where('status', 'pending')->count(),
             ]
         );
