@@ -48,7 +48,7 @@ test('navigation menu can be rendered', function () {
 
     $this->actingAs($user);
 
-    $response = $this->get('app/dashboard');
+    $response = $this->get('app/campaigns');
 
     $response
         ->assertOk()

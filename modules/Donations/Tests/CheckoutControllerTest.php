@@ -34,6 +34,7 @@ test('Donation intent is created when submitting a donation', function () {
 
     $response = $this->post(route('public.checkout.store', $campaign), [
         'donation_type' => 'onetime',
+        'name' => 'Test Name',
         'amount' => 100,
         'email' => 'foo@bar.com',
         'confirmation_token' => 'payment_confirmation_token',
@@ -54,6 +55,7 @@ test('the donation intent contains the order details if a reward is selected', f
         'donation_type' => 'onetime',
         'amount' => 100,
         'email' => 'foo@bar.com',
+        'name' => 'Test Name',
         'confirmation_token' => 'payment_confirmation_token',
         'reward_id' => $reward->id,
         'shipping_name' => 'Test Shipping',

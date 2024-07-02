@@ -26,6 +26,7 @@ class DonationIntentFactory extends Factory
             'campaign_id' => Campaign::factory(),
             // 'rewards' => [],
             'type' => 'donation',
+            'pays_fees' => false,
         ];
     }
 }

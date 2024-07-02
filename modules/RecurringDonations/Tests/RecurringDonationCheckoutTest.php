@@ -16,6 +16,7 @@ test('Donation intent is created when submitting a donation', function () {
         'donation_type' => 'recurring',
         'amount' => 100,
         'email' => 'foo@bar.com',
+        'name' => 'Test Name',
         'iban' => 'DE89370400440532013000',
     ]);
 

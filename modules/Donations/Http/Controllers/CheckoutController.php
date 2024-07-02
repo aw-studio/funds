@@ -33,6 +33,7 @@ class CheckoutController
             'donation_type' => 'required',
             'amount' => ['required', 'numeric'],
             'email' => ['required', 'email'],
+            'name' => ['required', 'string'],
             'pays_fees' => ['nullable', 'boolean'],
             'reward_id' => ['nullable', 'exists:rewards,id'],
             'reward_variant_id' => ['nullable', 'exists:reward_variants,id'],
