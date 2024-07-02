@@ -18,8 +18,11 @@ return new class extends Migration
             $table->string('status');
             $table->foreignId('campaign_id')->constrained();
             $table->foreignId('donation_id')->nullable()->constrained();
+            $table->boolean('pays_fees');
+
+            $table->json('order_details')->nullable();
+
             $table->string('payment_intent')->nullable();
-            $table->json('rewards')->nullable();
             $table->string('type');
             $table->timestamps();
         });

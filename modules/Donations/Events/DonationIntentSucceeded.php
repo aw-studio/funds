@@ -16,7 +16,7 @@ class DonationIntentSucceeded
      * Create a new event instance.
      */
     public function __construct(
-        public DonationIntentDto $donationIntent,
+        public DonationIntentDto $donationIntentData,
     ) {
         //
     }

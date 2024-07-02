@@ -19,17 +19,34 @@ $delete = function ($id) {
     @if ($donations->isEmpty())
         <p>No donations found.</p>
     @endif
-    @foreach ($donations as $donation)
-        <table class="w-full">
+    <table class="w-full">
+        <thead>
+            <th class="text-left">#</th>
+            <th class="text-left">{{ __('Date') }}</th>
+            <th class="text-left">{{ __('Donor') }}</th>
+            <th class="text-left">{{ __('Amount') }}</th>
+            <th class="text-left">{{ __('Actions') }}</th>
+        </thead>
+        @foreach ($donations as $donation)
             <tr>
-                <td>{{ $donation->id }}</td>
-                <td>{{ $donation->created_at->isoFormat('L') }}</td>
-                <td>{{ $donation->donor->email }}</td>
+                <td>
+                    <a href="{{ route('donations.show', $donation) }}">
+                        {{ $donation->id }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ route('donations.show', $donation) }}">
+                        {{ $donation->created_at->isoFormat('L') }}
+                    </a>
+                </td>
+                <td>
+                    {{ $donation->donor->email }}
+                </td>
                 <td>{{ $donation->amount->format() }}</td>
                 <td>
                     <button wire:click="delete({{ $donation->id }})">Delete</button>
                 </td>
             </tr>
-        </table>
-    @endforeach
+        @endforeach
+    </table>
 </section>

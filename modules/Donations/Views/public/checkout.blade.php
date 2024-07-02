@@ -24,20 +24,21 @@
                 originalAmount: undefined,
                 fees: undefined,
                 submitEnabled: true,
-                coverFees: false,
+                paysFees: false,
                 init() {
                     this.fees = this.amount * 0.03;
-            
+
                     this.$watch('amount', () => {
                         this.fees = this.amount * 0.03;
                     });
                 },
                 get totalAmount() {
-                    return parseInt(this.amount) + (this.coverFees ? this.fees : 0);
+                    return parseInt(this.amount) + (this.paysFees ? this.fees : 0);
                 }
             }"
         >
             @csrf
+
             <x-donations::checkout.donation-amount :$reward />
             <x-donations::checkout.contact-details />
             <x-donations::checkout.shipment-details :$reward />
@@ -50,9 +51,9 @@
                     <label class="flex items-center">
                         <input
                             type="checkbox"
-                            name="cover_fees"
+                            name="pays_fees"
                             value="1"
-                            x-model="coverFees"
+                            x-model="paysFees"
                         >
                         <span class="ml-2">{{ __('Cover processing fees') }}</span>
                     </label>
@@ -71,7 +72,7 @@
                     <span>{{ __('Donation amount') }}</span>
                     <span x-money="amount"></span>
                 </div>
-                <div x-show="coverFees">
+                <div x-show="paysFees">
                     <div class="flex justify-between">
                         <span>{{ __('Processing fees') }}</span>
                         <span x-money="fees"></span>

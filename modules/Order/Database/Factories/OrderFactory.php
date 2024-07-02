@@ -1,10 +1,8 @@
 <?php
 
-namespace Funds\Donations\Database\Factories;
+namespace Funds\Order\Database\Factories;
 
-use Funds\Campaign\Models\Campaign;
-use Funds\Donations\Models\Donation;
-use Funds\Donations\Models\Donor;
+use Funds\Order\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -12,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class OrderFactory extends Factory
 {
-    protected $model = Donation::class;
+    protected $model = Order::class;
 
     /**
      * Define the model's default state.
@@ -22,9 +20,6 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'amount' => fake()->numberBetween(100, 10000),
-            'campaign_id' => Campaign::factory(),
-            'donor_id' => Donor::factory(),
         ];
     }
 }

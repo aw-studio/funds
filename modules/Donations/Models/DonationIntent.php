@@ -5,11 +5,13 @@ namespace Funds\Donations\Models;
 use Funds\Campaign\Concerns\BelongsToCampaign;
 use Funds\Donations\DTOs\DonationIntentDto;
 use Funds\Donations\Events\DonationIntentSucceeded;
+use Funds\Reward\Models\Reward;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property $type
  * @property \Funds\Campaign\Models\Campaign $campaign
  *
  * @method succeed()
@@ -33,8 +35,8 @@ class DonationIntent extends Model
     public function casts(): array
     {
         return [
-            'rewards' => 'array',
             'recurring_donation_data' => 'array',
+            'order_details' => 'array',
         ];
     }
 
@@ -53,8 +55,7 @@ class DonationIntent extends Model
 
         $donation = Donation::createFromIntent($this);
 
-        $this->donation_id = $donation->id;
-        $this->setRelation('donation', $donation);
+        $this->donation = $donation;
 
         // this could also just be a DonationCreated event?
         DonationIntentSucceeded::dispatch($this->asDto());
@@ -63,17 +64,28 @@ class DonationIntent extends Model
     public function asDto(): DonationIntentDto
     {
         return new DonationIntentDto(
-            $this->email,
-            $this->amount,
-            $this->campaign_id,
-            $this->id,
-            $this->rewards,
-            $this->type
+            email: $this->email,
+            amount: $this->amount,
+            campaignId: $this->campaign->id,
+            donationId: $this->donation?->id,
+            type: $this->type,
+            orderDetails: $this->order_details,
         );
     }
 
     public function donation()
     {
-        return $this->belongsTo(Donation::class);
+        return $this->hasOne(Donation::class, 'intent_id');
+    }
+
+    public function reward()
+    {
+        return $this->belongsTo(Reward::class);
+    }
+
+    public function setDonationAttribute(Donation $donation): void
+    {
+        $this->donation_id = $donation->id;
+        $this->setRelation('donation', $donation);
     }
 }

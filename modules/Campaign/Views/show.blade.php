@@ -8,12 +8,21 @@
         </div>
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
-                <h3 class="text-lg font-semibold">{{ $campaign->goal }}</h3>
-                <p>Goal</p>
+                <h3 class="text-lg font-semibold">
+                    {{ $campaign->totalAmountDonated() }}
+                    /
+                    {{ $campaign->goal }}</h3>
             </div>
         </div>
+
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
+                <h3 class="text-lg font-semibold">
+                    {{ __('Total Donations') }}
+                </h3>
+                <p class="text-3xl font-semibold">
+                    {{ $campaign->donations->count() }}
+                </p>
             </div>
         </div>
     </div>

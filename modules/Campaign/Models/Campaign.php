@@ -3,6 +3,7 @@
 namespace Funds\Campaign\Models;
 
 use Funds\Campaign\Enum\CampaignStatus;
+use Funds\Core\Support\Amount;
 use Funds\Core\Support\Casts\AmountCast;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\DonationIntent;
@@ -55,6 +56,17 @@ class Campaign extends Model
         return route('campaigns.show', [
             'campaign' => $this,
         ]);
+    }
 
+    public function publicRoute()
+    {
+        return route('public.campaigns.show', [
+            'campaign' => $this,
+        ]);
+    }
+
+    public function totalAmountDonated()
+    {
+        return new Amount($this->donations->sum('amount.cents'));
     }
 }

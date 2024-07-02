@@ -15,6 +15,8 @@ Route::view('app/dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::redirect('app/dashboard', 'campaigns');
+
 Route::view('app/profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');

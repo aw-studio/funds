@@ -6,11 +6,8 @@ use Funds\Campaign\Models\Campaign;
 
 class PublicCampaignController
 {
-    public function show($id)
+    public function show(Campaign $campaign)
     {
-        //TODO why is route model binding not working?
-        $campaign = Campaign::findOrFail($id);
-
         return view('campaigns::public.show',
             [
                 'campaign' => $campaign,

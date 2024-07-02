@@ -4,6 +4,7 @@ namespace Funds\Donations\Http\Controllers;
 
 use Funds\Campaign\Models\Campaign;
 use Funds\Donations\Models\Donation;
+use Funds\Donations\Models\DonationIntent;
 use Funds\Donations\Models\Donor;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,7 @@ class DonationController
             [
                 // these shoudl be scoped by the campaign
                 'donations' => Donation::with('donor')->get(),
+                'pendingDonationsCount' => DonationIntent::where('status', 'pending')->count(),
             ]
         );
     }
@@ -43,5 +45,15 @@ class DonationController
         $donor->donations()->save($donation);
 
         return redirect()->route('donations.index');
+    }
+
+    public function show(Donation $donation)
+    {
+        $donation->load(['donor', 'donationIntent']);
+
+        return view('donations::show', [
+            'donation' => $donation,
+            'donor' => $donation->donor,
+        ]);
     }
 }

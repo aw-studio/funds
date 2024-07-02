@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('status');
-            $table->foreignId('donation_id')->nullable()->constrained();
-            $table->json('items')->nullable();
+            $table->foreignId('campaign_id')->nullable()->constrained();
+            $table->foreignId('donation_id')
+                ->comment('Donation is the source and paymentof the order')
+                ->constrained();
+            $table->json('shipping_address')->nullable();
+            $table->foreignId('reward_id')->nullable()->constrained();
+            $table->foreignId('reward_variant_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

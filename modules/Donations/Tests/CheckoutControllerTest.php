@@ -24,7 +24,6 @@ test('It renders a checkout screen for a selected reward', function () {
             'name' => 'Test Reward',
         ]);
 
-    $this->withoutExceptionHandling();
     $response = $this->get(route('public.checkout', [$campaign, $reward]));
     $response->assertStatus(200);
     expect($response->viewData('reward')->name)->toBe('Test Reward');
@@ -37,10 +36,31 @@ test('Donation intent is created when submitting a donation', function () {
         'donation_type' => 'onetime',
         'amount' => 100,
         'email' => 'foo@bar.com',
-        'confirmation_token' => 'confirmation_token_from_frontend',
+        'confirmation_token' => 'payment_confirmation_token',
     ]);
 
     expect(DonationIntent::count())->toBe(1);
     expect(DonationIntent::first()->payment_intent)->not()->toBeNull();
     expect(DonationIntent::first()->status)->toBe('pending');
+});
+
+test('the donation intent contains the order details if a reward is selected', function () {
+    $campaign = Campaign::factory()->create();
+    $reward = Reward::factory()
+        ->for($campaign)
+        ->create();
+
+    $response = $this->post(route('public.checkout.store', [$campaign, $reward]), [
+        'donation_type' => 'onetime',
+        'amount' => 100,
+        'email' => 'foo@bar.com',
+        'confirmation_token' => 'payment_confirmation_token',
+        'reward_id' => $reward->id,
+        'shipping_name' => 'Test Shipping',
+    ]);
+
+    expect(DonationIntent::count())->toBe(1);
+    expect(DonationIntent::first()->order_details)->toBeArray();
+    expect(DonationIntent::first()->order_details['reward_id'])->toBe($reward->id);
+    expect(DonationIntent::first()->order_details['shipping_address']['name'])->toBe('Test Shipping');
 });

@@ -24,5 +24,5 @@ Route::group([
 Route::group([
     'middleware' => ['web'],
 ], function () {
-    Route::get('c/{id}', [PublicCampaignController::class, 'show'])->name('public.campaigns.show');
+    Route::get('c/{campaign}', [PublicCampaignController::class, 'show'])->name('public.campaigns.show');
 });

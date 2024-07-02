@@ -30,14 +30,13 @@ class CampaignController
 
         $campaign = Campaign::create($validated);
 
-        return redirect()->route($campaign->appRoute());
+        return redirect()->to($campaign->appRoute());
     }
 
-    public function show(Campaign $campaign)
+    public function show(Request $request, Campaign $campaign)
     {
         //switch to campaign
-        auth()->user()->current_campaign_id = $campaign->id;
-        auth()->user()->save();
+        $request->user()->switchCurrentCampaignTo($campaign);
 
         return view('campaigns::show',
             [

@@ -8,9 +8,9 @@ readonly class DonationIntentDto
         public string $email,
         public int $amount,
         public int $campaignId,
-        public ?string $donationId = null,
-        public ?array $rewards = [],
-        public string $type = 'donation',
+        public ?string $donationId,
+        public string $type,
+        public ?array $orderDetails = null
     ) {
     }
 }

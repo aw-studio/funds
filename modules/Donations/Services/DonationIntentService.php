@@ -2,22 +2,30 @@
 
 namespace Funds\Donations\Services;
 
+use Funds\Campaign\Models\Campaign;
 use Funds\Core\Contracts\PaymentGatewayInterface;
 use Funds\Donations\Models\DonationIntent;
 use Funds\Donations\Payment\PaymentResponseData;
 
 class DonationIntentService
 {
-    public function createIntent($email, $amountInCents, $campaign, $type): DonationIntent
-    {
-        $intent = DonationIntent::make([
+    public function createIntent(
+        $email,
+        $amountInCents,
+        Campaign $campaign,
+        $type,
+        ?array $orderDetails = null,
+        bool $paysFees = false
+    ): DonationIntent {
+        $intent = new DonationIntent([
             'email' => $email,
             'amount' => $amountInCents,
-            // 'rewards' => $request->reward_id,
         ]);
 
+        $intent->order_details = $orderDetails;
         $intent->type = $type;
         $intent->campaign = $campaign;
+        $intent->pays_fees = $paysFees;
 
         $intent->save();
 

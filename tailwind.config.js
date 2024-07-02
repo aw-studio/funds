@@ -17,6 +17,12 @@ export default {
                     400: "#374151",
                     500: "#1F2937",
                 },
+                amethyst: {
+                    500: "#A35EEC",
+                },
+                tangerine: {
+                    400: "#F38E40",
+                },
             },
             fontFamily: {
                 sans: [...defaultTheme.fontFamily.sans],

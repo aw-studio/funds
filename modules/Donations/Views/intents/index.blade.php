@@ -31,6 +31,10 @@
                             />
                         </svg>
                     </div>
+
+                    <div class="ms-1">
+
+                    </div>
                 </button>
             </x-slot>
 
@@ -53,23 +57,36 @@
     </x-slot>
 
     <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-        {{ __('Donations') }}
+        {{ __('Donation Intents') }}
     </h2>
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
-                <livewire:donations-listing :donations="$donations" />
-            </div>
+                @foreach ($intents as $intent)
+                    <div
+                        class="flex items-center justify-between mb-4 border-b border-gray-200 dark:border-gray-700 py-2">
+                        <div class="">
+                            {{ new \Funds\Core\Support\Amount($intent->amount) }}
+                        </div>
+                        <div class="">
+                            {{ $intent->email }}
+                        </div>
+                        <div class="">
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                {{ $intent->status }}
+                            </p>
+                        </div>
+                        <div class="ml-4">
 
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                {{ $intent->created_at->diffForHumans() }}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
         </div>
     </div>
 
-    @if ($pendingDonationsCount > 0)
-        <a
-            class="p-4 text-center block"
-            href="{{ route('donations.intents.index') }}"
-        >
-            {{ __('Pending Donations') }}: {{ $pendingDonationsCount }}
-        </a>
-    @endif
 </x-campaign-layout>

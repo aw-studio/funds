@@ -10,6 +10,15 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
+                        @if ($errors->any())
+                            <div class="text-red-500">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <form
                             method="post"
                             action="{{ route('campaigns.store') }}"
@@ -24,6 +33,11 @@
                                 type="text"
                                 name="description"
                                 placeholder="Description"
+                            >
+                            <input
+                                type="number"
+                                name="goal"
+                                placeholder="Goal"
                             >
                             <x-primary-button type="submit">
                                 {{ __('Create Campaign') }}

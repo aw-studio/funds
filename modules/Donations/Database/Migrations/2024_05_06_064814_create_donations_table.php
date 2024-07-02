@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('campaign_id');
             $table->foreignId('donor_id');
-            $table->foreignId('intent_id')->nullable()->comment('The intent that created this donation. This is not required for donations that are not created through an intent.');
+            $table->foreignUlid('intent_id')
+                ->nullable()
+                ->comment('An intent that created the donation. It\'s not required for manual donations.');
             $table->integer('amount')->comment('Amount in cents');
             $table->string('type')->default('default');
             $table->timestamps();
