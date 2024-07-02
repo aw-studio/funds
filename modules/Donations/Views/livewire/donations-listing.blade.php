@@ -6,7 +6,7 @@ use function Livewire\Volt\{with, usesPagination};
 
 usesPagination();
 
-state(['donations']);
+with(fn() => ['donations' => Donation::with('donor', 'reward', 'order')->paginate(10)]);
 
 $delete = function ($id) {
     $donation = Donation::with('donor')->find($id);
@@ -56,5 +56,7 @@ $delete = function ($id) {
                 </td>
             </tr>
         @endforeach
+
     </table>
+    {{ $donations->links() }}
 </section>
