@@ -7,17 +7,15 @@ use Illuminate\Support\Facades\Route;
 
 // App
 Route::app(function () {
-    Route::get('campaigns', [CampaignController::class, 'index'])->name('campaigns.index');
-    Route::get('campaigns/create', [CampaignController::class, 'create'])->name('campaigns.create');
-    Route::post('campaigns', [CampaignController::class, 'store'])->name('campaigns.store');
-    Route::get('campaigns/{campaign}', [CampaignController::class, 'show'])->name('campaigns.show');
+
+    Route::resource('campaigns', CampaignController::class);
 });
 
 // Api
 Route::group([
     'middleware' => ['api'],
 ], function () {
-    Route::get('/campaign/{campaign}', [CampaignApiController::class, 'show'])->name('campaigns.api.show');
+    // Route::get('/campaign/{campaign}', [CampaignApiController::class, 'show'])->name('campaigns.api.show');
 });
 
 // Public

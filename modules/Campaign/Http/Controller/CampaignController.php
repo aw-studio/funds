@@ -44,4 +44,26 @@ class CampaignController
             ]
         );
     }
+
+    public function edit(Request $request, Campaign $campaign)
+    {
+        return view('campaigns::edit',
+            [
+                'campaign' => $campaign,
+            ]
+        );
+    }
+
+    public function update(Request $request, Campaign $campaign)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'goal' => 'required|numeric',
+            'description' => 'nullable|string',
+        ]);
+
+        $campaign->update($validated);
+
+        return redirect()->to($campaign->appRoute());
+    }
 }

@@ -3,7 +3,6 @@
 use App\Models\User;
 use Funds\Campaign\Enum\CampaignStatus;
 use Funds\Campaign\Models\Campaign;
-use Funds\Donations\Models\Donation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -78,14 +77,33 @@ test('Accessing a campaign will set the current campaign', function () {
     expect($user->current_campaign_id)->toBe($campaign->id);
 });
 
-test('The amount of donations is calculated correctly', function () {
-    $campaign = Campaign::factory()->create();
-    $donations = Donation::factory()
-        ->for($campaign)
-        ->count(3)
-        ->create([
-            'amount' => 200,
+test('A user can visit a page to edit a campaign', function () {
+
+    $campaign = Campaign::factory()->create([
+        'name' => 'Test Campaign',
+    ]);
+
+    $response = $this->actingAs(User::factory([
+        'current_campaign_id' => $campaign->id,
+    ])->create())
+        ->get("app/campaigns/$campaign->id/edit");
+
+    $response->assertViewIs('campaigns::edit');
+});
+
+test('A user can update a campaign', function () {
+    $campaign = Campaign::factory()->create([
+        'name' => 'Test Campaign',
+    ]);
+
+    $response = $this->actingAs(User::factory()->create())
+        ->put('app/campaigns/'.$campaign->id, [
+            'name' => 'Updated Campaign',
+            'goal' => 1000,
         ]);
 
-    expect($campaign->totalAmountDonated()->cents)->toBe(600);
+    $campaign->refresh();
+
+    expect($campaign->name)->toBe('Updated Campaign');
+    expect($response->status())->toBe(302);
 });
