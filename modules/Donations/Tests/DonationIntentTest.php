@@ -27,6 +27,16 @@ test('Finalizing a DonationIntent creates a Donation', function () {
     expect($intent->donation)->toBeInstanceOf(Donation::class);
 });
 
+test('Succeeding a DonationIntent twice does not create a new Donation', function () {
+
+    $intent = DonationIntent::factory()->create();
+    $intent->succeed();
+    $intent->succeed();
+
+    expect($intent->status)->toBe('succeeded');
+    expect(Donation::where('intent_id', $intent->id)->count())->toBe(1);
+});
+
 test('Finalizing a DonationIntent fires the DonationIntentFinalized event', function () {
 
     Event::fake();
@@ -34,4 +44,30 @@ test('Finalizing a DonationIntent fires the DonationIntentFinalized event', func
     $intent->succeed();
 
     Event::assertDispatched(DonationIntentSucceeded::class);
+});
+
+test('A pending DonationIntent can fail', function () {
+
+    $intent = DonationIntent::factory()->create();
+    $intent->fail();
+
+    expect($intent->status)->toBe('failed');
+});
+
+test('A non pending DonationIntent cannot fail', function ($status) {
+    $intent = DonationIntent::factory()->create([
+        'status' => $status,
+    ]);
+
+    $this->expectException(\Exception::class);
+    $intent->fail();
+})->with([
+    'succeeded',
+    'failed',
+]);
+
+test('A donation intent that has a donation cannot be failed', function () {
+    $intent = DonationIntent::factory()->has(Donation::factory())->create();
+    $this->expectException(\Exception::class);
+    $intent->fail();
 });

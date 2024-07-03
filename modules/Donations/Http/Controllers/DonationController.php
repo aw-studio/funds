@@ -2,7 +2,6 @@
 
 namespace Funds\Donations\Http\Controllers;
 
-use Funds\Campaign\Models\Campaign;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\DonationIntent;
 use Funds\Donations\Models\Donor;
@@ -37,8 +36,7 @@ class DonationController
 
         $donation = new Donation();
         $donation->amount = $validated['amount'];
-        // session('campaign_id') is set by the EnsureCampaignMiddleware
-        $donation->campaign_id = session('campaign_id');
+        $donation->campaign_id = $request->user()->currentCampaign->id;
         $donation->donor_id = $donor->id;
 
         $donor->donations()->save($donation);

@@ -12,7 +12,8 @@
                 {{ $donation->type === 'recurring' ? __('Recurring') : __('Onetime') }}
             </div>
             <div>
-                {{ __('Pays fees') }}: {{ $donation->donationIntent->pays_fees ? 'yes' : 'no' }}
+                {{-- A donation intent is not always created --}}
+                {{ __('Pays fees') }}: {{ $donation->donationIntent?->pays_fees ? 'yes' : 'no' }}
             </div>
 
         </div>

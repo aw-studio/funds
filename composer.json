@@ -63,7 +63,7 @@
             "vendor/bin/rector process --ansi"
         ],
         "test-coverage": [
-            "XDEBUG_MODE=coverage vendor/bin/pest --coverage-html=/.reports"
+            "XDEBUG_MODE=coverage vendor/bin/pest --coverage-html=.reports"
         ]
     },
     "extra": {

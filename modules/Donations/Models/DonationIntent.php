@@ -93,6 +93,9 @@ class DonationIntent extends Model
         return $this->hasOne(Donation::class, 'intent_id');
     }
 
+    /**
+     * TODO: is this relation really required?
+     */
     public function reward()
     {
         return $this->belongsTo(Reward::class);
