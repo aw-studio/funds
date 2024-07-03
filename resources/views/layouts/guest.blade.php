@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html
+    lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+    class="h-full"
+>
 
 <head>
     <meta charset="utf-8">
@@ -28,20 +31,23 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans text-gray-900 antialiased">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-        <div>
+<body class="h-full">
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <a
                 href="/"
                 wire:navigate
+                class="mx-auto w-auto block"
             >
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <x-application-logo class="h-10 w-60 mx-auto" />
             </a>
+            <h2 class="mt-10 text-center text-xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your
+                account</h2>
         </div>
 
-        <div
-            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             {{ $slot }}
+
         </div>
     </div>
 </body>

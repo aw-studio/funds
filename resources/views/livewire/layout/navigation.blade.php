@@ -28,7 +28,7 @@ new class extends Component {
                     href="{{ route('dashboard') }}"
                     wire:navigate
                 >
-                    <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    <x-application-logo class="block h-5 w-auto fill-current text-gray-800 dark:text-gray-200" />
                 </a>
             </div>
             <div class="flex">
