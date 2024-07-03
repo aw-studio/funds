@@ -36,6 +36,11 @@ class CheckoutController
                 'reward_variant_id' => $validated['reward_variant_id'] ?? null,
                 'shipping_address' => [
                     'name' => $validated['shipping_name'],
+                    'address' => $validated['address'],
+                    'address_addition' => $validated['address_addition'] ?? null,
+                    'postal_code' => $validated['postal_code'],
+                    'city' => $validated['city'],
+                    'country' => $validated['country'],
                 ],
             ];
         }

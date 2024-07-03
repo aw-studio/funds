@@ -41,7 +41,12 @@
                     {{ $donation->order->status }}
                     {{ __('Shippment address') }}
                     <div>
-                        {{ $donation->order->shipping_address['name'] }}
+                        {{ $donation->order->shipping_address['name'] }}<br />
+                        {{ $donation->order->shipping_address['address'] }} <br />
+                        {{ $donation->order->shipping_address['address_addition'] }}
+                        {{ $donation->order->shipping_address['postal_code'] }}
+                        {{ $donation->order->shipping_address['city'] }} <br />
+                        {{ $donation->order->shipping_address['country'] }}
                     </div>
                 </div>
             @endif
