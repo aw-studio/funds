@@ -4,6 +4,7 @@ namespace Funds\Campaign\Database\Factories;
 
 use Funds\Campaign\Models\Campaign;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Funds\Campaign\Models\Campaign>
@@ -21,8 +22,10 @@ class CampaignFactory extends Factory
     {
         return [
             'name' => fake()->randomElement($this->names()),
+            'slug' => fn ($attributes) => Str::slug($attributes['name']),
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
             'goal' => random_int(1, 100) * 1000 * 100,
+            'content' => fake()->paragraphs(10, true),
         ];
     }
 

@@ -44,7 +44,9 @@ new class extends Component {
                     </x-nav-link> --}}
                     <x-nav-link
                         :href="route('campaigns.index')"
-                        :active="request()->routeIs('campaigns.*')"
+                        :active="request()->routeIs('campaigns.*') ||
+                            request()->routeIs('donations.*') ||
+                            request()->routeIs('rewards.*')"
                         wire:navigate
                     >
                         {{ __('Campaigns') }}

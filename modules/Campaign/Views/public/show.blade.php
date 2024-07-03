@@ -9,7 +9,9 @@
             <div>
                 Goal: {{ $campaign->goal }}
             </div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+            <div class="mt-8">
+                {{ new \Illuminate\Support\HtmlString(nl2br($campaign->content)) }}
+            </div>
         </div>
         <div class="col-span-1 md:col-span-1">
             @foreach ($campaign->rewards as $reward)

@@ -23,4 +23,12 @@
     >
         {{ __('Rewards') }}
     </a>
+    <a
+        href="{{ route('campaigns.content.edit', ['campaign' => $campaign]) }}"
+        @class([
+            'border-b-2 border-blue-500' => request()->routeIs('campaigns.content.*'),
+        ])
+    >
+        {{ __('Content Editor') }}
+    </a>
 </nav>
