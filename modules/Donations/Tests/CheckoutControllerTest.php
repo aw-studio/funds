@@ -51,11 +51,16 @@ test('the donation intent contains the order details if a reward is selected', f
         ->for($campaign)
         ->create();
 
+    $this->withoutExceptionHandling();
     $response = $this->post(route('public.checkout.store', [$campaign, $reward]), [
         'donation_type' => 'onetime',
         'amount' => 100,
         'email' => 'foo@bar.com',
         'name' => 'Test Name',
+        'address' => 'Test Address 27',
+        'postal_code' => '1245',
+        'city' => 'Test City',
+        'country' => 'Test Country',
         'confirmation_token' => 'payment_confirmation_token',
         'reward_id' => $reward->id,
         'shipping_name' => 'Test Shipping',
@@ -65,4 +70,27 @@ test('the donation intent contains the order details if a reward is selected', f
     expect(DonationIntent::first()->order_details)->toBeArray();
     expect(DonationIntent::first()->order_details['reward_id'])->toBe($reward->id);
     expect(DonationIntent::first()->order_details['shipping_address']['name'])->toBe('Test Shipping');
+});
+
+test('A shipment address is required if a reward is selected', function () {
+    $campaign = Campaign::factory()->create();
+    $reward = Reward::factory()
+        ->for($campaign)
+        ->create();
+
+    $response = $this->post(route('public.checkout.store', [$campaign, $reward]), [
+        'donation_type' => 'onetime',
+        'amount' => 100,
+        'email' => 'foo@bar.com',
+        'name' => 'Test Name',
+        'address' => null,
+        // 'city' => 'Test City',
+        // 'country' => 'Test Country',
+        'confirmation_token' => 'payment_confirmation_token',
+        'reward_id' => $reward->id,
+        'shipping_name' => 'Test Shipping',
+    ]);
+
+    $response->assertInvalid(['address']);
+    // expect($response->assertSessionHasErrors('address'))->toBeTrue();
 });

@@ -6,7 +6,10 @@
         <!-- Elements will create form elements here -->
     </div>
 
-    <div id="error-message">
+    <div
+        id="error-message"
+        class="text-red-500"
+    >
         <!-- Display error message to your customers here -->
     </div>
     <script src="https://js.stripe.com/v3/"></script>
@@ -96,6 +99,11 @@
                     });
 
                     const data = await res.json();
+
+                    if (res.status === 500) {
+                        this.handleError(data);
+                        return;
+                    }
                     // Handle any next actions or errors. See the Handle any next actions step for implementation.
                     this.handleServerResponse(data);
                 },
@@ -131,7 +139,14 @@
                 },
 
                 async handleServerResponse(response) {
-                    console.log(response);
+
+                    this.resetErrorMessages();
+
+                    // Handle validation errors
+                    if (response.errors) {
+                        this.handleErrors(response.errors);
+                        return;
+                    }
 
                     if (response.error) {
                         this.handleError(response.error);
@@ -152,12 +167,34 @@
                         };
 
                     }
+                    if (!response.return_url) {
+                        console.error('No return url provided in response');
+                        return;
+                    }
 
                     return this.redirectToSuccess(response.return_url);
                 },
 
                 redirectToSuccess(url) {
                     window.location.href = url
+                },
+
+                resetErrorMessages() {
+                    const messageContainer = document.querySelector('#error-message');
+                    messageContainer.innerHTML = '';
+                },
+
+                handleErrors(errors) {
+                    const messageContainer = document.querySelector('#error-message');
+
+                    for (let field in errors) {
+                        let errorMessage = errors[field][0];
+                        let errorElement = document.createElement('p');
+                        errorElement.textContent = errorMessage;
+                        messageContainer.appendChild(errorElement);
+                    }
+
+                    this.submitEnabled = true;
                 },
 
                 handleError(error) {
