@@ -3,6 +3,8 @@
 namespace Funds\RecurringDonations\Actions;
 
 use Funds\Donations\Models\DonationIntent;
+use Funds\RecurringDonations\Models\RecurringDonationIntent;
+use InvalidArgumentException;
 
 class CreateRecurringDonationIntent
 {
@@ -15,16 +17,20 @@ class CreateRecurringDonationIntent
         // $intent->save();
         $frequency = 'monthly';
 
-        $divider = match ($frequency) {
-            'monthly' => 12,
-            'quarterly' => 4,
-            'yearly' => 1,
-        };
+        // $divider = match ($frequency) {
+        //     'monthly' => 12,
+        //     'quarterly' => 4,
+        //     'yearly' => 1,
+        //     default => throw new InvalidArgumentException("Unknown frequency: $frequency"),
+        // };
+        $divider = 12;
 
         $amount = $intent->amount / $divider;
 
+        // new RecurringDonationIntent()
+
         $intent->recurring_donation_data = [
-            'frequency' => 'monthly',
+            'frequency' => $frequency,
             'amount' => $amount,
             'payment' => [
                 'method' => 'sepa',

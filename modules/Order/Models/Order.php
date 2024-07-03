@@ -8,6 +8,13 @@ use Funds\Reward\Models\RewardVariant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $campaign_id
+ * @property int $donation_id
+ * @property int $reward_id
+ * @property int $reward_variant_id
+ * @property array $shipping_address
+ */
 class Order extends Model
 {
     use HasFactory;

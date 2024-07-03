@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property $type
  * @property \Funds\Campaign\Models\Campaign $campaign
+ * @property int $amount
  *
  * @method succeed()
  */

@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property Campaign $campaign
+ */
 #[ScopedBy([CampaignScope::class])]
 class Reward extends Model
 {

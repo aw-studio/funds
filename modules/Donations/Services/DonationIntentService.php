@@ -17,6 +17,11 @@ class DonationIntentService
         ?array $orderDetails = null,
         bool $paysFees = false
     ): DonationIntent {
+
+        // if ($type === 'recurring') {
+        //     throw new \Exception('Recurring donations are not supported');
+        // }
+
         $intent = new DonationIntent([
             'email' => $email,
             'amount' => $amountInCents,

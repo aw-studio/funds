@@ -14,7 +14,7 @@ class DonationController
     {
         return view('donations::index',
             [
-                'donations' => [],
+                'donations' => collect([]),
                 'pendingDonationsCount' => DonationIntent::where('status', 'pending')->count(),
             ]
         );
