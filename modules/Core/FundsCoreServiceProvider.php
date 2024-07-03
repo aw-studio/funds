@@ -2,7 +2,6 @@
 
 namespace Funds\Core;
 
-use Funds\Core\Facades\Funds;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -31,10 +30,6 @@ class FundsCoreServiceProvider extends ServiceProvider
             ], $callback);
         });
 
-        Funds::enable([
-            'campaigns',
-            'shipment',
-        ]);
     }
 
     protected function guessFactoryNamespaces()
