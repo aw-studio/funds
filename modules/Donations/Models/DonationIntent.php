@@ -61,6 +61,20 @@ class DonationIntent extends Model
         DonationIntentSucceeded::dispatch($this->asDto());
     }
 
+    public function fail()
+    {
+        if ($this->status !== 'pending') {
+            throw new \Exception('Cannot fail intent that is not pending');
+        }
+
+        if ($this->donation !== null) {
+            throw new \Exception('Donation already created, cannot fail intent');
+        }
+
+        $this->status = 'failed';
+        $this->save();
+    }
+
     public function asDto(): DonationIntentDto
     {
         return new DonationIntentDto(

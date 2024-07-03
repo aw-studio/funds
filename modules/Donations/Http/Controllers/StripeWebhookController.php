@@ -12,6 +12,7 @@ class StripeWebhookController
         if ($request->has('type')) {
             match ($request->type) {
                 'payment_intent.succeeded' => $this->handleSucceededPaymentIntent($request->data['object']),
+                'payment_intent.payment_failed' => $this->handleFailedPaymentIntent($request->data['object']),
                 default => logger()->info('Unhandled webhook type: '.$request->type),
             };
         }
@@ -19,7 +20,7 @@ class StripeWebhookController
         return response('Webhook Handled', 200);
     }
 
-    private function handleSucceededPaymentIntent(array $paymentIntent): void
+    protected function handleSucceededPaymentIntent(array $paymentIntent): void
     {
         $intent = DonationIntent::firstWhere('payment_intent', $paymentIntent['id']);
 
@@ -30,5 +31,18 @@ class StripeWebhookController
         }
 
         $intent->succeed();
+    }
+
+    protected function handleFailedPaymentIntent(array $paymentIntent): void
+    {
+        $intent = DonationIntent::firstWhere('payment_intent', $paymentIntent['id']);
+
+        if (! $intent) {
+            logger()->info('No donation intent found for payment intent: '.$paymentIntent['id']);
+
+            return;
+        }
+
+        $intent->fail();
     }
 }
