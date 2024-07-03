@@ -23,13 +23,13 @@ $confirm = function () {
                     {{ $intent->recurring_donation_data['frequency'] }}
                     {{ $intent->recurring_donation_data['amount'] }}
                     {{ $intent->recurring_donation_data['payment']['iban'] }}
-                @endif
 
-                @volt('confirmRecurringDonationIntent')
-                    <div>
-                        <button wire:click="confirm">{{ __('Confirm') }}</button>
-                    </div>
-                @endvolt
+                    @volt('confirmRecurringDonationIntent')
+                        <div>
+                            <button wire:click="confirm">{{ __('Confirm') }}</button>
+                        </div>
+                    @endvolt
+                @endif
             </div>
         </div>
     </div>

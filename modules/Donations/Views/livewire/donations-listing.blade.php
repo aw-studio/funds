@@ -6,7 +6,13 @@ use function Livewire\Volt\{with, usesPagination};
 
 usesPagination();
 
-with(fn() => ['donations' => Donation::with('donor', 'reward', 'order')->paginate(10)]);
+with(
+    fn() => [
+        'donations' => Donation::with('donor', 'reward', 'order')
+            ->when(!request()->has('recurring'), fn($query, $search) => $query->where('type', '!=', 'recurring'))
+            ->paginate(10),
+    ],
+);
 
 $delete = function ($id) {
     $donation = Donation::with('donor')->find($id);
