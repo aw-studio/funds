@@ -1,6 +1,13 @@
 <x-campaigns::public.layout title="{{ $campaign->name }}">
-    <div class="border-4 border-dashed border-gray-200 rounded-lg h-96 mb-10">
-    </div>
+    @if ($headerImage = $campaign->getFirstMediaUrl('header_image'))
+        <div class="h-96 mb-10">
+            <img
+                src="{{ $headerImage }}"
+                alt="{{ $campaign->name }}"
+                class="w-full h-96 object-cover"
+            >
+        </div>
+    @endif
     <div class="grid grid-cols-1 md:grid-cols-4">
         <div class="col-span-1 md:col-span-3">
             <h1 class="font-semibold text-2xl">
