@@ -21,13 +21,16 @@ class FundsCoreServiceProvider extends ServiceProvider
 
             return $resolver;
         });
-
         Route::macro('app', function ($callback) {
             Route::group([
                 'middleware' => ['web', 'auth'],
                 'prefix' => 'app',
                 // 'as' => 'app.',
             ], $callback);
+        });
+
+        $this->app->singleton('funds.navigation', function ($app) {
+            return new Navigation();
         });
 
     }

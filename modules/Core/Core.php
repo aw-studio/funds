@@ -24,4 +24,9 @@ class Core
     {
         $this->donationTypes[$key] = $value;
     }
+
+    public function navigation(): Navigation
+    {
+        return app('funds.navigation');
+    }
 }

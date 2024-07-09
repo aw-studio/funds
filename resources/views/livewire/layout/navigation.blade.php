@@ -1,7 +1,8 @@
 <?php
 
-use App\Livewire\Actions\Logout;
 use Livewire\Volt\Component;
+use Funds\Core\Facades\Funds;
+use App\Livewire\Actions\Logout;
 
 new class extends Component {
     /**
@@ -51,6 +52,16 @@ new class extends Component {
                     >
                         {{ __('Campaigns') }}
                     </x-nav-link>
+
+                    @foreach (Funds::navigation()->items() as $nav)
+                        <x-nav-link
+                            :href="$nav['route']"
+                            :active="$nav['active']"
+                            wire:navigate
+                        >
+                            {{ __($nav['title']) }}
+                        </x-nav-link>
+                    @endforeach
                 </div>
             </div>
 
