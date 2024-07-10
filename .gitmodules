@@ -1,3 +1,6 @@
 [submodule "modules/RecurringDonations"]
 	path = modules/RecurringDonations
 	url = https://github.com/aw-studio/funds-recurring-donations
+[submodule "modules/Shipping"]
+	path = modules/Shipping
+	url = https://github.com/aw-studio/funds-shipping-center
