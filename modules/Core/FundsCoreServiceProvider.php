@@ -3,24 +3,16 @@
 namespace Funds\Core;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class FundsCoreServiceProvider extends ServiceProvider
 {
-    public function boot(): void
+    public function register()
     {
-        $this->guessFactoryNamespaces();
+        $this->registerModuleServiceProviders();
 
-        $this->app->bind('funds.core', fn () => new Core());
-
-        $this->mergeConfigFrom(__DIR__.'/config/funds.php', 'funds');
-
-        $this->app->singleton('funds.payment', function ($app) {
-            $resolver = new PaymentGatewayResolver();
-
-            return $resolver;
-        });
         Route::macro('app', function ($callback) {
             Route::group([
                 'middleware' => ['web', 'auth'],
@@ -29,9 +21,43 @@ class FundsCoreServiceProvider extends ServiceProvider
             ], $callback);
         });
 
+        $this->app->bind('funds.core', fn () => new Core());
+        $this->app->singleton('funds.payment', function ($app) {
+            $resolver = new PaymentGatewayResolver();
+
+            return $resolver;
+        });
+
         $this->app->singleton('funds.navigation', function ($app) {
             return new Navigation();
         });
+
+    }
+
+    public function registerModuleServiceProviders()
+    {
+        $modulesPath = base_path('modules');
+
+        foreach (File::directories($modulesPath) as $modulePath) {
+            $moduleName = basename($modulePath);
+            $namespace = 'Funds\\'.$moduleName;
+            $providerClass = $namespace.'\\Providers\\'.$moduleName.'ServiceProvider';
+
+            if (class_exists($providerClass)) {
+                $this->app->register($providerClass);
+            }
+
+            if (class_exists($providerClass = $namespace.'\\'.$moduleName.'ServiceProvider')) {
+                $this->app->register($providerClass);
+            }
+        }
+    }
+
+    public function boot(): void
+    {
+        $this->guessFactoryNamespaces();
+
+        $this->mergeConfigFrom(__DIR__.'/config/funds.php', 'funds');
 
     }
 

@@ -4,7 +4,7 @@ namespace Funds\Reward;
 
 use Illuminate\Support\ServiceProvider;
 
-class RewardsServiceProvider extends ServiceProvider
+class RewardServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
