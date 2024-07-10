@@ -1,0 +1,3 @@
+[submodule "modules/RecurringDonations"]
+	path = modules/RecurringDonations
+	url = https://github.com/aw-studio/funds-recurring-donations
