@@ -25,6 +25,7 @@ class DonationIntent extends Model
 
     public $fillable = [
         'amount',
+        'name',
         'email',
         'status',
     ];

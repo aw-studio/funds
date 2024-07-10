@@ -11,7 +11,7 @@ class CampaignController
     {
         return view('campaigns::index',
             [
-                'campaigns' => Campaign::all(),
+                'campaigns' => Campaign::withCount('donations')->withSum('donations as total_donated', 'amount')->get(),
             ]
         );
     }

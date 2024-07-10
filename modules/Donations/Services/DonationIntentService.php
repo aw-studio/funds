@@ -10,7 +10,8 @@ use Funds\Donations\Payment\PaymentResponseData;
 class DonationIntentService
 {
     public function createIntent(
-        $email,
+        string $name,
+        string $email,
         $amountInCents,
         Campaign $campaign,
         $type,
@@ -24,6 +25,7 @@ class DonationIntentService
 
         $intent = new DonationIntent([
             'email' => $email,
+            'name' => $name,
             'amount' => $amountInCents,
         ]);
 

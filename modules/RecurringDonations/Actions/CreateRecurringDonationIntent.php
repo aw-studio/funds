@@ -3,8 +3,6 @@
 namespace Funds\RecurringDonations\Actions;
 
 use Funds\Donations\Models\DonationIntent;
-use Funds\RecurringDonations\Models\RecurringDonationIntent;
-use InvalidArgumentException;
 
 class CreateRecurringDonationIntent
 {

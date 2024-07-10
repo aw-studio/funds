@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('donation_intents', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->string('email');
+            $table->string('name');
             $table->string('amount');
             $table->string('status');
             $table->foreignId('campaign_id')->constrained();

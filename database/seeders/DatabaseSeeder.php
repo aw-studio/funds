@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Funds\Campaign\Models\Campaign;
+use Funds\Donations\Models\Donation;
 use Funds\Reward\Models\Reward;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -27,5 +28,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Reward::factory()->for($camapgin, 'campaign')->count(3)->create();
+
+        $campaign = Campaign::factory()->create();
+
+        Reward::factory()->for($campaign, 'campaign')->count(3)->create();
+        Donation::factory()->for($campaign, 'campaign')->count(3)->create();
+
     }
 }

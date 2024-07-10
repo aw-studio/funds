@@ -33,7 +33,14 @@ class Donation extends Model
 
     public static function createFromIntent(DonationIntent $intent): self
     {
-        $donor = Donor::firstOrCreate(['email' => $intent->email]);
+        $donor = Donor::firstOrCreate(
+            [
+                'email' => $intent->email,
+            ],
+            [
+                'first_name' => $intent->name,
+            ]
+        );
 
         $donation = new self();
         $donation->donor_id = $donor->id;

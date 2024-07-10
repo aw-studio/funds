@@ -46,6 +46,7 @@ class CheckoutController
         }
 
         $intent = $donationIntentService->createIntent(
+            $validated['name'],
             $validated['email'],
             $validated['amount'],
             $campaign,
