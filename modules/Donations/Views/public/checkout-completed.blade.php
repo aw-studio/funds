@@ -1,4 +1,4 @@
-<x-campaigns::public.layout title="{{ $campaign->name }}">
+<x-campaigns::public.layout :$campaign>
     <div class="text-center my-24">
         @env('local')
         {{ $status }}
