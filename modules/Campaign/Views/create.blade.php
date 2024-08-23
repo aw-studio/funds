@@ -39,9 +39,9 @@
                                 name="goal"
                                 placeholder="Goal"
                             >
-                            <x-primary-button type="submit">
+                            <x-button type="submit">
                                 {{ __('Create Campaign') }}
-                            </x-primary-button>
+                            </x-button>
                         </form>
                     </div>
                 </div>

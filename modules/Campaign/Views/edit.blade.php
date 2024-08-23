@@ -43,9 +43,9 @@
                                 placeholder="Goal"
                                 value="{{ $campaign->goal->get() }}"
                             >
-                            <x-primary-button type="submit">
+                            <x-button type="submit">
                                 {{ __('Update Campaign') }}
-                            </x-primary-button>
+                            </x-button>
                         </form>
                     </div>
                 </div>

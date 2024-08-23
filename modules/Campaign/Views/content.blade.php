@@ -108,9 +108,9 @@
             >
         </div>
 
-        <x-primary-button type="submit">
+        <x-button type="submit">
             {{ __('Save') }}
-        </x-primary-button>
+        </x-button>
     </form>
 
 </x-campaign-layout>

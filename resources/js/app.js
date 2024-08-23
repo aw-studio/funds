@@ -1,3 +1,4 @@
+import.meta.glob(["../fonts/**"]);
 import "./bootstrap";
 
 Alpine.directive(

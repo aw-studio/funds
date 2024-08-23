@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: Fraunces;
+        font-weight: 600;
+        src: url(/resources/fonts/fraunces-v31-latin-600.woff2) format("woff2");
+    }
+    @font-face {
+        font-family: Fraunces;
+        font-weight: 700;
+        src: url(/resources/fonts/fraunces-v31-latin-700.woff2) format("woff2");
+    }
+    /* rubik-regular - latin */
+    @font-face {
+        font-display: swap;
+        font-family: "Rubik";
+        font-style: normal;
+        font-weight: 400;
+        src: url(/resources/fonts/rubik-v28-latin-regular.woff2) format("woff2");
+    }
+    /* rubik-500 - latin */
+    @font-face {
+        font-display: swap;
+        font-family: "Rubik";
+        font-style: normal;
+        font-weight: 500;
+        src: url(/resources/fonts/rubik-v28-latin-500.woff2) format("woff2");
+    }
+}

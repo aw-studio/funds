@@ -32,8 +32,8 @@
             name="min_amount"
             placeholder="{{ __('Min Donation amount') }}"
         />
-        <x-primary-button>
+        <x-button>
             {{ __('Create') }}
-        </x-primary-button>
+        </x-button>
     </form>
 </x-campaign-layout>

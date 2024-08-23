@@ -1,12 +1,12 @@
 <x-campaign-layout>
     <div class="grid md:grid-cols-3 gap-4">
         <div class="col-span-3 items-end flex">
-            <x-primary-button
+            <x-button
                 class="ml-auto"
                 href="{{ route('rewards.create') }}"
             >
                 {{ __('Create Reward') }}
-            </x-primary-button>
+            </x-button>
         </div>
         @forelse ($rewards as $reward)
             <a

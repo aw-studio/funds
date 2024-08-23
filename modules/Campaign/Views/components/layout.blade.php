@@ -11,7 +11,7 @@
         <div class="flex min-h-12">
 
             <a
-                class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
+                class="font-bold text-2xl font-serif text-gray-800 dark:text-gray-200 leading-tight"
                 href="{{ $campaign->appRoute() }}"
             >
                 {{ $campaign->name }}
@@ -24,12 +24,12 @@
                 <div class="ml-auto">
                     <x-dropdown align="right">
                         <x-slot name="trigger">
-                            <x-primary-button
+                            <x-button
                                 round
                                 class="w-10 h-10 !p-0 items-center justify-center"
                             >
                                 <x-icons.dots class="text-white" />
-                            </x-primary-button>
+                            </x-button>
                         </x-slot>
 
                         <x-slot name="content">

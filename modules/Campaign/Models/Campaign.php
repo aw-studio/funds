@@ -37,6 +37,8 @@ class Campaign extends Model implements HasMedia
     public function casts()
     {
         return [
+            'start_date' => 'datetime',
+            'end_date' => 'datetime',
             'status' => CampaignStatus::class,
             'goal' => AmountCast::class,
             'settings' => 'array',
@@ -91,6 +93,14 @@ class Campaign extends Model implements HasMedia
     public function totalAmountDonated()
     {
         return new Amount($this->donations->sum('amount.cents'));
+    }
+
+    public function progress()
+    {
+        return 50;
+
+        return $this->totalAmountDonated()->get() / $this->goal->get();
+        // ->percentageOf($this->goal);
     }
 
     public function registerMediaCollections(): void

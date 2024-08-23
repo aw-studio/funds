@@ -85,9 +85,9 @@
                     :label="__('Shipping Details')"
                 >{{ $reward->shipping_details ?? '' }}</x-textarea>
 
-                <x-primary-button type="submit">
+                <x-button type="submit">
                     {{ __('Update') }}
-                </x-primary-button>
+                </x-button>
             </form>
 
             <form
@@ -97,9 +97,9 @@
             >
                 @csrf
                 @method('DELETE')
-                <x-primary-button class="bg-red-500">
+                <x-button class="bg-red-500">
                     {{ __('Delete Reward') }}
-                </x-primary-button>
+                </x-button>
             </form>
 
         </div>
