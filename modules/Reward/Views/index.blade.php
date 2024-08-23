@@ -1,20 +1,25 @@
 <x-campaign-layout>
-    <x-slot name="actions">
-        <x-primary-button
-            class="ml-auto"
-            href="{{ route('rewards.create') }}"
-        >
-            {{ __('Create Reward') }}
-        </x-primary-button>
-    </x-slot>
     <div class="grid md:grid-cols-3 gap-4">
+        <div class="col-span-3 items-end flex">
+            <x-primary-button
+                class="ml-auto"
+                href="{{ route('rewards.create') }}"
+            >
+                {{ __('Create Reward') }}
+            </x-primary-button>
+        </div>
         @forelse ($rewards as $reward)
             <a
-                href="{{ route('rewards.show', $reward) }}"
-                wire:navigate
+                href="{{ route('rewards.edit', $reward) }}"
                 class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-3"
             >
-                <div class="bg-gray-200 ">
+                <div class="bg-gray-200 min-w-sm">
+                    @if ($reward->getFirstMedia('image'))
+                        <img
+                            src="{{ $reward->getFirstMediaUrl('image', 'thumb') }}"
+                            class="w-full h-full object-cover"
+                        />
+                    @endif
                 </div>
                 <div class="p-6 text-gray-900 dark:text-gray-100 col-span-2">
                     <h3 class="text-lg font-semibold">
