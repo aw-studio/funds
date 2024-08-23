@@ -2,8 +2,17 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>{{ $title ?? '' }}</title>
+    <title>{{ $campaign->name ?? '' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        :root {
+            --campaign-color-primary: {{ $campaign->settings['primary_color'] }};
+        }
+
+        .bg-primary {
+            background-color: var(--campaign-color-primary);
+        }
+    </style>
 </head>
 
 <body>

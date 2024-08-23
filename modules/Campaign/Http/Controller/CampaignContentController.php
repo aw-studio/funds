@@ -23,7 +23,7 @@ class CampaignContentController
         }
         $campaign->content = $request->content;
         $campaign->settings = [
-            ...$campaign->settings,
+            ...$campaign->settings ?? [],
             'primary_color' => $request->primary_color,
         ];
         $campaign->save();

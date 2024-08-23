@@ -104,7 +104,7 @@
             <input
                 type="color"
                 name="primary_color"
-                value="{{ $campaign->settings['primary_color'] }}"
+                value="{{ $campaign->settings['primary_color'] ?? '' }}"
             >
         </div>
 
