@@ -5,26 +5,7 @@
             class="mb-2 flex items-center text-xs text-gray-500"
             href="{{ $backRoute ?? route('campaigns.index') }}"
         >
-            <svg
-                width="18"
-                height="19"
-                viewBox="0 0 18 19"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="M9 14.75L3.75 9.5L9 4.25"
-                    stroke="#6B7280"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                />
-                <path
-                    d="M14.25 9.5H3.75"
-                    stroke="#6B7280"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                />
-            </svg>
+            <x-icons.arrow-left />
             {{ __('Back') }}
         </a>
         <div class="flex min-h-12">
@@ -39,12 +20,41 @@
                 <div class="ml-auto">
                     {{ $actions }}
                 </div>
+            @else
+                <div class="ml-auto">
+                    <x-dropdown align="right">
+                        <x-slot name="trigger">
+                            <x-primary-button
+                                round
+                                class="w-10 h-10 !p-0 items-center justify-center"
+                            >
+                                <x-icons.dots class="text-white" />
+                            </x-primary-button>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <x-dropdown-link
+                                :href="route('donations.create')"
+                                wire:navigate
+                            >
+                                {{ __('Add Donation') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link
+                                :href="$campaign->publicRoute()"
+                                wire:navigate
+                            >
+                                {{ __('View Campaign') }}
+                            </x-dropdown-link>
+
+                        </x-slot>
+                    </x-dropdown>
+                </div>
             @endif
         </div>
     </x-slot>
-    <div class="py-12">
+    <div class="">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="border-b py-2">
+            <div>
                 <x-campaigns::campaign-nav :campaign="$campaign" />
             </div>
             {{ $slot }}
