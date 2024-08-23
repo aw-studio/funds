@@ -1,4 +1,4 @@
-<x-campaigns::public.layout title="{{ $campaign->name }}">
+<x-campaigns::public.layout :$campaign>
     @if ($headerImage = $campaign->getFirstMediaUrl('header_image'))
         <div class="h-96 mb-10">
             <img
@@ -34,7 +34,7 @@
                     </p>
                     <a
                         href="{{ route('public.checkout', ['campaign' => $campaign, 'reward' => $reward]) }}"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        class="bg-primary text-white font-bold py-2 px-4 rounded"
                     >
                         {{ __('Select and Continue') }}
                     </a>
@@ -43,7 +43,7 @@
             <div class="border-4 border-dashed border-gray-200 rounded-lg h-48 mb-10">
                 <a
                     href="{{ route('public.checkout', ['campaign' => $campaign]) }}"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    class="bg-primary text-white font-bold py-2 px-4 rounded"
                 >
                     {{ __('Support without reward') }}
                 </a>

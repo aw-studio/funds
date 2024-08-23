@@ -18,7 +18,7 @@ new class extends Component {
 
 <nav
     x-data="{ open: false }"
-    class="bg-gray-200 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700"
+    class="bg-gray-50 border-b border-gray-200 "
 >
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

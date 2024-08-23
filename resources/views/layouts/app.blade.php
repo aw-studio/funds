@@ -19,7 +19,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-screen bg-white">
         <livewire:layout.navigation />
 
         <!-- Page Heading -->
@@ -35,6 +35,8 @@
         <main>
             {{ $slot }}
         </main>
+        <x-session-alerts />
+
     </div>
 </body>
 

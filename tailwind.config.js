@@ -8,6 +8,7 @@ export default {
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
         "./modules/**/*.blade.php",
+        "./modules/**/**/*.blade.php",
     ],
 
     theme: {
@@ -22,6 +23,12 @@ export default {
                 },
                 tangerine: {
                     400: "#F38E40",
+                    500: "#F0721F",
+                    600: "#E47524",
+                },
+                azure: {
+                    50: "#EFF6FF",
+                    200: "#BEDDFF",
                 },
             },
             fontFamily: {

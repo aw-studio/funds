@@ -1,4 +1,4 @@
-<x-campaigns::public.layout title="{{ $campaign->name }}">
+<x-campaigns::public.layout :$campaign>
     <div>
         <h1 class="text-2xl font-semibold">{{ $campaign->name }}</h1>
         @if ($reward)
