@@ -41,12 +41,12 @@
                     <x-input-date-simple
                         name="start_date"
                         :label="__('Start Date')"
-                        :value="$campaign->start_date"
+                        :value="$campaign->start_date->format('Y-m-d')"
                     />
                     <x-input-date-simple
                         name="end_date"
                         :label="__('End Date')"
-                        :value="$campaign->end_date"
+                        :value="$campaign->end_date->format('Y-m-d')"
                     />
                 </div>
                 <x-button
