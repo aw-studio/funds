@@ -94,3 +94,19 @@ test('A shipment address is required if a reward is selected', function () {
     $response->assertInvalid(['address']);
     // expect($response->assertSessionHasErrors('address'))->toBeTrue();
 });
+
+test('the Donation intent amount is increased by campaign fees if the user pays the fees', function () {
+    $campaign = Campaign::factory(['fees' => 3])->create();
+
+    $this->post(route('public.checkout.store', $campaign), [
+        'donation_type' => 'onetime',
+        'name' => 'Test Name',
+        'amount' => 100,
+        'email' => 'user@foo.com',
+        'confirmation_token' => 'payment_confirmation_token',
+        'pays_fees' => true,
+    ]);
+
+    expect(DonationIntent::count())->toBe(1);
+    expect(DonationIntent::first()->amount)->toBe('103');
+});

@@ -26,6 +26,13 @@ class Donation extends Model
         'receipt_address',
     ];
 
+    public function casts(): array
+    {
+        return [
+            'recurring_details' => 'array',
+        ];
+    }
+
     public function getAmountAttribute($value)
     {
         return new Amount($value);
@@ -42,14 +49,20 @@ class Donation extends Model
             ]
         );
 
+        $donor->donations()->make();
+
         $donation = new self();
         $donation->donor_id = $donor->id;
         $donation->amount = $intent->amount;
         $donation->campaign = $intent->campaign;
         $donation->intent_id = $intent->id;
+
+        // TODO: this logic belongs into the RecurringDonations module
         if ($intent->recurring_donation_data !== null) {
             $donation->type = 'recurring';
+            $donation->recurring_details = $intent->recurring_donation_data;
         }
+
         $donation->save();
 
         return $donation;
@@ -94,16 +107,34 @@ class Donation extends Model
         )->withoutGlobalScope(CampaignScope::class);
     }
 
+    public function scopeSearch($query, $search)
+    {
+        return $query->whereHas('donor', function ($query) use ($search) {
+            $query->where('email', 'like', "%$search%");
+        });
+    }
+
     public function label(): string
     {
-        if ($this->type === 'recurring') {
-            return __('Recurring donation');
-        }
-
         if (($this->reward) !== null) {
             return __('Reward donation');
         }
 
-        return __('Donation');
+        return __('Simple donation');
+    }
+
+    public function paidFeeAmount(): Amount
+    {
+        return new Amount($this->campaign->fees * $this->amount->get() / 100);
+    }
+
+    public function paidFees(): bool
+    {
+        return $this->donationIntent?->pays_fees ?? false;
+    }
+
+    public function getFrequencyLabel()
+    {
+        return 'One-time donation';
     }
 }

@@ -12,7 +12,9 @@
     >
         <!-- Display error message to your customers here -->
     </div>
-    <script src="https://js.stripe.com/v3/"></script>
+    @pushOnce('scripts')
+        <script src="https://js.stripe.com/v3/"></script>
+    @endPushOnce
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('stripeElements', ($data) => ({

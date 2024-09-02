@@ -24,6 +24,9 @@ test('A user can create a campaign', function () {
         ->post('app/campaigns', [
             'name' => 'Test Campaign',
             'goal' => 1000,
+            'fees' => 0,
+            'start_date' => now(),
+            'end_date' => now()->addDays(30),
         ]);
 
     expect(Campaign::where('name', 'Test Campaign')->exists())->toBeTrue();
@@ -41,10 +44,14 @@ test('A user can switch to a another campaign', function () {
 });
 
 test('A new campaign is a draft by default', function () {
+    $this->withoutExceptionHandling();
     $this->actingAs(User::factory()->create())
         ->post('app/campaigns', [
             'name' => 'Test Campaign',
             'goal' => 1000,
+            'fees' => 0,
+            'start_date' => now(),
+            'end_date' => now()->addDays(30),
         ]);
 
     $campaign = Campaign::where('name', 'Test Campaign')->first();
@@ -99,7 +106,10 @@ test('A user can update a campaign', function () {
     $response = $this->actingAs(User::factory()->create())
         ->put('app/campaigns/'.$campaign->id, [
             'name' => 'Updated Campaign',
-            'goal' => 1000,
+            'goal' => $campaign->goal->get(),
+            'fees' => $campaign->fees,
+            'start_date' => $campaign->start_date,
+            'end_date' => $campaign->end_date,
         ]);
 
     $campaign->refresh();

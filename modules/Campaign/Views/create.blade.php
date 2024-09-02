@@ -1,50 +1,65 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Campaigns') }}
-        </h2>
-
-    </x-slot>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        @if ($errors->any())
-                            <div class="text-red-500">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <form
-                            method="post"
-                            action="{{ route('campaigns.store') }}"
-                        >
-                            @csrf
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Name"
-                            >
-                            <input
-                                type="text"
-                                name="description"
-                                placeholder="Description"
-                            >
-                            <input
-                                type="number"
-                                name="goal"
-                                placeholder="Goal"
-                            >
-                            <x-button type="submit">
-                                {{ __('Create Campaign') }}
-                            </x-button>
-                        </form>
-                    </div>
-                </div>
+        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="flex min-h-12 border-b py-2">
+                <span class="font-serif font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ __('Create Campaign') }}
+                </span>
             </div>
+
+            <form
+                method="post"
+                action="{{ route('campaigns.store') }}"
+            >
+                @csrf
+                <div class="mb-4">
+                    <x-input
+                        type="text"
+                        name="name"
+                        :label="__('Title')"
+                        :placeholder="__('A new Campaign')"
+                        :value="old('name')"
+                        required
+                    />
+                </div>
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <x-money-input
+                        name="goal"
+                        :label="__('Donation Goal')"
+                        placeholder="1000,00"
+                        :value="old('goal')"
+                        required
+                    />
+                    <x-input
+                        type="number"
+                        name="fees"
+                        :label="__('Fees')"
+                        placeholder="{{ __('Fees') }} %"
+                        {{-- required --}}
+                    />
+                </div>
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <x-input-date-simple
+                        name="start_date"
+                        :label="__('Start Date')"
+                        placeholder="{{ __('Start Date') }}"
+                    />
+                    <x-input-date-simple
+                        name="end_date"
+                        :label="__('End Date')"
+                        placeholder="{{ __('End Date') }}"
+                    />
+                </div>
+                <x-button
+                    outlined
+                    :href="route('campaigns.index')"
+                >
+                    {{ __('Cancel') }}
+                </x-button>
+                <x-button type="submit">
+                    {{ __('Create Campaign') }}
+                </x-button>
+            </form>
         </div>
+    </div>
 </x-app-layout>

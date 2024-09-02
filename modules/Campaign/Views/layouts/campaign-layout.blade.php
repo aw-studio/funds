@@ -34,6 +34,12 @@
 
                         <x-slot name="content">
                             <x-dropdown-link
+                                :href="route('campaigns.edit', ['campaign' => $campaign])"
+                                wire:navigate
+                            >
+                                {{ __('Edit Campaign') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link
                                 :href="route('donations.create')"
                                 wire:navigate
                             >

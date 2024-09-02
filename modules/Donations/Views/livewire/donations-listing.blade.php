@@ -4,12 +4,16 @@ use function Livewire\Volt\{state};
 use Funds\Donations\Models\Donation;
 use function Livewire\Volt\{with, usesPagination};
 
+state(['search', 'campaign', 'includeRecurring']);
 usesPagination();
 
 with(
     fn() => [
-        'donations' => Donation::with('donor', 'reward', 'order')
-            ->when(!request()->has('recurring'), fn($query, $search) => $query->where('type', '!=', 'recurring'))
+        'donations' => $this->campaign
+            ->donations()
+            ->with('donor', 'reward', 'order')
+            ->when($this->includeRecurring == false, fn($query) => $query->where('type', '!=', 'recurring'))
+            ->search($this->search)
             ->paginate(10),
     ],
 );
@@ -22,48 +26,87 @@ $delete = function ($id) {
 ?>
 
 <section>
-    @if ($donations->isEmpty())
-        <p>{{ __('No donations found.') }}</p>
-    @else
-        <table class="w-full">
+    <div class="flex justify-between items-center mb-4">
+        <x-donations::search-listing />
+        <label
+            for="includeRecurring"
+            class="cursor-pointer inline-flex items-center gap-2 select-none"
+        >
+            <x-input-toggle
+                id="includeRecurring"
+                wire:model.live="includeRecurring"
+                size="sm"
+            />
+            {{ __('Include Recurring') }}
+        </label>
+    </div>
+    <div
+        class="overflow-x-auto
+                    rounded-lg
+                    border
+                    border-gray-200">
+        <table class="min-w-full divide-y-2 divide-gray-200 bg-white m">
             <thead>
-                <th class="text-left">#</th>
-                <th class="text-left">{{ __('Date') }}</th>
-                <th class="text-left">{{ __('Donor') }}</th>
-                <th class="text-left">{{ __('Amount') }}</th>
-                <th class="text-left">{{ __('Reward') }}</th>
-                <th class="text-left">{{ __('Shipment') }}</th>
-                <th class="text-left">{{ __('Actions') }}</th>
-            </thead>
-            @foreach ($donations as $donation)
                 <tr>
-                    <td>
-                        <a href="{{ route('donations.show', $donation) }}">
-                            {{ $donation->id }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ route('donations.show', $donation) }}">
-                            {{ $donation->created_at->isoFormat('L') }}
-                        </a>
-                    </td>
-                    <td>
-                        {{ $donation->donor->email }}
-                    </td>
-                    <td>{{ $donation->amount->format() }}</td>
-                    <td>
-                        {{ $donation->reward?->name }}
-                    </td>
-                    <td>
-                        {{ $donation->order?->status ?? __(' -') }}
-                    </td>
-                    <td>
-                        <button wire:click="delete({{ $donation->id }})">Delete</button>
-                    </td>
+                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">#</th>
+                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">{{ __('Date') }}
+                    </th>
+                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">{{ __('Donor') }}
+                    </th>
+                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">{{ __('Amount') }}
+                    </th>
+                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">{{ __('Reward') }}
+                    </th>
+                    @foreach ($moduleHeaders ?? [] as $header)
+                        <th class="whitespace-nowrap text-left px-4 py-2 font-medium">{{ $header }}
+                        </th>
+                    @endforeach
                 </tr>
-            @endforeach
+            </thead>
 
+            <tbody class="divide-y divide-gray-200">
+                @foreach ($donations as $donation)
+                    <tr>
+                        <td class="whitespace-nowrap px-4 py-2 font-medium">
+                            <a href="{{ route('donations.show', $donation) }}">
+                                {{ $donation->id }}
+                            </a>
+                        </td>
+                        </td>
+                        <td class="whitespace-nowrap px-4 py-2">
+                            <a href="{{ route('donations.show', $donation) }}">
+                                {{ $donation->created_at->isoFormat('L') }}
+                            </a>
+                        </td>
+                        <td class="whitespace-nowrap px-4 py-2">
+                            {{ $donation->donor->email }}
+                        </td>
+                        <td class="whitespace-nowrap px-4 py-2">
+                            {{ $donation->amount->format() }}
+                        </td>
+                        <td class="whitespace-nowrap px-4 py-2">
+                            {{ $donation->reward?->name }}
+                        </td>
+                        @foreach ($moduleColumnsRow ?? [] as $column)
+                            <td class="whitespace-nowrap px-4 py-2">
+                                @include($column)
+                            </td>
+                        @endforeach
+                    </tr>
+                @endforeach
+                @if ($donations->isEmpty())
+                    <tr>
+                        <td
+                            colspan="100%"
+                            class="text-center p-8"
+                        >
+                            {{ __('No donations found.') }}
+                        </td>
+                    </tr>
+                @endif
+            </tbody>
         </table>
-        {{ $donations->links() }}
-    @endif
+    </div>
+
+    {{ $donations->links() }}
 </section>

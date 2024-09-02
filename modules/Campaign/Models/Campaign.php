@@ -26,6 +26,8 @@ class Campaign extends Model implements HasMedia
         'start_date',
         'end_date',
         'status',
+        'fees',
+        'slug',
     ];
 
     protected $attributes = [
@@ -97,15 +99,28 @@ class Campaign extends Model implements HasMedia
 
     public function progress()
     {
-        return 50;
+        $totalAmountDonated = $this->totalAmountDonated()->get();
+        $goal = $this->goal->get();
 
-        return $this->totalAmountDonated()->get() / $this->goal->get();
-        // ->percentageOf($this->goal);
+        $progress = ($totalAmountDonated / $goal) * 100;
+        $progress = max(1, min(100, (int) $progress));
+
+        return $progress;
     }
 
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('header_image')
             ->singleFile();
+    }
+
+    public function orderDonationCount()
+    {
+        return $this->donations()->whereHas('order')->count();
+    }
+
+    public function noOrderDonationCount()
+    {
+        return $this->donations()->whereDoesntHave('order')->count();
     }
 }

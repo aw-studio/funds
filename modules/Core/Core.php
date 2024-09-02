@@ -29,4 +29,9 @@ class Core
     {
         return app('funds.navigation');
     }
+
+    public function donationResolver()
+    {
+        return app('funds.donationResolver');
+    }
 }

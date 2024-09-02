@@ -14,7 +14,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 /**
  * @property Campaign $campaign
  */
-#[ScopedBy([CampaignScope::class])]
+// #[ScopedBy([CampaignScope::class])]
 class Reward extends Model implements HasMedia
 {
     use BelongsToCampaign;

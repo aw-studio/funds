@@ -1,54 +1,64 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Edit Campaign') }}
-        </h2>
-
-    </x-slot>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        @if ($errors->any())
-                            <div class="text-red-500">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <form
-                            method="post"
-                            action="{{ route('campaigns.update', $campaign) }}"
-                        >
-                            @csrf
-                            @method('put')
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Name"
-                                value="{{ $campaign->name }}"
-                            >
-                            <input
-                                type="text"
-                                name="description"
-                                placeholder="Description"
-                                value="{{ $campaign->description }}"
-                            >
-                            <input
-                                type="number"
-                                name="goal"
-                                placeholder="Goal"
-                                value="{{ $campaign->goal->get() }}"
-                            >
-                            <x-button type="submit">
-                                {{ __('Update Campaign') }}
-                            </x-button>
-                        </form>
-                    </div>
-                </div>
+        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="flex min-h-12 border-b py-2">
+                <span class="font-serif font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ __('Edit Campaign') }}
+                </span>
             </div>
+
+            <form
+                method="post"
+                action="{{ route('campaigns.update', $campaign) }}"
+            >
+                @csrf
+                @method('put')
+                <div class="mb-4">
+                    <x-input
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        :label="__('Title')"
+                        :value="$campaign->name"
+                        required
+                    />
+                </div>
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <x-money-input
+                        name="goal"
+                        :value="$campaign->goal->get()"
+                        :label="__('Donation Goal')"
+                    />
+                    <x-input
+                        type="number"
+                        name="fees"
+                        :label="__('Fees')"
+                        :placeholder="__('Fees')"
+                        :value="$campaign->fees"
+                    />
+                </div>
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <x-input-date-simple
+                        name="start_date"
+                        :label="__('Start Date')"
+                        :value="$campaign->start_date"
+                    />
+                    <x-input-date-simple
+                        name="end_date"
+                        :label="__('End Date')"
+                        :value="$campaign->end_date"
+                    />
+                </div>
+                <x-button
+                    outlined
+                    :href="route('campaigns.show', $campaign)"
+                >
+                    {{ __('Cancel') }}
+                </x-button>
+                <x-button type="submit">
+                    {{ __('Update Campaign') }}
+                </x-button>
+            </form>
         </div>
+    </div>
 </x-app-layout>

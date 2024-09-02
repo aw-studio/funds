@@ -3,6 +3,7 @@
 use Funds\Campaign\Models\Campaign;
 use Funds\Core\Support\Amount;
 use Funds\Donations\Models\Donation;
+use Funds\Order\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -53,4 +54,71 @@ test('A campaigns donations sum up to the total amount donated', function () {
         ]);
 
     expect($campaign->totalAmountDonated()->cents)->toBe(600);
+});
+
+test('The campaign progress is calculated based on the total amount donated and the goal', function () {
+    $campaign = Campaign::factory()->create([
+        'goal' => 1000,
+    ]);
+
+    Donation::factory()
+        ->for($campaign)
+        ->count(3)
+        ->create([
+            'amount' => 200,
+        ]);
+
+    expect($campaign->progress())->toBe(60);
+});
+
+// public function orderDonationCount()
+// {
+//     return $this->donations()->whereHas('order')->count();
+// }
+
+// public function noOrderDonationCount()
+// {
+//     return $this->donations()->whereDoesntHave('order')->count();
+// }
+
+test('A campaign can count donations with an order', function () {
+    $campaign = Campaign::factory()->create();
+
+    Donation::factory()
+        ->for($campaign)
+        ->has(Order::factory())
+        ->count(3)
+        ->create([
+            'amount' => 200,
+        ]);
+
+    Donation::factory()
+        ->for($campaign)
+        ->count(2)
+        ->create([
+            'amount' => 200,
+        ]);
+
+    expect($campaign->orderDonationCount())->toBe(3);
+});
+
+test('A campaign can count donations without an order', function () {
+    $campaign = Campaign::factory()->create();
+
+    Donation::factory()
+        ->for($campaign)
+        ->has(Order::factory())
+        ->count(3)
+        ->create([
+            'amount' => 200,
+        ]);
+
+    Donation::factory()
+        ->for($campaign)
+        ->count(2)
+        ->create([
+            'amount' => 200,
+        ]);
+
+    expect($campaign->noOrderDonationCount())->toBe(2);
 });

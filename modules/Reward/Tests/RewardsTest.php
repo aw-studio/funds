@@ -35,7 +35,7 @@ test('It renders a form to create a new reward', function () {
 test('A user can create rewards', function () {
     actingAsUser()
         ->post('app/rewards', [
-            'reward_name' => 'New Reward',
+            'name' => 'New Reward',
             'description' => 'This is a new reward',
             'min_amount' => 100,
         ]);
@@ -56,7 +56,7 @@ test('It can set a new amount ', function () {
 test('A reward may have variants', function () {
     $reward = Reward::factory()->create();
     $reward->variants()->create([
-        'variant_name' => 'Variant 1',
+        'name' => 'Variant 1',
         'description' => 'This is a variant description',
     ]);
     expect($reward->variants)->toHaveCount(1);
@@ -71,7 +71,7 @@ test('A User can update a reward', function () {
     $reward = Reward::factory()->for($user->currentCampaign)->create();
     $response = actingAs(User::first())
         ->put("app/rewards/{$reward->id}", [
-            'reward_name' => 'Updated Reward',
+            'name' => 'Updated Reward',
             'description' => 'This is an updated reward',
             'min_amount' => 200,
         ]);

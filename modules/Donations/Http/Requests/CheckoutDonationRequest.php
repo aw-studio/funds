@@ -26,6 +26,14 @@ class CheckoutDonationRequest extends FormRequest
             'email' => ['required', 'email'],
             'name' => ['required', 'string'],
             'pays_fees' => ['nullable', 'boolean'],
+            'recipient_address' => ['nullable', 'array:'.implode(',', [
+                'name',
+                'address',
+                'address_addition',
+                'postal_code',
+                'city',
+                'country',
+            ])],
         ];
 
         if ($this->route('reward') !== null) {

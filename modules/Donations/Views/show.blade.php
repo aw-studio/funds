@@ -1,56 +1,69 @@
-<x-campaign-layout :backRoute="route('donations.index')">
-    <h2 class="text-2xl font-semibold text-gray-800">
-        @lang('Donation') #{{ $donation->id }}
-    </h2>
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div class="bg-white  overflow-hidden shadow-sm sm:rounded-lg p-6">
-            <div class="text-xl font-semibold mb-2">
-                {{ $donation->amount }}
-            </div>
-            {{ $donation->created_at->isoFormat('L LT') }}
-            <div>
-                {{ $donation->type === 'recurring' ? __('Recurring') : __('Onetime') }}
-            </div>
-            <div>
-                {{-- A donation intent is not always created --}}
-                {{ __('Pays fees') }}: {{ $donation->donationIntent?->pays_fees ? 'yes' : 'no' }}
-            </div>
+<x-app-layout :backRoute="route('donations.index')">
+    <div class="mx-auto max-w-7xl py-12">
 
-        </div>
-        <div class="flex flex-col gap-8">
+        <h2 class="text-2xl font-serif text-gray-800">
+            @lang('Donation') #{{ $donation->id }}
+        </h2>
+        <hr />
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div>
-                <span>{{ __('Donor') }}</span>
-                <div class="text-xl">
-                    {{ $donation->donor->email }}
+                {{ __('Transaction') }}
+                <div class="text-xl font-bold font-serif mb-2">
+                    {{ $donation->amount }}
                 </div>
-            </div>
-            <div>
-                <span>{{ __('Type') }}</span>
-                <div class="text-xl">
-                    {{ $donation->label() }}
+                <hr />
+                <div>
+                    {{ $donation->created_at->isoFormat('L LT') }}
                 </div>
-                <div class="">
-                    {{ $donation->reward?->name }}
-                    @if ($donation->rewardVariant)
-                        {{ $donation->rewardVariant->name }}
+                <div>
+                    {{ $donation->getFrequencyLabel() }}
+                </div>
+                <div>
+                    @if ($donation->paidFees())
+                        {{-- A donation intent is not always created --}}
+                        {{ $donation->paidFeeAmount() }} ({{ $donation->campaign->fees }}%)
+                        {{ __('Transaction fees paid') }}
                     @endif
                 </div>
-            </div>
 
-            @if ($donation->order)
-                <div class="">
-                    {{ $donation->order->status }}
-                    {{ __('Shippment address') }}
-                    <div>
-                        {{ $donation->order->shipping_address['name'] }}<br />
-                        {{ $donation->order->shipping_address['address'] }} <br />
-                        {{ $donation->order->shipping_address['address_addition'] }}
-                        {{ $donation->order->shipping_address['postal_code'] }}
-                        {{ $donation->order->shipping_address['city'] }} <br />
-                        {{ $donation->order->shipping_address['country'] }}
+            </div>
+            <div class="flex
+                            flex-col
+                            gap-8">
+                <div>
+                    <span>{{ __('Donor') }}</span>
+                    <div class="text-xl">
+                        <p>{{ $donation->donor->name }}</p>
+                        <span class="text-sm"> {{ $donation->donor->email }}</span>
                     </div>
                 </div>
-            @endif
-        </div>
+                <div>
+                    <span>{{ __('Type') }}</span>
+                    <div class="text-xl">
+                        {{ $donation->label() }}
+                    </div>
+                    <div class="">
+                        {{ $donation->reward?->name }}
+                        @if ($donation->rewardVariant)
+                            {{ $donation->rewardVariant->name }}
+                        @endif
+                    </div>
+                </div>
 
-</x-campaign-layout>
+                @if ($donation->order)
+                    <div class="">
+                        {{-- {{ $donation->order->status }} --}}
+                        {{ __('Shipment address') }}
+                        <div>
+                            {{ $donation->order->shipping_address['name'] }}<br />
+                            {{ $donation->order->shipping_address['address'] }} <br />
+                            {{ $donation->order->shipping_address['address_addition'] }}
+                            {{ $donation->order->shipping_address['postal_code'] }}
+                            {{ $donation->order->shipping_address['city'] }} <br />
+                            {{ $donation->order->shipping_address['country'] }}
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+</x-app-layout>

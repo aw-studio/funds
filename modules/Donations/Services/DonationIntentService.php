@@ -19,14 +19,9 @@ class DonationIntentService
         bool $paysFees = false
     ): DonationIntent {
 
-        // if ($type === 'recurring') {
-        //     throw new \Exception('Recurring donations are not supported');
-        // }
-
         $intent = new DonationIntent([
             'email' => $email,
             'name' => $name,
-            'amount' => $amountInCents,
         ]);
 
         $intent->order_details = $orderDetails;
@@ -34,9 +29,31 @@ class DonationIntentService
         $intent->campaign = $campaign;
         $intent->pays_fees = $paysFees;
 
+        $intent->amount = $this->getAmountWithFees(
+            $amountInCents,
+            $paysFees,
+            $campaign
+        );
+
         $intent->save();
 
         return $intent;
+    }
+
+    public function getAmountWithFees(
+        int $amountInCents,
+        bool $paysFees,
+        Campaign $campaign
+    ): int {
+
+        if (! $paysFees) {
+            return $amountInCents;
+        }
+
+        $fees = $campaign->fees ?? 0;
+        $feeAmount = $amountInCents * $fees / 100;
+
+        return $amountInCents + $feeAmount;
     }
 
     public function processIntent(

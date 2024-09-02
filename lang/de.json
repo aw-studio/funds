@@ -20,8 +20,6 @@
     "You're logged in!": "Sie sind angemeldet!",
     "Add Donation": "Spende eintragen",
     "Back": "Zurück",
-    "Rewards": "Belohnungen",
-    "Reward": "Belohnung",
     "Metrics": "Statistiken",
     "Log in": "Login",
     "Register": "Registrieren",
@@ -32,5 +30,9 @@
     "Email Password Reset Link": "Passwort-Zurücksetzungs-Link senden",
     "Reset Password": "Passwort zurücksetzen",
     "We have emailed your password reset link.": "Wir haben Ihnen Ihren Passwort-Zurücksetzungs-Link per E-Mail zugesandt.",
-    "Create Reward": "Belohnung erstellen"
+    "Cancel": "Abbrechen",
+    "Count": "Anzahl",
+    "General": "Allgemein",
+    "Description": "Beschreibung",
+    "Image": "Bild"
 }

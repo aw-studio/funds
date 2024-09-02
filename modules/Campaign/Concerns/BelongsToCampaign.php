@@ -16,4 +16,9 @@ trait BelongsToCampaign
         $this->campaign_id = $campaign->id;
         $this->setRelation('campaign', $campaign);
     }
+
+    public function scopeCampaign($query, Campaign $campaign)
+    {
+        return $query->where('campaign_id', $campaign->id);
+    }
 }

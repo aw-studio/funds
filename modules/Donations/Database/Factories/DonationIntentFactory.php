@@ -22,6 +22,7 @@ class DonationIntentFactory extends Factory
     {
         return [
             'email' => fake()->safeEmail(),
+            'name' => fake()->name(),
             'amount' => fake()->numberBetween(100, 10000),
             'campaign_id' => Campaign::factory(),
             // 'rewards' => [],

@@ -11,7 +11,10 @@ class RewardController
     public function index()
     {
         return view('rewards::index', [
-            'rewards' => Reward::all(),
+            'rewards' => Reward::query()
+                ->where('campaign_id', Context::get('campaign')->id)
+                ->withCount('variants')
+                ->get(),
         ]);
     }
 

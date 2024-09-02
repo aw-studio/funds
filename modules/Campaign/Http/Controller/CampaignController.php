@@ -4,6 +4,7 @@ namespace Funds\Campaign\Http\Controller;
 
 use Funds\Campaign\Models\Campaign;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CampaignController
 {
@@ -11,7 +12,9 @@ class CampaignController
     {
         return view('campaigns::index',
             [
-                'campaigns' => Campaign::withCount('donations')->withSum('donations as total_donated', 'amount')->get(),
+                'campaigns' => Campaign::withCount('donations')
+                    ->withSum('donations as total_donated', 'amount')
+                    ->get(),
             ]
         );
     }
@@ -25,8 +28,13 @@ class CampaignController
     {
         $validated = $request->validate([
             'name' => 'required|string',
-            'goal' => 'required|numeric',
+            'goal' => 'required|numeric|min:1',
+            'fees' => 'required|numeric|min:0|max:100',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
         ]);
+
+        $validated['slug'] = Str::slug($validated['name']);
 
         $campaign = Campaign::create($validated);
 
@@ -58,12 +66,17 @@ class CampaignController
     {
         $validated = $request->validate([
             'name' => 'required|string',
-            'goal' => 'required|numeric',
+            'goal' => 'required|numeric|min:1',
+            'fees' => 'nullable|numeric|min:0|max:100',
             'description' => 'nullable|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
         ]);
 
         $campaign->update($validated);
 
-        return redirect()->to($campaign->appRoute());
+        flash('Campaign updated!', 'success');
+
+        return redirect()->route('campaigns.show', ['campaign' => $campaign]);
     }
 }

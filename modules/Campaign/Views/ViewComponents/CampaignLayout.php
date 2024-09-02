@@ -21,6 +21,6 @@ class CampaignLayout extends Component
      */
     public function render(): View
     {
-        return view('campaigns::components.layout');
+        return view('campaigns::layouts.campaign-layout');
     }
 }

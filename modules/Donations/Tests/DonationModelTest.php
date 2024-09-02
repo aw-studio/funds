@@ -1,5 +1,6 @@
 <?php
 
+use Funds\Campaign\Models\Campaign;
 use Funds\Core\Support\Amount;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\Donor;
@@ -31,4 +32,17 @@ test('A donation may have an order of a reward', function () {
     $donation->order()->save($order);
 
     expect($donation->refresh()->order)->not->toBeNull();
+});
+
+test('A donation returns the fee amount based on the campaign', function () {
+    $campaign = Campaign::factory()->create([
+        'fees' => 3,
+    ]);
+
+    $donation = Donation::factory()->create([
+        'campaign_id' => $campaign->id,
+        'amount' => 2500,
+    ]);
+
+    expect($donation->paidFeeAmount()->get())->toBe(75);
 });

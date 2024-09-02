@@ -7,11 +7,9 @@
 
             <x-button
                 class="ml-auto"
-                type="link"
+                href="{{ route('campaigns.create') }}"
             >
-                <a href="{{ route('campaigns.create') }}">
-                    {{ __('Create Campaign') }}
-                </a>
+                {{ __('Create Campaign') }}
             </x-button>
         </div>
     </x-slot>
@@ -25,7 +23,7 @@
                             href="{{ route('campaigns.show', $campaign) }}"
                         > {{ $campaign->name }}</a>
                         <div>
-                            {{ new \Funds\Core\Support\Amount($campaign->total_donated) }}
+                            {{ new \Funds\Core\Support\Amount($campaign->total_donated ?? 0) }}
                             {{ $campaign->goal }}
                             <div class="inline-flex items-center">
                                 <x-icons.user-round />

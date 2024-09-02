@@ -55,6 +55,9 @@ class CheckoutController
             $validated['pays_fees'] ?? false
         );
 
+        // what about a case, where we never hit the payment gateway
+        // and the intent is stuck in pending state?
+
         $responseData = $donationIntentService->processIntent(
             $intent,
             $request->paymentGateway,

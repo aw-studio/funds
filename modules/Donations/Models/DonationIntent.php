@@ -42,6 +42,27 @@ class DonationIntent extends Model
         ];
     }
 
+    public function fetchPaymentIntentFromStripe()
+    {
+        // Fetch payment intent from stripe
+        $stripe = new \Stripe\StripeClient([
+            'api_key' => config('services.stripe.secret'),
+        ]);
+
+        return $stripe->paymentIntents->retrieve($this->payment_intent);
+    }
+
+    public function fetchPaymentMethodFromStripe()
+    {
+        $stripe = new \Stripe\StripeClient([
+            'api_key' => config('services.stripe.secret'),
+        ]);
+
+        return $stripe->paymentMethods->retrieve(
+            $this->fetchPaymentIntentFromStripe()->payment_method
+        );
+    }
+
     public function succeed(): void
     {
         $this->status = 'succeeded';

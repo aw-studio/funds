@@ -25,7 +25,10 @@ class CampaignFactory extends Factory
             'slug' => fn ($attributes) => Str::slug($attributes['name']),
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
             'goal' => random_int(1, 100) * 1000 * 100,
+            'fees' => random_int(1, 5),
             'content' => fake()->paragraphs(10, true),
+            'start_date' => fake()->dateTimeBetween('-1 month', 'now'),
+            'end_date' => fake()->dateTimeBetween('now', '+1 month'),
         ];
     }
 

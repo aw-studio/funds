@@ -1,39 +1,45 @@
-<x-campaign-layout>
-    <form
-        method="POST"
-        action="{{ route('rewards.store') }}"
-    >
-        @csrf
-        <div class="mt-4">
-            <x-input-label
-                for="name"
-                :value="__('Name')"
-            />
-
-            <x-input
-                type="text"
-                name="name"
-                placeholder="{{ __('Name') }}"
-            />
-
-            <x-input-error
-                :messages="$errors->get('form.name')"
-                class="mt-2"
-            />
-        </div>
-
-        <x-input
-            type="text"
-            name="description"
-            placeholder="{{ __('Description') }}"
-        />
-        <x-input
-            type="number"
-            name="min_amount"
-            placeholder="{{ __('Min Donation amount') }}"
-        />
-        <x-button>
-            {{ __('Create') }}
-        </x-button>
-    </form>
-</x-campaign-layout>
+<x-app-layout>
+    <x-form-page-container :title="__('Add Reward')">
+        <form
+            method="POST"
+            action="{{ route('rewards.store') }}"
+        >
+            @csrf
+            <div class="mb-4">
+                <x-input
+                    type="text"
+                    name="name"
+                    :value="old('name')"
+                    :label="__('Name')"
+                    placeholder="{{ __('Name') }}"
+                />
+            </div>
+            <div class="mb-4">
+                <x-textarea
+                    type="text"
+                    name="description"
+                    :value="old('description')"
+                    :label="__('Description')"
+                    placeholder="{{ __('Description') }}"
+                />
+            </div>
+            <div class="mb-4">
+                <x-money-input
+                    name="min_amount"
+                    :value="old('min_amount')"
+                    :label="__('Min Donation amount')"
+                    placeholder="{{ __('Min Donation amount') }}"
+                />
+            </div>
+            <x-button
+                outlined
+                :href="route('rewards.index')"
+            >
+                {{ __('Cancel') }}
+            </x-button>
+            <x-button>
+                {{ __('Create Reward') }}
+            </x-button>
+        </form>
+    </x-form-page-container>
+</x-app-layout>

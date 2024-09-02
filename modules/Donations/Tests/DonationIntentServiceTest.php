@@ -12,10 +12,11 @@ test('It creates a donation intent', function () {
     $service = new DonationIntentService();
 
     $intent = $service->createIntent(
-        'test@example.com',
-        1000,
-        $campaign = Campaign::factory()->create(),
-        'onetime'
+        name: 'User',
+        email: 'test@example.com',
+        amountInCents: 1000,
+        campaign: $campaign = Campaign::factory()->create(),
+        type: 'onetime'
     );
 
     expect($intent)->toBeInstanceOf(DonationIntent::class);
@@ -31,11 +32,12 @@ test('It creates a donationIntent with a reward', function () {
     $service = new DonationIntentService();
     $reward = Reward::factory()->create();
     $intent = $service->createIntent(
-        'test@example.com',
-        1000,
-        $campaign = Campaign::factory()->create(),
-        'onetime',
-        [
+        name: 'User',
+        email: 'test@example.com',
+        amountInCents: 1000,
+        campaign: $campaign = Campaign::factory()->create(),
+        type: 'onetime',
+        orderDetails: [
             'reward_id' => $reward->id,
         ]
     );

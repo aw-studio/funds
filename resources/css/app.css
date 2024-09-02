@@ -30,3 +30,7 @@
         src: url(/resources/fonts/rubik-v28-latin-500.woff2) format("woff2");
     }
 }
+
+[x-cloak] {
+    display: none !important;
+}

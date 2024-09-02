@@ -7,10 +7,10 @@
     >
         @csrf
 
-        <textarea
+        <x-textarea
             name="content"
             class="w-full h-96"
-        >{{ $campaign->content }}</textarea>
+        >{{ $campaign->content }}</x-textarea>
 
         <div
             x-data="fileUpload"

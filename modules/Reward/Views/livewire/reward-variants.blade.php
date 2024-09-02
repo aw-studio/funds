@@ -39,8 +39,8 @@ $cancelEdit = function () {
 ?>
 
 <section>
-    <div>
-        <span class="text-2xl font-semibold mb-4">{{ __('Variants') }}</span>
+    <div class="mb-4">
+        <span class="text-xl">{{ __('Variants') }}</span>
     </div>
     @foreach ($reward->variants as $variant)
         <div @class([

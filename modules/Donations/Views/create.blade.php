@@ -1,26 +1,45 @@
-<x-campaign-layout backRoute="{{ route('donations.index') }}">
-    <div>
-        {{ __('Manually Add Donation - received externaly.') }}
-    </div>
-    <form
-        method="POST"
-        action="{{ route('donations.store') }}"
-    >
-        @csrf
-        <input
-            type="email"
-            name="email"
-            value="{{ app()->isLocal() ? 'dev@dev.com' : old('email') }}"
-            placeholder="Email"
+<x-app-layout>
+    @php
+        $cancelRoute = url()->previous();
+        $previousRoute = url()->previous();
+
+        if (str($previousRoute)->contains('login') || str($previousRoute)->contains('donations/create')) {
+            $cancelRoute = route('campaigns.show', ['campaign' => $campaign]);
+        }
+
+    @endphp
+    <x-form-page-container :title="__('Add Donation')">
+        <form
+            method="POST"
+            action="{{ route('donations.store') }}"
         >
-        <input
-            type="number"
-            name="amount"
-            value="100"
-            placeholder="Amount"
-        >
-        <button type="submit">
-            {{ __('Add Donation') }}
-        </button>
-    </form>
-</x-campaign-layout>
+            @csrf
+            <div class="mb-4">
+                <x-input
+                    type="email"
+                    name="email"
+                    :label="__('Email')"
+                    :value="old('email')"
+                    placeholder="Email"
+                />
+            </div>
+            <div class="mb-4">
+                <x-money-input
+                    name="amount"
+                    :label="__('Donation Amount')"
+                    :value="old('amount')"
+                    placeholder="Amount"
+                />
+            </div>
+            <x-button
+                outlined
+                :href="$cancelRoute"
+            >
+                {{ __('Cancel') }}
+            </x-button>
+            <x-button type="submit">
+                {{ __('Add Donation') }}
+            </x-button>
+        </form>
+        </x-container>
+</x-app-layout>

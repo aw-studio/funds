@@ -2,7 +2,9 @@
 
 namespace Funds\Order\Database\Factories;
 
+use Funds\Donations\Models\Donation;
 use Funds\Order\Models\Order;
+use Funds\Reward\Models\Reward;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +22,14 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
+            'donation_id' => Donation::factory(),
+            'reward_id' => Reward::factory(),
+            'shipping_address' => [
+                'street' => $this->faker->streetAddress,
+                'city' => $this->faker->city,
+                'zip' => $this->faker->postcode,
+                'country' => $this->faker->country,
+            ],
         ];
     }
 }

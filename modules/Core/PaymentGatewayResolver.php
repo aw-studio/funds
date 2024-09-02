@@ -36,6 +36,5 @@ class PaymentGatewayResolver
         }
 
         return new $gateway;
-
     }
 }

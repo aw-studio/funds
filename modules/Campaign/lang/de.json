@@ -1,8 +1,23 @@
 {
     "Campaigns": "Kampagnen",
+    "Campaign": "Kampagne",
     "Create Campaign": "Kampagne erstellen",
+    "Edit Campaign": "Kampagne bearbeiten",
     "Overview": "Übersicht",
     "Total Donations": "Gesamte Spenden",
     "Total Amount": "Gesamtbetrag",
-    "View Campaign": "Kampagne anzeigen"
+    "View Campaign": "Kampagne anzeigen",
+    "Donation Goal": "Spendenziel",
+    "Fees": "Gebühren",
+    "Title": "Titel",
+    "Start Date": "Startdatum",
+    "End Date": "Enddatum",
+    "Type": "Art",
+    "Reward donation": "Perk-Spende",
+    "Simple donation": "Freie Spende",
+    "Transaction": "Transaktion",
+    "Shipment address": "Versandadresse",
+    "Transaction fees paid": "Transaktionsgebühren übernommen",
+    "One-time": "Einmalig",
+    "Recurring": "Wiederkehrend"
 }

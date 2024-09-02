@@ -20,10 +20,9 @@ return new class extends Migration
             $table->foreignId('campaign_id')->constrained();
             $table->foreignId('donation_id')->nullable()->constrained();
             $table->boolean('pays_fees');
-
             $table->json('order_details')->nullable();
-
             $table->string('payment_intent')->nullable();
+            $table->string('payment_method')->nullable();
             $table->string('type');
             $table->timestamps();
         });

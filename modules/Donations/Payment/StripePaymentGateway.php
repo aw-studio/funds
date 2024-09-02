@@ -52,7 +52,7 @@ class StripePaymentGateway implements PaymentGatewayInterface
             $paymentIntent = $this->stripe->paymentIntents->create([
                 'confirm' => true,
                 'amount' => $intent->amount,
-                'currency' => 'eur',
+                'currency' => 'eur', // TODO: make this configurable
                 'confirmation_token' => $validated['confirmation_token'],
                 'return_url' => $returnUrl = route('public.checkout.return', [
                     'campaign' => $intent->campaign,

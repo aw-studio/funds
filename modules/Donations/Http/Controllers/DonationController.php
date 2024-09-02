@@ -2,6 +2,7 @@
 
 namespace Funds\Donations\Http\Controllers;
 
+use Funds\Core\Facades\Funds;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\DonationIntent;
 use Funds\Donations\Models\Donor;
@@ -47,6 +48,10 @@ class DonationController
     public function show(Donation $donation)
     {
         $donation->load(['donor', 'donationIntent']);
+
+        // how to load the recurring donation data
+        // how to load the shipment data
+        $donation = Funds::donationResolver()->resolve($donation);
 
         return view('donations::show', [
             'donation' => $donation,
