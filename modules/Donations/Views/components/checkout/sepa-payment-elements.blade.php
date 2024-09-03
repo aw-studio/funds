@@ -17,6 +17,70 @@
         }
     </style>
     <div class="container">
+        <fieldset class="space-y-4">
+            {{-- <legend class="sr-only">Delivery</legend> --}}
+            <div>
+                <x-radio-input
+                    id="FrequencyYearly"
+                    name="frequency"
+                    value="yearly"
+                    checked
+                >
+                    <div>
+                        <p class="">{{ __('Yearly') }}</p>
+
+                        <p class="mt-1 text-gray-900"><span x-money="amount"></span></p>
+                    </div>
+                </x-radio-input>
+            </div>
+
+            <div>
+                <x-radio-input
+                    id="FrequencyQuarterly"
+                    name="frequency"
+                    value="quarterly"
+                >
+                    <div>
+                        <p class="">{{ __('Quarterly') }}</p>
+
+                        <p class="mt-1 text-gray-900"><span x-money="amount / 4"></span></p>
+                    </div>
+                </x-radio-input>
+            </div>
+            <div>
+                <x-radio-input
+                    id="FrequencyMonthly"
+                    name="frequency"
+                    value="monthly"
+                >
+                    <div>
+                        <p class="">{{ __('Monthly') }}</p>
+
+                        <p class="mt-1 text-gray-900"><span x-money="amount / 12"></span></p>
+                    </div>
+                </x-radio-input>
+            </div>
+        </fieldset>
+        <label
+            for="account_holder"
+            class="text-sm text-gray-600"
+        >{{ __('Account Holder') }}</label>
+        <input
+            id="account_holder"
+            type="text"
+            name="account_holder"
+            placeholder="John Doe"
+            autocomplete="billing"
+            aria-required="true"
+            @class([
+                'border border-gray-200',
+                'border-red-500' => $errors->has('account_holder'),
+            ])
+            value="{{ old('account_holder') }}"
+        >
+        @error('account_holder')
+            <div class="text-red-500">{{ $message }}</div>
+        @enderror
         <label
             for="iban"
             class="text-sm text-gray-600"
@@ -57,5 +121,7 @@
                 e.target.value = formattedValue;
             });
         </script>
+        {{ __('Donation SEPA hint') }}
+
     </div>
 </div>

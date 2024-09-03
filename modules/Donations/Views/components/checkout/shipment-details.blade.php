@@ -1,4 +1,4 @@
-@props(['reward'])
+@props(['reward', 'countries' => []])
 @if ($reward !== null)
     <div>
         <h2 class="text-2xl font-semibold">{{ __('Shipping') }}</h2>
@@ -41,14 +41,21 @@
                 value="{{ old('city') }}"
                 required
             />
-            <x-input
+
+            <select
                 name="country"
-                type="text"
-                autocomplete="country-name"
-                placeholder="{{ __('Country') }}"
-                value="{{ old('country') }}"
+                class="border border-gray-200 rounded-lg p-2"
                 required
-            />
+            >
+                <option value="">{{ __('Country') }}</option>
+                @foreach ($countries as $countryCode => $country)
+                    <option
+                        value="{{ $countryCode }}"
+                        name="countryCode"
+                        {{ old('countryCode') == $countryCode ? 'selected' : '' }}
+                    >{{ $country }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 @endif

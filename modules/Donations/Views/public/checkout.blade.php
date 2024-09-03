@@ -7,7 +7,16 @@
                 {{ $reward->name }}
                 {{ $reward->min_amount }}
             </div>
-        @else
+            @if ($reward->variants)
+                <select
+                    id="variant"
+                    name="variant"
+                >
+                    @foreach ($reward->variants as $variant)
+                        <option value="{{ $variant->id }}">{{ $variant->name }}</option>
+                    @endforeach
+                </select>
+            @endif
         @endif
     </div>
     <main>
@@ -41,7 +50,10 @@
 
             <x-donations::checkout.donation-amount :$reward />
             <x-donations::checkout.contact-details />
-            <x-donations::checkout.shipment-details :$reward />
+            <x-donations::checkout.shipment-details
+                :$reward
+                :$countries
+            />
             <x-donations::checkout.donation-types />
             <div>
                 <h1 class="font-semibold">Payment</h1>

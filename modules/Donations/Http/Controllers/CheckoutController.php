@@ -16,6 +16,11 @@ class CheckoutController
     public function show(Request $request, Campaign $campaign, ?Reward $reward = null)
     {
         return view('donations::public.checkout', [
+            'countries' => [
+                'DE' => 'Germany',
+                'AT' => 'Austria',
+                'CH' => 'Switzerland',
+            ],
             'campaign' => $campaign,
             'reward' => $reward,
         ]);
