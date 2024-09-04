@@ -4,7 +4,7 @@ use function Livewire\Volt\{state};
 use Funds\Donations\Models\Donation;
 use function Livewire\Volt\{with, usesPagination};
 
-state(['search', 'campaign', 'includeRecurring']);
+state(['search', 'campaign', 'includeRecurring', 'filterReward']);
 usesPagination();
 
 with(
@@ -13,6 +13,7 @@ with(
             ->donations()
             ->with('donor', 'reward', 'order')
             ->when($this->includeRecurring == false, fn($query) => $query->where('type', '!=', 'recurring'))
+            ->when($this->filterReward, fn($query) => $query->whereHas('order', fn($query) => $query->where('reward_id', $this->filterReward)))
             ->search($this->search)
             ->paginate(10),
     ],
@@ -27,18 +28,34 @@ $delete = function ($id) {
 
 <section>
     <div class="flex justify-between items-center mb-4">
-        <x-donations::search-listing />
-        <label
-            for="includeRecurring"
-            class="cursor-pointer inline-flex items-center gap-2 select-none"
-        >
-            <x-input-toggle
-                id="includeRecurring"
-                wire:model.live="includeRecurring"
-                size="sm"
-            />
-            {{ __('Include Recurring') }}
-        </label>
+        <div class="flex gap-2">
+            <x-donations::search-listing />
+            <x-select wire:model.live="filterReward">
+                <option value="">{{ __('All rewards') }}</option>
+                @foreach ($campaign->rewards as $reward)
+                    <option
+                        value="{{ $reward->id }}"
+                        {{ $reward->id == $filterReward ? 'selected' : '' }}
+                    >{{ $reward->name }}</option>
+                @endforeach
+            </x-select>
+        </div>
+        <div>
+            @if (\Funds\Core\Facades\Funds::hasDonationType('recurring'))
+                <label
+                    for="includeRecurring"
+                    class="cursor-pointer inline-flex items-center gap-2 select-none"
+                >
+                    <x-input-toggle
+                        id="includeRecurring"
+                        wire:model.live="includeRecurring"
+                        size="sm"
+                    />
+                    {{ __('Include recurring') }}
+                </label>
+            @endif
+        </div>
+
     </div>
     <div
         class="overflow-x-auto
@@ -49,16 +66,21 @@ $delete = function ($id) {
             <thead>
                 <tr>
                     <th class="whitespace-nowrap text-left px-4 py-2 font-medium">#</th>
-                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">{{ __('Date') }}
+                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">
+                        {{ __('Date') }}
                     </th>
-                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">{{ __('Donor') }}
+                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">
+                        {{ __('Donor') }}
                     </th>
-                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">{{ __('Amount') }}
+                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">
+                        {{ __('Amount') }}
                     </th>
-                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">{{ __('Reward') }}
+                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">
+                        {{ __('Reward') }}
                     </th>
                     @foreach ($moduleHeaders ?? [] as $header)
-                        <th class="whitespace-nowrap text-left px-4 py-2 font-medium">{{ $header }}
+                        <th class="whitespace-nowrap text-left px-4 py-2 font-medium">
+                            {{ $header }}
                         </th>
                     @endforeach
                 </tr>
