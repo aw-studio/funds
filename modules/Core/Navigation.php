@@ -10,13 +10,15 @@ class Navigation
         string $title,
         ?string $routeName,
         ?string $active = null,
-        ?string $permission = null
+        ?string $permission = null,
+        ?string $badge = null,
     ): void {
         $this->items[] = [
             'title' => $title,
             'route' => route($routeName),
             'active' => $active ?? request()->routeIs($routeName),
             'permission' => $permission,
+            'badge' => $badge,
         ];
     }
 

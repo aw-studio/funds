@@ -59,6 +59,15 @@ new class extends Component {
                             wire:navigate
                         >
                             {{ __($nav['title']) }}
+
+                            @if ($nav['badge'])
+                                <span
+                                    class="ml-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs text-white bg-tangerine-500"
+                                >
+                                    {{ $nav['badge'] }}
+                                </span>
+                            @endif
+
                         </x-nav-link>
                     @endforeach
                 </div>
