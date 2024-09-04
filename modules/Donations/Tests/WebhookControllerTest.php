@@ -1,5 +1,6 @@
 <?php
 
+use Funds\Donations\Enums\DonationIntentStatus;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\DonationIntent;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -7,7 +8,6 @@ use Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class);
 test('It updates the donation intent if the payment intent succeeded', function () {
-
     $donationIntent = DonationIntent::factory()->create([
         'payment_intent' => 'testID',
     ]);
@@ -22,7 +22,7 @@ test('It updates the donation intent if the payment intent succeeded', function 
         ],
     ])->assertOk();
 
-    expect($donationIntent->refresh()->status)->toBe('succeeded');
+    expect($donationIntent->refresh()->status)->toBe(DonationIntentStatus::Succeeded);
     expect(Donation::count())->toBe(1);
 });
 
@@ -41,7 +41,7 @@ test('It doesnt update a donation intent if the payment intent succeeded with a 
         ],
     ])->assertOk();
 
-    expect($donationIntent->refresh()->status)->toBe('pending');
+    expect($donationIntent->refresh()->status)->toBe(DonationIntentStatus::Pending);
     expect(Donation::count())->toBe(0);
 });
 
@@ -60,6 +60,6 @@ test('It updates the donation intent status if the payment intent failed', funct
         ],
     ])->assertOk();
 
-    expect($donationIntent->refresh()->status)->toBe('failed');
+    expect($donationIntent->refresh()->status)->toBe(DonationIntentStatus::Failed);
     expect(Donation::count())->toBe(0);
 });

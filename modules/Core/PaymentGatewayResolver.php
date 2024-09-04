@@ -3,6 +3,7 @@
 namespace Funds\Core;
 
 use Funds\Core\Contracts\PaymentGatewayInterface;
+use Funds\Donations\Enums\DonationType;
 
 class PaymentGatewayResolver
 {
@@ -21,7 +22,7 @@ class PaymentGatewayResolver
         $this->gateways[] = $gateway;
     }
 
-    public function resolve(string $type): PaymentGatewayInterface
+    public function resolve(DonationType $type): PaymentGatewayInterface
     {
         $gateways = array_filter($this->gateways, fn (string $gateway) => $gateway::canBeUsedFor($type));
 

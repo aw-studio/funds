@@ -10,16 +10,13 @@ class CreateOrderFromDonationIntent
     /**
      * Create the event listener.
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Handle the event.
      */
     public function handle(DonationIntentSucceeded $event): void
     {
-        // dd($event->donationIntentData);
         if ($event->donationIntentData->orderDetails === null) {
             return;
         }

@@ -3,6 +3,7 @@
 namespace Funds\Donations\Database\Factories;
 
 use Funds\Campaign\Models\Campaign;
+use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\Donor;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -24,6 +25,7 @@ class DonationFactory extends Factory
         return [
             'amount' => fake()->numberBetween(100, 10000),
             'campaign_id' => Campaign::factory(),
+            'type' => DonationType::OneTime,
             'donor_id' => Donor::factory(),
         ];
     }

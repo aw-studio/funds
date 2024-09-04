@@ -1,6 +1,7 @@
 <?php
 
 use Funds\Core\PaymentGatewayResolver;
+use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Payment\StripePaymentGateway;
 
 test('It registers a payment gateway', function () {
@@ -12,6 +13,6 @@ test('It registers a payment gateway', function () {
 test('It resolves a payment gateway', function () {
     $resolver = new PaymentGatewayResolver();
     $resolver->register(StripePaymentGateway::class);
-    $gateway = $resolver->resolve('onetime');
+    $gateway = $resolver->resolve(DonationType::OneTime);
     expect($gateway)->toBeInstanceOf(StripePaymentGateway::class);
 });

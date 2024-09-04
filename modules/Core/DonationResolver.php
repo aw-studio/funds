@@ -2,6 +2,7 @@
 
 namespace Funds\Core;
 
+use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Models\Donation;
 
 /**
@@ -11,9 +12,9 @@ class DonationResolver
 {
     protected $typeResolvers = [];
 
-    public function register(string $type, $resolver)
+    public function register(DonationType $type, $resolver)
     {
-        $this->typeResolvers[$type] = $resolver;
+        $this->typeResolvers[$type->value] = $resolver;
     }
 
     /**
@@ -21,13 +22,17 @@ class DonationResolver
      */
     public function resolve(Donation $donation)
     {
-        if (! isset($this->typeResolvers[$donation->type])) {
+        // TODO: This is a temporary fix for the type being a string instead of an enum.
+        if (is_string($donation->type)) {
+            $donation->type = DonationType::tryFrom($donation->type);
+        }
+
+        if (! isset($this->typeResolvers[$donation->type->value])) {
             return $donation;
         }
 
-        $resolver = $this->typeResolvers[$donation->type];
+        $resolver = $this->typeResolvers[$donation->type->value];
 
         return (new $resolver)->resolve($donation);
-
     }
 }

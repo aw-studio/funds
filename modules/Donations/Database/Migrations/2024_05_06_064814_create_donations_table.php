@@ -19,7 +19,7 @@ return new class extends Migration
                 ->nullable()
                 ->comment('An intent that created the donation. It\'s not required for manual donations.');
             $table->integer('amount')->comment('Amount in cents');
-            $table->string('type')->default('default');
+            $table->string('type');
             $table->string('payment_method')->nullable();
             $table->json('receipt_address')->nullable();
             $table->timestamps();

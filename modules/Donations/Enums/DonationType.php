@@ -1,7 +1,9 @@
 <?php
 
+namespace Funds\Donations\Enums;
+
 enum DonationType: string
 {
-    case OneTime = 'one-time';
+    case OneTime = 'one_time';
     case Recurring = 'recurring';
 }
