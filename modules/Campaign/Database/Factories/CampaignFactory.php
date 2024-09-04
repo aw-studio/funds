@@ -24,7 +24,7 @@ class CampaignFactory extends Factory
             'name' => fake()->randomElement($this->names()),
             'slug' => fn ($attributes) => Str::slug($attributes['name']),
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-            'goal' => random_int(1, 100) * 1000 * 100,
+            'goal' => random_int(1, 25) * 1000 * 100,
             'fees' => random_int(1, 5),
             'content' => fake()->paragraphs(10, true),
             'start_date' => fake()->dateTimeBetween('-1 month', 'now'),
