@@ -3,7 +3,11 @@
 namespace Funds\Donations\Models;
 
 use Funds\Campaign\Concerns\BelongsToCampaign;
+use Funds\Core\Facades\Funds;
+use Funds\Core\Support\Amount;
 use Funds\Donations\DTOs\DonationIntentDto;
+use Funds\Donations\Enums\DonationIntentStatus;
+use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Events\DonationIntentSucceeded;
 use Funds\Reward\Models\Reward;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -31,12 +35,13 @@ class DonationIntent extends Model
     ];
 
     protected $attributes = [
-        'status' => 'pending',
+        'status' => DonationIntentStatus::Pending,
     ];
 
     public function casts(): array
     {
         return [
+            'status' => DonationIntentStatus::class,
             'recurring_donation_data' => 'array',
             'order_details' => 'array',
         ];
@@ -63,9 +68,14 @@ class DonationIntent extends Model
         );
     }
 
+    public function getAmount(): Amount
+    {
+        return new Amount($this->amount);
+    }
+
     public function succeed(): void
     {
-        $this->status = 'succeeded';
+        $this->status = DonationIntentStatus::Succeeded;
         $this->save();
 
         if (Donation::where('intent_id', $this->id)->exists()) {
@@ -76,7 +86,15 @@ class DonationIntent extends Model
             // This is a rety, is that possible?
         }
 
-        $donation = Donation::createFromIntent($this);
+        // sending a DTO to the service is the better way.
+        // but we would have to blow up the DTO with all the data
+        // or we could just pass the intent and let the service fetch the data
+        // dd($this->type);
+        $donationType = DonationType::tryFrom($this->type) ?? DonationType::OneTime;
+        $donation = Funds::donationService($donationType)
+            ->createDonationFromIntent($this->asDto());
+
+        // $donation = Donation::createFromIntent($this);
 
         $this->donation = $donation;
 
@@ -86,7 +104,7 @@ class DonationIntent extends Model
 
     public function fail()
     {
-        if ($this->status !== 'pending') {
+        if ($this->status !== DonationIntentStatus::Pending) {
             throw new \Exception('Cannot fail intent that is not pending');
         }
 
@@ -94,18 +112,21 @@ class DonationIntent extends Model
             throw new \Exception('Donation already created, cannot fail intent');
         }
 
-        $this->status = 'failed';
+        $this->status = DonationIntentStatus::Failed;
         $this->save();
     }
 
     public function asDto(): DonationIntentDto
     {
         return new DonationIntentDto(
+            id: $this->id,
+            name: $this->name,
             email: $this->email,
             amount: $this->amount,
+            type: $this->type,
+            paysFees: $this->pays_fees,
             campaignId: $this->campaign->id,
             donationId: $this->donation?->id,
-            type: $this->type,
             orderDetails: $this->order_details,
         );
     }

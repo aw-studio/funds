@@ -2,6 +2,7 @@
 
 namespace Funds\Core\Contracts;
 
+use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Models\DonationIntent;
 use Funds\Donations\Payment\PaymentResponseData;
 
@@ -12,7 +13,7 @@ interface PaymentGatewayInterface
         array $validatedData
     ): PaymentResponseData|bool;
 
-    public static function canBeUsedFor(string $type): bool;
+    public static function canBeUsedFor(DonationType $type): bool;
 
     public static function rules(): array;
 }

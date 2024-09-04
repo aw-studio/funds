@@ -1,5 +1,6 @@
 <?php
 
+use Funds\Donations\Enums\DonationIntentStatus;
 use Funds\Donations\Events\DonationIntentSucceeded;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\DonationIntent;
@@ -20,11 +21,13 @@ test('A DonationIntent', function () {
 
 test('Finalizing a DonationIntent creates a Donation', function () {
 
+    $this->withoutExceptionHandling();
     $intent = DonationIntent::factory()->create();
     $intent->succeed();
 
-    expect($intent->status)->toBe('succeeded');
-    expect($intent->donation)->toBeInstanceOf(Donation::class);
+    expect($intent->status)->toBe(DonationIntentStatus::Succeeded);
+    expect(Donation::where('intent_id', $intent->id)->count())->toBe(1);
+
 });
 
 test('Succeeding a DonationIntent twice does not create a new Donation', function () {
@@ -33,7 +36,7 @@ test('Succeeding a DonationIntent twice does not create a new Donation', functio
     $intent->succeed();
     $intent->succeed();
 
-    expect($intent->status)->toBe('succeeded');
+    expect($intent->status)->toBe(DonationIntentStatus::Succeeded);
     expect(Donation::where('intent_id', $intent->id)->count())->toBe(1);
 });
 
@@ -51,7 +54,7 @@ test('A pending DonationIntent can fail', function () {
     $intent = DonationIntent::factory()->create();
     $intent->fail();
 
-    expect($intent->status)->toBe('failed');
+    expect($intent->status)->toBe(DonationIntentStatus::Failed);
 });
 
 test('A non pending DonationIntent cannot fail', function ($status) {

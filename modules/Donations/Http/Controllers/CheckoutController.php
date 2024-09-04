@@ -3,10 +3,11 @@
 namespace Funds\Donations\Http\Controllers;
 
 use Funds\Campaign\Models\Campaign;
+use Funds\Core\Facades\Funds;
+use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Http\Requests\CheckoutDonationRequest;
 use Funds\Donations\Models\DonationIntent;
 use Funds\Donations\Payment\PaymentResponseData;
-use Funds\Donations\Services\DonationIntentService;
 use Funds\Reward\Models\Reward;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -29,41 +30,21 @@ class CheckoutController
     public function store(
         CheckoutDonationRequest $request,
         Campaign $campaign,
-        DonationIntentService $donationIntentService,
         ?Reward $reward = null,
     ) {
         $validated = $request->validated();
 
-        // TODO: if something of this is invalid?
-        if ($reward !== null) {
-            $orderDetails = [
-                'reward_id' => $reward->id,
-                'reward_variant_id' => $validated['reward_variant_id'] ?? null,
-                'shipping_address' => [
-                    'name' => $validated['shipping_name'],
-                    'address' => $validated['address'],
-                    'address_addition' => $validated['address_addition'] ?? null,
-                    'postal_code' => $validated['postal_code'],
-                    'city' => $validated['city'],
-                    'country' => $validated['country'],
-                ],
-            ];
-        }
-
-        $intent = $donationIntentService->createIntent(
-            $validated['name'],
-            $validated['email'],
-            $validated['amount'],
-            $campaign,
-            $request->donation_type,
-            $orderDetails ?? null,
-            $validated['pays_fees'] ?? false
+        $service = Funds::resolveIntentHandler(
+            DonationType::tryFrom($validated['donation_type'])
         );
 
-        // what about a case, where we never hit the payment gateway
-        // and the intent is stuck in pending state?
+        $intent = $service->createDonationIntent(
+            $validated,
+            $campaign,
+            $reward
+        );
 
-        $responseData = $donationIntentService->processIntent(
+        $responseData = $service->processIntent(
             $intent,
             $request->paymentGateway,
             $validated

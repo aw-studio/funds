@@ -8,8 +8,7 @@ class Amount implements \Stringable
 {
     public function __construct(
         public int $cents
-    ) {
-    }
+    ) {}
 
     public function format(): string
     {
@@ -17,6 +16,11 @@ class Amount implements \Stringable
     }
 
     public function get(): int
+    {
+        return $this->getAmount();
+    }
+
+    public function getAmount(): int
     {
         return $this->cents;
     }

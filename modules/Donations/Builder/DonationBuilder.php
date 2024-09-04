@@ -12,11 +12,6 @@ class DonationBuilder extends Builder
         return $this->where('type', DonationType::OneTime);
     }
 
-    public function recurring()
-    {
-        return $this->where('type', DonationType::Recurring);
-    }
-
     public function search($search)
     {
         return $this->whereHas('donor', function ($donorQuery) use ($search) {
