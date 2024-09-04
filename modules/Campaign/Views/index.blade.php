@@ -18,16 +18,31 @@
             @foreach ($campaigns as $campaign)
                 <div class="overflow-hidden shadow-sm sm:rounded-lg bg-gray-50">
                     <div class="p-6 text-gray-900 ">
-                        <a
-                            class="font-serif text-xl font-semibold"
-                            href="{{ route('campaigns.show', $campaign) }}"
-                        > {{ $campaign->name }}</a>
                         <div>
-                            {{ new \Funds\Core\Support\Amount($campaign->total_donated ?? 0) }}
-                            {{ $campaign->goal }}
-                            <div class="inline-flex items-center">
+                            <span class="bg-gray-200 text-xs p-1 rounded-md">
+                                {{ $campaign->status }}
+                            </span>
+                        </div>
+                        <div class="mt-4">
+                            <a
+                                class="font-serif text-xl font-semibold"
+                                href="{{ route('campaigns.show', $campaign) }}"
+                            > {{ $campaign->name }}</a>
+                        </div>
+                        <div class="text-sm text-gray-500 mt-1">
+                            {{ $campaign->start_date->isoFormat('L') }} - {{ $campaign->end_date->isoFormat('L') }}
+                        </div>
+                        <x-campaigns::progress-bar :progress="$campaign->progress()" />
+                        <div class="mt-4 flex gap-4">
+                            <div class="inline-flex">
+                                <x-icons.money />
+                                <span class="text-sm">
+                                    {{ $campaign->totalAmountDonated() }} /
+                                    {{ $campaign->goal }}</span>
+                            </div>
+                            <div class="inline-flex ">
                                 <x-icons.user-round />
-                                {{ $campaign->donations_count }}
+                                <span class="text-sm ">{{ $campaign->donations_count }}</span>
                             </div>
                         </div>
                     </div>

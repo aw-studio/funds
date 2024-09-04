@@ -20,7 +20,6 @@
                 </div>
                 <div>
                     @if ($donation->paidFees())
-                        {{-- A donation intent is not always created --}}
                         {{ $donation->paidFeeAmount() }} ({{ $donation->campaign->fees }}%)
                         {{ __('Transaction fees paid') }}
                     @endif
