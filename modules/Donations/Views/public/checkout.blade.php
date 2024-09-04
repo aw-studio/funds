@@ -7,16 +7,6 @@
                 {{ $reward->name }}
                 {{ $reward->min_amount }}
             </div>
-            @if ($reward->variants)
-                <select
-                    id="variant"
-                    name="variant"
-                >
-                    @foreach ($reward->variants as $variant)
-                        <option value="{{ $variant->id }}">{{ $variant->name }}</option>
-                    @endforeach
-                </select>
-            @endif
         @endif
     </div>
     <main>
@@ -47,6 +37,13 @@
             }"
         >
             @csrf
+            @if ($reward && $reward->variants->isNotEmpty())
+                <x-select name="reward_variant">
+                    @foreach ($reward->variants as $variant)
+                        <option value="{{ $variant->id }}">{{ $variant->name }}</option>
+                    @endforeach
+                </x-select>
+            @endif
 
             <x-donations::checkout.donation-amount :$reward />
             <x-donations::checkout.contact-details />
