@@ -4,6 +4,7 @@ namespace Funds\Donations\Http\Requests;
 
 use Funds\Core\Contracts\PaymentGatewayInterface;
 use Funds\Core\Facades\Funds;
+use Funds\Donations\Enums\DonationType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CheckoutDonationRequest extends FormRequest
@@ -18,7 +19,7 @@ class CheckoutDonationRequest extends FormRequest
     public function rules(): array
     {
         $this->paymentGateway = Funds::payment()
-            ->resolve($this->input('donation_type') ?? 'onetime');
+            ->resolve(DonationType::tryFrom($this->input('donation_type')) ?? DonationType::OneTime);
 
         $rules = [
             'donation_type' => 'required',
@@ -45,6 +46,12 @@ class CheckoutDonationRequest extends FormRequest
                 'city' => ['required', 'string', 'min:2'],
                 'country' => ['required', 'string'],
             ]);
+
+            if ($this->route('reward')->variants()->exists()) {
+                $rules = array_merge($rules, [
+                    'reward_variant' => ['required', 'exists:reward_variants,id'],
+                ]);
+            }
         }
 
         return array_merge($rules, $this->paymentGateway::rules());

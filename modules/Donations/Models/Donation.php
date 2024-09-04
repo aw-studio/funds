@@ -4,6 +4,8 @@ namespace Funds\Donations\Models;
 
 use Funds\Campaign\Concerns\BelongsToCampaign;
 use Funds\Core\Support\Amount;
+use Funds\Donations\Builder\DonationBuilder;
+use Funds\Donations\Enums\DonationType;
 use Funds\Order\Models\Order;
 use Funds\Reward\Models\Reward;
 use Funds\Reward\Models\RewardVariant;
@@ -26,46 +28,26 @@ class Donation extends Model
         'receipt_address',
     ];
 
+    public function newCollection(array $models = [])
+    {
+        return new DonationCollection($models);
+    }
+
+    public function newEloquentBuilder($query): DonationBuilder
+    {
+        return new DonationBuilder($query);
+    }
+
     public function casts(): array
     {
         return [
-            'recurring_details' => 'array',
+            'type' => DonationType::class,
         ];
     }
 
     public function getAmountAttribute($value)
     {
         return new Amount($value);
-    }
-
-    public static function createFromIntent(DonationIntent $intent): self
-    {
-        $donor = Donor::firstOrCreate(
-            [
-                'email' => $intent->email,
-            ],
-            [
-                'first_name' => $intent->name,
-            ]
-        );
-
-        $donor->donations()->make();
-
-        $donation = new self();
-        $donation->donor_id = $donor->id;
-        $donation->amount = $intent->amount;
-        $donation->campaign = $intent->campaign;
-        $donation->intent_id = $intent->id;
-
-        // TODO: this logic belongs into the RecurringDonations module
-        if ($intent->recurring_donation_data !== null) {
-            $donation->type = 'recurring';
-            $donation->recurring_details = $intent->recurring_donation_data;
-        }
-
-        $donation->save();
-
-        return $donation;
     }
 
     public function donationIntent()
@@ -107,13 +89,6 @@ class Donation extends Model
         )->withoutGlobalScope(CampaignScope::class);
     }
 
-    public function scopeSearch($query, $search)
-    {
-        return $query->whereHas('donor', function ($query) use ($search) {
-            $query->where('email', 'like', "%$search%");
-        });
-    }
-
     public function label(): string
     {
         if (($this->reward) !== null) {
@@ -135,6 +110,6 @@ class Donation extends Model
 
     public function getFrequencyLabel()
     {
-        return 'One-time donation';
+        return __('One-time donation');
     }
 }

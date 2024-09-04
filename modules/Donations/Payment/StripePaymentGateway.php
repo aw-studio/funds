@@ -3,6 +3,7 @@
 namespace Funds\Donations\Payment;
 
 use Funds\Core\Contracts\PaymentGatewayInterface;
+use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Models\DonationIntent;
 use Stripe\Exception\ApiErrorException;
 
@@ -10,7 +11,7 @@ class StripePaymentGateway implements PaymentGatewayInterface
 {
     public $stripe;
 
-    public static function canBeUsedFor(string $type): bool
+    public static function canBeUsedFor(DonationType $type): bool
     {
         if (! in_array($type, self::supportedDonationTypes())) {
             return false;
@@ -22,7 +23,7 @@ class StripePaymentGateway implements PaymentGatewayInterface
     public static function supportedDonationTypes(): array
     {
         return [
-            'onetime',
+            DonationType::OneTime,
         ];
     }
 
