@@ -52,7 +52,8 @@ test('A campaigns donations sum up to the total amount donated', function () {
         ->create([
             'amount' => 200,
         ]);
-
+    // total_donated is only avaialble when the global scope is applied
+    $campaign = Campaign::first();
     expect($campaign->totalAmountDonated()->cents)->toBe(600);
 });
 
@@ -67,6 +68,9 @@ test('The campaign progress is calculated based on the total amount donated and 
         ->create([
             'amount' => 200,
         ]);
+
+    // total_donated is only avaialble when the global scope is applied
+    $campaign = Campaign::first();
 
     expect($campaign->progress())->toBe(60);
 });
@@ -121,4 +125,18 @@ test('A campaign can count donations without an order', function () {
         ]);
 
     expect($campaign->noOrderDonationCount())->toBe(2);
+});
+
+test('A camapaigns total_donated is loaded by default', function () {
+    $campaign = Campaign::factory()->create();
+
+    Donation::factory()
+        ->for($campaign)
+        ->count(3)
+        ->create([
+            'amount' => 200,
+        ]);
+
+    expect(Campaign::first()->total_donated)->toBe(600);
+    expect(Campaign::first()->totalAmountDonated())->toEqual(new Amount(600));
 });

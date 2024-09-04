@@ -8,12 +8,16 @@ use Funds\Core\Support\Casts\AmountCast;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\DonationIntent;
 use Funds\Reward\Models\Reward;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
+/**
+ * @property int total_donated
+ *
+ * @method \Funds\Core\Support\Amount totalAmountDonated()
+ */
 class Campaign extends Model implements HasMedia
 {
     use HasFactory;
@@ -34,8 +38,6 @@ class Campaign extends Model implements HasMedia
         'status' => CampaignStatus::Draft,
     ];
 
-    // public function attributes
-
     public function casts()
     {
         return [
@@ -47,21 +49,12 @@ class Campaign extends Model implements HasMedia
         ];
     }
 
-    // protected function settings(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: function (?string $value) {
-    //             return (object) json_decode($value ?? [], true);
-    //         },
-    //         set: function (array|object $value) {
-    //             if (is_object($value)) {
-    //                 $value = (array) $value;
-    //             }
-
-    //             return json_encode($value);
-    //         }
-    //     )->shouldCache();
-    // }
+    public static function booted()
+    {
+        static::addGlobalScope('total_donated_scope', function ($query) {
+            $query->withSum('donations as total_donated', 'amount');
+        });
+    }
 
     public function rewards()
     {
@@ -94,7 +87,7 @@ class Campaign extends Model implements HasMedia
 
     public function totalAmountDonated()
     {
-        return new Amount($this->donations->sum('amount.cents'));
+        return new Amount($this->total_donated ?? 0);
     }
 
     public function progress()
