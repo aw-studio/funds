@@ -23,6 +23,8 @@ return new class extends Migration
             $table->json('order_details')->nullable();
             $table->string('payment_intent')->nullable();
             $table->string('payment_method')->nullable();
+            $table->json('receipt_address')->nullable();
+            // $table->boolean('requires_receipt');
             $table->string('type');
             $table->timestamps();
         });

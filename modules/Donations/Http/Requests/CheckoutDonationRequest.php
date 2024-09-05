@@ -6,6 +6,7 @@ use Funds\Core\Contracts\PaymentGatewayInterface;
 use Funds\Core\Facades\Funds;
 use Funds\Donations\Enums\DonationType;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CheckoutDonationRequest extends FormRequest
 {
@@ -53,6 +54,20 @@ class CheckoutDonationRequest extends FormRequest
                 ]);
             }
         }
+
+        $receiptAddressRule = Rule::requiredIf(function () {
+            return $this->input('requires_receipt') === true
+                && $this->input('use_shipping_address_for_receipt') !== true;
+        });
+        $rules = array_merge($rules, [
+            'requires_receipt' => ['nullable', 'boolean'],
+            'use_shipping_address_for_receipt' => ['nullable', 'boolean'],
+            'receipt_name' => [$receiptAddressRule, 'string'],
+            'receipt_address' => [$receiptAddressRule, 'string'],
+            'receipt_postal_code' => [$receiptAddressRule, 'string'],
+            'receipt_city' => [$receiptAddressRule, 'string'],
+            'receipt_country' => [$receiptAddressRule, 'string'],
+        ]);
 
         return array_merge($rules, $this->paymentGateway::rules());
     }

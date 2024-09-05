@@ -44,6 +44,7 @@ class DonationIntent extends Model
             'status' => DonationIntentStatus::class,
             'recurring_donation_data' => 'array',
             'order_details' => 'array',
+            'receipt_address' => 'array',
         ];
     }
 
@@ -94,8 +95,6 @@ class DonationIntent extends Model
         $donation = Funds::donationService($donationType)
             ->createDonationFromIntent($this->asDto());
 
-        // $donation = Donation::createFromIntent($this);
-
         $this->donation = $donation;
 
         // this could also just be a DonationCreated event?
@@ -126,6 +125,7 @@ class DonationIntent extends Model
             type: $this->type,
             paysFees: $this->pays_fees,
             campaignId: $this->campaign->id,
+            receiptAddress: $this->receipt_address,
             donationId: $this->donation?->id,
             orderDetails: $this->order_details,
         );

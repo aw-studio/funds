@@ -18,15 +18,16 @@
             method="POST"
             action="{{ route('public.checkout.store', ['campaign' => $campaign, 'reward' => $reward]) }}"
             x-data="{
-                type: @js(old('donation_type') ?? 'onetime'),
+                type: @js(old('donation_type') ?? 'one_time'),
                 amount: @js(old('amount') ?? $defaulAmount),
                 originalAmount: undefined,
                 fees: undefined,
                 submitEnabled: true,
                 paysFees: false,
+                requiresReceipt: false,
                 init() {
                     this.fees = this.amount * 0.03;
-
+            
                     this.$watch('amount', () => {
                         this.fees = this.amount * 0.03;
                     });
@@ -54,7 +55,7 @@
             <x-donations::checkout.donation-types />
             <div>
                 <h1 class="font-semibold">Payment</h1>
-                <x-stripe-payment-elements x-show="type == 'onetime'" />
+                <x-stripe-payment-elements x-show="type == 'one_time'" />
                 <x-donations::checkout.sepa-payment-elements x-show="type == 'recurring'" />
                 <div class="mt-4">
                     <label class="flex items-center">
@@ -66,6 +67,21 @@
                         >
                         <span class="ml-2">{{ __('Cover processing fees') }}</span>
                     </label>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label class="flex items-center">
+                    <input
+                        type="checkbox"
+                        name="requires_receipt"
+                        value="1"
+                        x-model="requiresReceipt"
+                    >
+                    <span class="ml-2">{{ __('I require a receipt') }}</span>
+                </label>
+                <div x-show="requiresReceipt">
+                    <x-donations::checkout.receipt-address :$countries />
                 </div>
             </div>
 

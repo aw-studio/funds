@@ -24,10 +24,12 @@ class DonationService implements DonationServiceInterface
         $donation->donor_id = $donor->id;
         $donation->amount = $intentData->amount;
         $donation->type = $intentData->type;
-        // $donation->pays_fees = $intentData->paysFees;
         $donation->campaign = Campaign::find($intentData->campaignId);
-        // This required?
         $donation->intent_id = $intentData->id;
+        $donation->receipt_address = $intentData->orderDetails['receipt_address'] ?? null;
+
+        // $donation->re
+
         $donation->save();
 
         return $donation;

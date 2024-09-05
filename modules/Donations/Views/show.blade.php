@@ -12,23 +12,25 @@
                     {{ $donation->amount }}
                 </div>
                 <hr />
-                <div>
+                <div class="flex gap-2">
+                    <x-icons.calendar />
+
                     {{ $donation->created_at->isoFormat('L LT') }}
                 </div>
-                <div>
-                    {{ $donation->getFrequencyLabel() }}
+                <div class="flex gap-2">
+                    <x-icons.rotate />
+                    {{ $donation->type->label() }}
                 </div>
-                <div>
+                <div class="flex gap-2">
                     @if ($donation->paidFees())
-                        {{ $donation->paidFeeAmount() }} ({{ $donation->campaign->fees }}%)
-                        {{ __('Transaction fees paid') }}
+                        <x-icons.square-percent />
+                        <span>{{ $donation->paidFeeAmount() }} ({{ $donation->campaign->fees }}%)
+                            {{ __('Transaction fees paid') }}</span>
                     @endif
                 </div>
 
             </div>
-            <div class="flex
-                            flex-col
-                            gap-8">
+            <div class="flex flex-col gap-8">
                 <div>
                     <span>{{ __('Donor') }}</span>
                     <div class="text-xl">

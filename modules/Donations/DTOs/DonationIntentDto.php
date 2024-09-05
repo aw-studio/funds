@@ -12,7 +12,8 @@ readonly class DonationIntentDto
         public string $type,
         public bool $paysFees,
         public int $campaignId,
+        public ?array $receiptAddress,
         public ?string $donationId,
-        public ?array $orderDetails = null
+        public ?array $orderDetails = null,
     ) {}
 }

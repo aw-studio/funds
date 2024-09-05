@@ -138,3 +138,100 @@ test('the Donation intent amount is increased by campaign fees if the user pays 
     expect(DonationIntent::count())->toBe(1);
     expect(DonationIntent::first()->amount)->toBe('103');
 });
+
+test('A receipt address is required when a receipt is required', function () {
+    $campaign = Campaign::factory()->create();
+    $reward = Reward::factory()
+        ->for($campaign)
+        ->create();
+
+    // $this->withoutExceptionHandling();
+    /**
+     * @var \Illuminate\Testing\TestResponse $response
+     */
+    $response = $this->post(route('public.checkout.store', [$campaign, $reward]), [
+        'donation_type' => 'one_time',
+        'amount' => 100,
+        'email' => 'user@user.com',
+        'name' => 'Test Name',
+        'address' => 'Test Address 27',
+        'postal_code' => '1245',
+        'city' => 'Test City',
+        'country' => 'Test Country',
+        'confirmation_token' => 'payment_confirmation_token',
+        'reward_id' => $reward->id,
+        'shipping_name' => 'Test Shipping',
+        'reward_variant' => RewardVariant::factory()->create(['reward_id' => $reward->id])->id,
+        'requires_receipt' => true,
+    ]);
+
+    $response->assertInvalid([
+        'receipt_name',
+        'receipt_address',
+        'receipt_postal_code',
+        'receipt_city',
+        'receipt_country',
+    ]);
+
+});
+
+test('A receipt_address is not required if the shipping address should be used ', function () {
+    $campaign = Campaign::factory()->create();
+    $reward = Reward::factory()
+        ->for($campaign)
+        ->create();
+
+    // $this->withoutExceptionHandling();
+    $response = $this->post(route('public.checkout.store', [$campaign, $reward]), [
+        'donation_type' => 'one_time',
+        'amount' => 100,
+        'email' => 'user@user.com',
+        'name' => 'Test Name',
+        'address' => 'Test Address 27',
+        'postal_code' => '1245',
+        'city' => 'Test City',
+        'country' => 'Test Country',
+        'confirmation_token' => 'payment_confirmation_token',
+        'reward_id' => $reward->id,
+        'shipping_name' => 'Test Shipping',
+        'reward_variant' => RewardVariant::factory()->create(['reward_id' => $reward->id])->id,
+        'requires_receipt' => true,
+        'use_shipping_address_for_receipt' => true,
+    ]);
+
+    $response->assertValid([
+        'receipt_name',
+        'receipt_address',
+        'receipt_postal_code',
+        'receipt_city',
+        'receipt_country',
+    ]);
+});
+
+test('DonationIntent contains receipt address', function () {
+    $campaign = Campaign::factory()->create();
+
+    $response = $this->post(route('public.checkout.store', [$campaign]), [
+        'donation_type' => 'one_time',
+        'amount' => 100,
+        'email' => 'foo@test.com',
+        'name' => 'Test Name',
+        'confirmation_token' => 'payment_confirmation_token',
+        'requires_receipt' => true,
+        'use_shipping_address_for_receipt' => false,
+        'receipt_name' => 'Test Receipt',
+        'receipt_address' => 'Test Receipt Address 27',
+        'receipt_postal_code' => '1245',
+        'receipt_city' => 'Test Receipt City',
+        'receipt_country' => 'Test Receipt Country',
+    ]);
+
+    expect(DonationIntent::count())->toBe(1);
+    expect(DonationIntent::first()->receipt_address)->toBe([
+        'name' => 'Test Receipt',
+        'address' => 'Test Receipt Address 27',
+        'postal_code' => '1245',
+        'city' => 'Test Receipt City',
+        'country' => 'Test Receipt Country',
+    ]);
+});

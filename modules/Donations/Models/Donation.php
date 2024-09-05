@@ -42,6 +42,7 @@ class Donation extends Model
     {
         return [
             'type' => DonationType::class,
+            'receipt_address' => 'array',
         ];
     }
 
@@ -106,10 +107,5 @@ class Donation extends Model
     public function paidFees(): bool
     {
         return $this->donationIntent?->pays_fees ?? false;
-    }
-
-    public function getFrequencyLabel()
-    {
-        return __('One-time donation');
     }
 }

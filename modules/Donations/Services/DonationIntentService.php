@@ -24,8 +24,12 @@ class DonationIntentService implements DonationIntentServiceInterface
             $validatedData['name'],
             $campaign,
             $this->makeOrderDetails($reward, $validatedData),
-            $validatedData['pays_fees'] ?? false
+            $validatedData['pays_fees'] ?? false,
         );
+
+        $intent->receipt_address = $this->makeReceiptAddress($validatedData);
+
+        ray($intent);
 
         $intent->amount = $this->getAmountWithFees(
             $validatedData['amount'],
@@ -80,6 +84,32 @@ class DonationIntentService implements DonationIntentServiceInterface
                 'country' => $validatedData['country'],
             ],
         ]);
+    }
+
+    public function makeReceiptAddress(array $validatedData): ?array
+    {
+        if (! $validatedData['requires_receipt']) {
+            return null;
+        }
+
+        if ($validatedData['use_shipping_address_for_receipt'] ?? false) {
+            return [
+                'name' => $validatedData['shipping_name'],
+                'address' => $validatedData['address'],
+                'address_addition' => $validatedData['address_addition'] ?? null,
+                'postal_code' => $validatedData['postal_code'],
+                'city' => $validatedData['city'],
+                'country' => $validatedData['country'],
+            ];
+        }
+
+        return [
+            'name' => $validatedData['receipt_name'],
+            'address' => $validatedData['receipt_address'],
+            'postal_code' => $validatedData['receipt_postal_code'],
+            'city' => $validatedData['receipt_city'],
+            'country' => $validatedData['receipt_country'],
+        ];
     }
 
     public function getAmountWithFees(
