@@ -14,7 +14,7 @@ with(
             ->with('donor', 'reward', 'order')
             ->when($this->includeRecurring == false, fn($query) => $query->where('type', '!=', 'recurring'))
             ->when($this->filterReward, fn($query) => $query->whereHas('order', fn($query) => $query->where('reward_id', $this->filterReward)))
-            ->search($this->search)
+            ->when(strlen($this->search) > 2, fn($query) => $query->search($this->search))
             ->paginate(10),
     ],
 );
