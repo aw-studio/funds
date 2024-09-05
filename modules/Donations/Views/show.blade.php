@@ -29,6 +29,20 @@
                     @endif
                 </div>
 
+                @if ($donation->receipt_address)
+                    <dic class="">
+                        <span>{{ __('Receipt address') }}</span>
+                        <div>
+                            {{ $donation->receipt_address['name'] }}<br />
+                            {{ $donation->receipt_address['address'] }} <br />
+                            {{ $donation->receipt_address['postal_code'] }}
+                            {{ $donation->receipt_address['city'] }} <br />
+                            {{ $donation->receipt_address['country'] }}
+                        </div>
+                        {{-- TODO: Add download receipt button --}}
+                    </dic>
+                @endif
+
             </div>
             <div class="flex flex-col gap-8">
                 <div>

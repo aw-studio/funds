@@ -15,19 +15,13 @@ $confirm = function () {
         {{ __('Donation Intent') }} #{{ $intent->id }}
     </h2>
     <div class="p-6 text-gray-900 dark:text-gray-100">
-        @dump($intent->toArray())
+        <pre>{{ json_encode($intent->toArray(), JSON_PRETTY_PRINT) }} </pre>
 
-        @if ($intent->type == 'recurring')
-            {{ $intent->recurring_donation_data['frequency'] }}
-            {{ $intent->recurring_donation_data['amount'] }}
-            {{ $intent->recurring_donation_data['payment']['iban'] }}
-
-            @volt('confirmRecurringDonationIntent')
-                <div>
-                    <button wire:click="confirm">{{ __('Confirm') }}</button>
-                </div>
-            @endvolt
-        @endif
+        @volt('confirmRecurringDonationIntent')
+            <div>
+                <x-button wire:click="confirm">{{ __('Confirm') }}</x-button>
+            </div>
+        @endvolt
     </div>
 
 </x-campaign-layout>

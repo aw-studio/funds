@@ -29,8 +29,6 @@ class DonationIntentService implements DonationIntentServiceInterface
 
         $intent->receipt_address = $this->makeReceiptAddress($validatedData);
 
-        ray($intent);
-
         $intent->amount = $this->getAmountWithFees(
             $validatedData['amount'],
             $validatedData['pays_fees'] ?? false,
@@ -88,7 +86,7 @@ class DonationIntentService implements DonationIntentServiceInterface
 
     public function makeReceiptAddress(array $validatedData): ?array
     {
-        if (! $validatedData['requires_receipt']) {
+        if (! ($validatedData['requires_receipt'] ?? false)) {
             return null;
         }
 

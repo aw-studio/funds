@@ -28,8 +28,6 @@ class DonationService implements DonationServiceInterface
         $donation->intent_id = $intentData->id;
         $donation->receipt_address = $intentData->orderDetails['receipt_address'] ?? null;
 
-        // $donation->re
-
         $donation->save();
 
         return $donation;
