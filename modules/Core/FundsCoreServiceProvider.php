@@ -32,10 +32,6 @@ class FundsCoreServiceProvider extends ServiceProvider
             return new Navigation();
         });
 
-        $this->app->singleton('funds.donationResolver', function ($app) {
-            return new DonationResolver();
-        });
-
     }
 
     public function registerModuleServiceProviders()

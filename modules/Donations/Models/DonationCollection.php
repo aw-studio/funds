@@ -2,20 +2,23 @@
 
 namespace Funds\Donations\Models;
 
-use Funds\Core\Facades\Funds;
+use Funds\Core\Contracts\DonationAdapterInterface;
 use Funds\Core\Support\Amount;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\App;
 
 class DonationCollection extends Collection
 {
     public function __construct($items = [])
     {
-        // Resolve additional integrations
-        $items = array_map(function ($item) {
-            return Funds::donationResolver()->resolve($item);
-        }, $items);
-
         parent::__construct($items);
+
+        // Resolve additional integrations
+        if (App::bound(DonationAdapterInterface::class)) {
+            $this->items = array_map(function ($item) {
+                return App::make(DonationAdapterInterface::class)->adapt($item);
+            }, $items);
+        }
     }
 
     public function totalAmount(): Amount

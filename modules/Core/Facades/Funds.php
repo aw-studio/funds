@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool has(string $module)
  * @method static \Funds\Core\PaymentGatewayResolver payment()
  * @method static \Funds\Core\Navigation navigation()
- * @method static \Funds\Core\DonationResolver donationResolver()
  * @method static \Funds\Core\Contracts\DonationIntentServiceInterface resolveIntentHandler(\Funds\Donations\Enums\DonationType $type)
  * @method static \Funds\Core\Contracts\DonationServiceInterface donationService(\Funds\Donations\Enums\DonationType $type)
  *
