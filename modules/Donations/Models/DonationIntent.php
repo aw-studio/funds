@@ -3,12 +3,12 @@
 namespace Funds\Donations\Models;
 
 use Funds\Campaign\Concerns\BelongsToCampaign;
-use Funds\Core\Facades\Funds;
-use Funds\Core\Support\Amount;
 use Funds\Donations\DTOs\DonationIntentDto;
 use Funds\Donations\Enums\DonationIntentStatus;
 use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Events\DonationIntentSucceeded;
+use Funds\Foundation\Facades\Funds;
+use Funds\Foundation\Support\Amount;
 use Funds\Reward\Models\Reward;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -87,18 +87,23 @@ class DonationIntent extends Model
             // This is a rety, is that possible?
         }
 
-        // sending a DTO to the service is the better way.
-        // but we would have to blow up the DTO with all the data
-        // or we could just pass the intent and let the service fetch the data
-        // dd($this->type);
-        $donationType = DonationType::tryFrom($this->type) ?? DonationType::OneTime;
-        $donation = Funds::donationService($donationType)
-            ->createDonationFromIntent($this->asDto());
-
+        $donation = $this->convertToDonation();
         $this->donation = $donation;
 
         // this could also just be a DonationCreated event?
         DonationIntentSucceeded::dispatch($this->asDto());
+    }
+
+    public function convertToDonation(): Donation
+    {
+        // sending a DTO to the service is the better way.
+        // but we would have to blow up the DTO with all the data
+        // or we could just pass the intent and let the service fetch the data
+        $donationType = DonationType::tryFrom($this->type) ?? DonationType::OneTime;
+
+        return Funds::donationService($donationType)
+            ->createDonationFromIntent($this->asDto());
+
     }
 
     public function fail()

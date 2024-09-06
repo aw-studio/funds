@@ -2,8 +2,8 @@
 
 namespace Funds\Donations;
 
-use Funds\Core\Facades\Funds;
 use Funds\Donations\Payment\StripePaymentGateway;
+use Funds\Foundation\Facades\Funds;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;

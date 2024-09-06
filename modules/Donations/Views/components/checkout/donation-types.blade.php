@@ -1,5 +1,5 @@
 <?php
-use Funds\Core\Facades\Funds;
+use Funds\Foundation\Facades\Funds;
 ?>
 @if (count(Funds::donationTypes()) > 1)
     <div>

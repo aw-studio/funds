@@ -3,11 +3,11 @@
 namespace Funds\Donations\Http\Controllers;
 
 use Funds\Campaign\Models\Campaign;
-use Funds\Core\Facades\Funds;
 use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Http\Requests\CheckoutDonationRequest;
 use Funds\Donations\Models\DonationIntent;
 use Funds\Donations\Payment\PaymentResponseData;
+use Funds\Foundation\Facades\Funds;
 use Funds\Reward\Models\Reward;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

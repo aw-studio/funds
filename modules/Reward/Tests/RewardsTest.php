@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\User;
-use Funds\Core\Support\Amount;
+use Funds\Foundation\Support\Amount;
 use Funds\Reward\Models\Reward;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

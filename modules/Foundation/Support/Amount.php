@@ -1,6 +1,6 @@
 <?php
 
-namespace Funds\Core\Support;
+namespace Funds\Foundation\Support;
 
 use NumberFormatter;
 

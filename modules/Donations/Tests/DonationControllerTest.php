@@ -32,6 +32,7 @@ test('An authenticated user can add a new donation', function () {
 
     actingAsUser();
 
+    $this->withoutExceptionHandling();
     $response = $this->post(route('donations.store'), [
         'email' => 'foo@bar.com',
         'amount' => 100,

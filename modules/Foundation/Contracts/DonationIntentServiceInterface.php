@@ -1,6 +1,6 @@
 <?php
 
-namespace Funds\Core\Contracts;
+namespace Funds\Foundation\Contracts;
 
 use Funds\Campaign\Models\Campaign;
 use Funds\Donations\Models\DonationIntent;

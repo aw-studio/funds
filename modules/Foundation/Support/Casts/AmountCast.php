@@ -1,8 +1,8 @@
 <?php
 
-namespace Funds\Core\Support\Casts;
+namespace Funds\Foundation\Support\Casts;
 
-use Funds\Core\Support\Amount;
+use Funds\Foundation\Support\Amount;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 

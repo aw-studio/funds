@@ -3,9 +3,9 @@
 namespace Funds\Donations\Models;
 
 use Funds\Campaign\Concerns\BelongsToCampaign;
-use Funds\Core\Support\Amount;
 use Funds\Donations\Builder\DonationBuilder;
 use Funds\Donations\Enums\DonationType;
+use Funds\Foundation\Support\Amount;
 use Funds\Order\Models\Order;
 use Funds\Reward\Models\Reward;
 use Funds\Reward\Models\RewardVariant;

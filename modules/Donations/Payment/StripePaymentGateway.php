@@ -2,9 +2,9 @@
 
 namespace Funds\Donations\Payment;
 
-use Funds\Core\Contracts\PaymentGatewayInterface;
 use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Models\DonationIntent;
+use Funds\Foundation\Contracts\PaymentGatewayInterface;
 use Stripe\Exception\ApiErrorException;
 
 class StripePaymentGateway implements PaymentGatewayInterface

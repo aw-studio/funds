@@ -2,9 +2,9 @@
 
 namespace Funds\Donations\Http\Requests;
 
-use Funds\Core\Contracts\PaymentGatewayInterface;
-use Funds\Core\Facades\Funds;
 use Funds\Donations\Enums\DonationType;
+use Funds\Foundation\Contracts\PaymentGatewayInterface;
+use Funds\Foundation\Facades\Funds;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

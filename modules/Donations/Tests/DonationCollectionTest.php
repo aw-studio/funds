@@ -1,8 +1,8 @@
 <?php
 
-use Funds\Core\Support\Amount;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\DonationCollection;
+use Funds\Foundation\Support\Amount;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

@@ -1,8 +1,8 @@
 <?php
 
-use Funds\Core\PaymentGatewayResolver;
 use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Payment\StripePaymentGateway;
+use Funds\Foundation\PaymentGatewayResolver;
 
 test('It registers a payment gateway', function () {
     $resolver = new PaymentGatewayResolver();

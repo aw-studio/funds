@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use Funds\Core\Facades\Funds;
+use Funds\Foundation\Facades\Funds;
 use App\Livewire\Actions\Logout;
 
 new class extends Component {

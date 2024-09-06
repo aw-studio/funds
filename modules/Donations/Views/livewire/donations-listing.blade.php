@@ -41,7 +41,7 @@ $delete = function ($id) {
             </x-select>
         </div>
         <div>
-            @if (\Funds\Core\Facades\Funds::hasDonationType('recurring'))
+            @if (\Funds\Foundation\Facades\Funds::hasDonationType('recurring'))
                 <label
                     for="includeRecurring"
                     class="cursor-pointer inline-flex items-center gap-2 select-none"

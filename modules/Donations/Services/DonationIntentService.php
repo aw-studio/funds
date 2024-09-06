@@ -3,11 +3,11 @@
 namespace Funds\Donations\Services;
 
 use Funds\Campaign\Models\Campaign;
-use Funds\Core\Contracts\DonationIntentServiceInterface;
-use Funds\Core\Contracts\PaymentGatewayInterface;
 use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Models\DonationIntent;
 use Funds\Donations\Payment\PaymentResponseData;
+use Funds\Foundation\Contracts\DonationIntentServiceInterface;
+use Funds\Foundation\Contracts\PaymentGatewayInterface;
 use Funds\Order\DTOs\OrderDetailsData;
 use Funds\Reward\Models\Reward;
 

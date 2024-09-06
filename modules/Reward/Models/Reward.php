@@ -3,7 +3,7 @@
 namespace Funds\Reward\Models;
 
 use Funds\Campaign\Concerns\BelongsToCampaign;
-use Funds\Core\Support\Casts\AmountCast;
+use Funds\Foundation\Support\Casts\AmountCast;
 use Funds\Reward\Models\Scopes\CampaignScope;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

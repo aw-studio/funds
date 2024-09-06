@@ -3,10 +3,10 @@
 namespace Funds\Campaign\Models;
 
 use Funds\Campaign\Enum\CampaignStatus;
-use Funds\Core\Support\Amount;
-use Funds\Core\Support\Casts\AmountCast;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\DonationIntent;
+use Funds\Foundation\Support\Amount;
+use Funds\Foundation\Support\Casts\AmountCast;
 use Funds\Reward\Models\Reward;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +16,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 /**
  * @property int total_donated
  *
- * @method \Funds\Core\Support\Amount totalAmountDonated()
+ * @method \Funds\Foundation\Support\Amount totalAmountDonated()
  */
 class Campaign extends Model implements HasMedia
 {

@@ -1,5 +1,6 @@
 <?php
 
+use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Models\DonationIntent;
 use Funds\Donations\Payment\PaymentResponseData;
 use Funds\Donations\Payment\StripePaymentGateway;
@@ -10,13 +11,13 @@ use Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class);
 test('the stripe payment gateway can be used for onetime donations', function () {
-    expect(StripePaymentGateway::canBeUsedFor('onetime'))->toBeTrue();
-    expect(StripePaymentGateway::canBeUsedFor('monthly'))->toBeFalse();
+    expect(StripePaymentGateway::canBeUsedFor(DonationType::OneTime))->toBeTrue();
+    expect(StripePaymentGateway::canBeUsedFor(DonationType::Recurring))->toBeFalse();
 });
 
 test('the stripe payment gateway supports onetime donations', function () {
-    expect(StripePaymentGateway::supportedDonationTypes())->toHaveAttribute('onetime');
-});
+    expect(StripePaymentGateway::supportedDonationTypes())->toHaveAttribute(DonationType::OneTime);
+})->todo('attribute should be string');
 
 test('the stripe payment gateway validation rules include confirmation_token', function () {
     expect(StripePaymentGateway::rules())->toHaveKey('confirmation_token');

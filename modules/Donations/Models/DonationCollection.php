@@ -2,8 +2,8 @@
 
 namespace Funds\Donations\Models;
 
-use Funds\Core\Contracts\DonationAdapterInterface;
-use Funds\Core\Support\Amount;
+use Funds\Foundation\Contracts\DonationAdapterInterface;
+use Funds\Foundation\Support\Amount;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
 

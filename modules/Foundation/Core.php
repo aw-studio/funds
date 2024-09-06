@@ -1,12 +1,12 @@
 <?php
 
-namespace Funds\Core;
+namespace Funds\Foundation;
 
-use Funds\Core\Contracts\DonationIntentServiceInterface;
-use Funds\Core\Contracts\DonationServiceInterface;
 use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Services\DonationIntentService;
 use Funds\Donations\Services\DonationService;
+use Funds\Foundation\Contracts\DonationIntentServiceInterface;
+use Funds\Foundation\Contracts\DonationServiceInterface;
 
 class Core
 {

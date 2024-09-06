@@ -3,5 +3,5 @@
 return [
     App\Providers\AppServiceProvider::class,
     App\Providers\VoltServiceProvider::class,
-    \Funds\Core\FundsCoreServiceProvider::class,
+    \Funds\Foundation\FundsCoreServiceProvider::class,
 ];

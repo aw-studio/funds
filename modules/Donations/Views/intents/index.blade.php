@@ -9,7 +9,7 @@
                 class="flex items-center justify-between mb-4 border-b border-gray-200 dark:border-gray-700 py-2"
             >
                 <div class="">
-                    {{ new \Funds\Core\Support\Amount($intent->amount) }}
+                    {{ new \Funds\Foundation\Support\Amount($intent->amount) }}
                 </div>
                 <div class="">
                     {{ $intent->email }}

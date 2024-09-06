@@ -1,6 +1,6 @@
 <?php
 
-namespace Funds\Core;
+namespace Funds\Foundation;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\File;

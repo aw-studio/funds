@@ -1,6 +1,6 @@
 <?php
 
-namespace Funds\Core;
+namespace Funds\Foundation;
 
 class Navigation
 {

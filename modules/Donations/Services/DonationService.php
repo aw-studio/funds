@@ -3,10 +3,10 @@
 namespace Funds\Donations\Services;
 
 use Funds\Campaign\Models\Campaign;
-use Funds\Core\Contracts\DonationServiceInterface;
 use Funds\Donations\DTOs\DonationIntentDto;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\Donor;
+use Funds\Foundation\Contracts\DonationServiceInterface;
 
 class DonationService implements DonationServiceInterface
 {

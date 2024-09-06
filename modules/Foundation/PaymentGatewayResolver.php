@@ -1,9 +1,9 @@
 <?php
 
-namespace Funds\Core;
+namespace Funds\Foundation;
 
-use Funds\Core\Contracts\PaymentGatewayInterface;
 use Funds\Donations\Enums\DonationType;
+use Funds\Foundation\Contracts\PaymentGatewayInterface;
 
 class PaymentGatewayResolver
 {
