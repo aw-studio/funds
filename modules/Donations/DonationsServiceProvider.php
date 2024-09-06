@@ -3,6 +3,10 @@
 namespace Funds\Donations;
 
 use Funds\Donations\Payment\StripePaymentGateway;
+use Funds\Donations\Services\DonationIntentService;
+use Funds\Donations\Services\DonationService;
+use Funds\Foundation\Contracts\DonationIntentServiceInterface;
+use Funds\Foundation\Contracts\DonationServiceInterface;
 use Funds\Foundation\Facades\Funds;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -27,6 +31,9 @@ class DonationsServiceProvider extends ServiceProvider
         ]);
 
         Funds::payment()->register(StripePaymentGateway::class);
+
+        $this->app->singleton(DonationServiceInterface::class, DonationService::class);
+        $this->app->singleton(DonationIntentServiceInterface::class, DonationIntentService::class);
 
         Blade::component('stripe-payment-elements', \Funds\Donations\Payment\StripePaymentElements::class);
 

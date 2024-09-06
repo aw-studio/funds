@@ -49,6 +49,7 @@ test('An authenticated user can view a donation', function () {
         ->for(auth()->user()->currentCampaign)
         ->create();
 
+    $this->withoutExceptionHandling();
     $response = $this->get(route('donations.show', $donation));
 
     $response->assertViewIs('donations::show');

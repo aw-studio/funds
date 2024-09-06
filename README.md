@@ -4,8 +4,8 @@ A self hosted crowd-fundraising platform.
 
 ## Core Modules
 
--   [Foundation](modules/Core/README.md)
--   [Campaign](modules/Campaigns/README.md)
+-   [Foundation](modules/Foundation/README.md)
+-   [Campaign](modules/Campaign/README.md)
 -   [Donations](modules/Donations/README.md)
--   [Orders](modules/Orders/README.md)
+-   [Orders](modules/Order/README.md)
 -   [Rewards](modules/Reward/README.md)

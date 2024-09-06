@@ -3,7 +3,6 @@
 namespace Funds\Donations\Http\Controllers;
 
 use Funds\Campaign\Models\Campaign;
-use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Http\Requests\CheckoutDonationRequest;
 use Funds\Donations\Models\DonationIntent;
 use Funds\Donations\Payment\PaymentResponseData;
@@ -34,9 +33,7 @@ class CheckoutController
     ) {
         $validated = $request->validated();
 
-        $service = Funds::resolveIntentHandler(
-            DonationType::tryFrom($validated['donation_type'])
-        );
+        $service = Funds::intentHandler();
 
         $intent = $service->createDonationIntent(
             $validated,

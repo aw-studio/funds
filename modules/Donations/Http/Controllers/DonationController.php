@@ -3,6 +3,7 @@
 namespace Funds\Donations\Http\Controllers;
 
 use Funds\Donations\Enums\DonationIntentStatus;
+use Funds\Donations\Enums\DonationType;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\DonationIntent;
 use Funds\Donations\Models\Donor;
@@ -39,6 +40,7 @@ class DonationController
         $donation->amount = $validated['amount'];
         $donation->campaign_id = $request->user()->currentCampaign->id;
         $donation->donor_id = $donor->id;
+        $donation->type = DonationType::OneTime;
 
         $donor->donations()->save($donation);
 

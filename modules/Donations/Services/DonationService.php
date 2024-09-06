@@ -10,11 +10,10 @@ use Funds\Foundation\Contracts\DonationServiceInterface;
 
 class DonationService implements DonationServiceInterface
 {
-    public function createDonationFromIntent(
-        DonationIntentDto $intentData,
-    ): Donation {
+    public function createDonationFromIntent(DonationIntentDto $intentData): Donation
+    {
 
-        $donor = $this->resolveDonor(
+        $donor = $this->findOrCreateDonor(
             $intentData->email,
             $intentData->name
         );
@@ -33,16 +32,14 @@ class DonationService implements DonationServiceInterface
         return $donation;
     }
 
-    public function resolveDonor(
-        $email,
-        $name
-    ) {
+    public function findOrCreateDonor(string $email, string $name)
+    {
         return Donor::firstOrCreate(
             [
                 'email' => $email,
             ],
             [
-                'first_name' => $name,
+                'name' => $name,
             ]
         );
 

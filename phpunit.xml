@@ -11,6 +11,13 @@
         <testsuite name="Feature">
             <directory>tests/Feature</directory>
         </testsuite>
+        <testsuite name="Core">
+            <directory>./modules/Foundation/Tests</directory>
+            <directory>./modules/Campaign/Tests</directory>
+            <directory>./modules/Donations/Tests</directory>
+            <directory>./modules/Reward/Tests</directory>
+            <directory>./modules/Order/Tests</directory>
+        </testsuite>
         <testsuite name="Modules">
             <directory>./modules/*/Tests</directory>
         </testsuite>

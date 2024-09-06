@@ -8,6 +8,4 @@ use Funds\Donations\Models\Donation;
 interface DonationServiceInterface
 {
     public function createDonationFromIntent(DonationIntentDto $data): Donation;
-
-    // public function createDonation(DonationIntentDto $data): Donation;
 }

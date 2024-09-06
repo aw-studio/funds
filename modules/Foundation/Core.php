@@ -2,9 +2,6 @@
 
 namespace Funds\Foundation;
 
-use Funds\Donations\Enums\DonationType;
-use Funds\Donations\Services\DonationIntentService;
-use Funds\Donations\Services\DonationService;
 use Funds\Foundation\Contracts\DonationIntentServiceInterface;
 use Funds\Foundation\Contracts\DonationServiceInterface;
 
@@ -39,25 +36,13 @@ class Core
         return app('funds.navigation');
     }
 
-    public function resolveIntentHandler(DonationType $donationType): DonationIntentServiceInterface
+    public function intentHandler(): DonationIntentServiceInterface
     {
-
-        if ($donationType === DonationType::Recurring && app()->bound('funds.donationIntentHandler.recurring')) {
-            return app('funds.donationIntentHandler.recurring');
-        }
-
-        return new DonationIntentService;
-
+        return app(DonationIntentServiceInterface::class);
     }
 
-    public function donationService(DonationType $donationType): DonationServiceInterface
+    public function donationService(): DonationServiceInterface
     {
-
-        if ($donationType === DonationType::Recurring && app()->bound('funds.donationHandler.recurring')) {
-            return app('funds.donationHandler.recurring');
-        }
-
-        return new DonationService;
-
+        return app(DonationServiceInterface::class);
     }
 }

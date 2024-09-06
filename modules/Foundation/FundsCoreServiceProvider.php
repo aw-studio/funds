@@ -13,24 +13,18 @@ class FundsCoreServiceProvider extends ServiceProvider
     {
         $this->registerModuleServiceProviders();
 
-        Route::macro('app', function ($callback) {
-            Route::group([
+        Route::macro(
+            'app',
+            fn ($callback) => Route::group([
                 'middleware' => ['web', 'auth'],
                 'prefix' => 'app',
                 // 'as' => 'app.',
-            ], $callback);
-        });
+            ], $callback)
+        );
 
-        $this->app->bind('funds.core', fn () => new Core());
-        $this->app->singleton('funds.payment', function ($app) {
-            $resolver = new PaymentGatewayResolver();
-
-            return $resolver;
-        });
-
-        $this->app->singleton('funds.navigation', function ($app) {
-            return new Navigation();
-        });
+        $this->app->bind('funds.core', Core::class);
+        $this->app->singleton('funds.payment', PaymentGatewayResolver::class);
+        $this->app->singleton('funds.navigation', Navigation::class);
 
     }
 
@@ -55,9 +49,10 @@ class FundsCoreServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->guessFactoryNamespaces();
-
         $this->mergeConfigFrom(__DIR__.'/config/funds.php', 'funds');
+        if ($this->app->runningInConsole()) {
+            $this->guessFactoryNamespaces();
+        }
 
     }
 
