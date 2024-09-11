@@ -1,15 +1,7 @@
 @props(['campaign', 'actions' => null, 'backRoute' => null])
-<x-app-layout>
+<x-app-layout :backLink="$backRoute ?? route('campaigns.index')">
     <x-slot name="header">
-        <a
-            class="mb-2 flex items-center text-xs text-gray-500"
-            href="{{ $backRoute ?? route('campaigns.index') }}"
-        >
-            <x-icons.arrow-left />
-            {{ __('Back') }}
-        </a>
-        <div class="flex min-h-12">
-
+        <div class="flex ">
             <a
                 class="font-bold text-2xl font-serif text-gray-800  leading-tight"
                 href="{{ $campaign->appRoute() }}"

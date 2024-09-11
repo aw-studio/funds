@@ -1,3 +1,4 @@
+@props(['backLink' => null])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -23,6 +24,17 @@
     <div class="min-h-screen bg-white">
         <livewire:layout.navigation />
 
+        @isset($backLink)
+            <div class="max-w-7xl mx-auto pt-6 px-4 sm:px-6 lg:px-8 pb-0">
+                <a
+                    class="mb-2 flex items-center text-xs text-gray-500"
+                    href="{{ $backLink }}"
+                >
+                    <x-icons.arrow-left />
+                    {{ __('Back') }}
+                </a>
+            </div>
+        @endisset
         <!-- Page Heading -->
         @if (isset($header))
             <header class="">
