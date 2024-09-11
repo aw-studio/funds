@@ -12,18 +12,18 @@
                 required
             />
             <x-input
+                name="street"
+                autocomplete="street-address"
+                placeholder="{{ __('Street Address') }}"
+                value="{{ old('street') }}"
+                maxlength="300"
+                required
+            />
+            <x-input
                 name="address_addition"
                 type="text"
                 placeholder="{{ __('Address Addition') }}"
                 value="{{ old('address_addition') }}"
-            />
-            <x-input
-                name="address"
-                autocomplete="address-line1"
-                placeholder="{{ __('Street Address') }}"
-                value="{{ old('address') }}"
-                maxlength="300"
-                required
             />
             <x-input
                 name="postal_code"
@@ -42,10 +42,10 @@
                 required
             />
 
-            <select
+            <x-select
                 name="country"
-                class="border border-gray-200 rounded-lg p-2"
                 required
+                autocomplete="countryCode"
             >
                 <option value="">{{ __('Country') }}</option>
                 @foreach ($countries as $countryCode => $country)
@@ -55,7 +55,8 @@
                         {{ old('countryCode') == $countryCode ? 'selected' : '' }}
                     >{{ $country }}</option>
                 @endforeach
-            </select>
+            </x-select>
+
         </div>
     </div>
 @endif

@@ -32,17 +32,38 @@
                 </div>
                 <hr class="my-8" />
                 @if ($donation->receipt_address)
-                    <dic class="">
-                        <span>{{ __('Receipt address') }}</span>
-                        <div>
+                    <div class="relative">
+                        <span class="text-sm text-gray-500">{{ __('Receipt address') }}</span>
+                        <x-button
+                            round
+                            outlined
+                            class="w-8 h-8 items-center justify-center flex !p-0 absolute top-2 right-8"
+                            href="{{ route('donations.receipt-address.edit', $donation) }}"
+                        >
+                            <x-icons.pencil class="w-4 h-4" />
+                        </x-button>
+                        <div class="text-base">
                             {{ $donation->receipt_address['name'] }}<br />
                             {{ $donation->receipt_address['address'] }} <br />
                             {{ $donation->receipt_address['postal_code'] }}
                             {{ $donation->receipt_address['city'] }} <br />
                             {{ $donation->receipt_address['country'] }}
                         </div>
-                        {{-- TODO: Add download receipt button --}}
-                    </dic>
+                        <div class="my-8">
+                            <div class="bg-gray-50 p-4 inline-flex items-center justify-between gap-2 rounded-xl">
+                                <x-icons.paperclip />
+                                <a
+                                    href="{{ route('donations.receipt', $donation) }}"
+                                    class="flex gap-4"
+                                >
+                                    {{ __('Download receipt') }}
+                                    <x-icons.download />
+                                </a>
+
+                            </div>
+                        </div>
+
+                    </div>
                 @endif
 
             </div>

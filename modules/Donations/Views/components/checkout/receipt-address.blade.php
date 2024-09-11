@@ -26,14 +26,12 @@
                     type="text"
                     name="receipt_name"
                     :label="__('Name')"
-                    required
                 />
                 <x-input
                     id="receipt_address"
                     type="text"
                     name="receipt_address"
                     :label="__('Address')"
-                    required
                 />
                 <div class="grid grid-cols-3 gap-2">
                     <div class="col-span-1">
@@ -42,7 +40,6 @@
                             type="text"
                             name="receipt_postal_code"
                             :label="__('Postal code')"
-                            required
                         />
                     </div>
                     <div class="col-span-2">
@@ -51,7 +48,6 @@
                             type="text"
                             name="receipt_city"
                             :label="__('City')"
-                            required
                         />
 
                     </div>
@@ -66,7 +62,6 @@
                     id="receipt_country"
                     name="receipt_country"
                     :label="__('Country')"
-                    required
                 >
                     @foreach ($countries as $code => $country)
                         <option value="{{ $code }}">{{ $country }}</option>

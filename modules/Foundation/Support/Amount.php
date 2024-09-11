@@ -2,6 +2,7 @@
 
 namespace Funds\Foundation\Support;
 
+use Illuminate\Support\Number;
 use NumberFormatter;
 
 class Amount implements \Stringable
@@ -28,5 +29,10 @@ class Amount implements \Stringable
     public function __toString(): string
     {
         return $this->format();
+    }
+
+    public function toWords(): string
+    {
+        return Number::spell($this->cents / 100, app()->getLocale());
     }
 }
