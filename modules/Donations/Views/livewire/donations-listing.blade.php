@@ -130,5 +130,7 @@ $delete = function ($id) {
         </table>
     </div>
 
-    {{ $donations->links() }}
+    <div class="mt-8">
+        {{ $donations->onEachSide(0)->links('donations::components.pagination') }}
+    </div>
 </section>

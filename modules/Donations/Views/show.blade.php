@@ -1,34 +1,36 @@
-<x-app-layout :backRoute="route('donations.index')">
-    <div class="mx-auto max-w-7xl py-12">
-
-        <h2 class="text-2xl font-serif text-gray-800">
+<x-app-layout :backLink="route('donations.index')">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-serif">
             @lang('Donation') #{{ $donation->id }}
         </h2>
-        <hr />
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <hr class="mt-4 mb-8" />
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div>
-                {{ __('Transaction') }}
-                <div class="text-xl font-bold font-serif mb-2">
-                    {{ $donation->amount }}
+                <div class="">
+                    {{ __('Transaction') }}
+                    <div class="text-xl font-bold font-serif mb-2">
+                        {{ $donation->amount }}
+                    </div>
                 </div>
-                <hr />
-                <div class="flex gap-2">
-                    <x-icons.calendar />
-
-                    {{ $donation->created_at->isoFormat('L LT') }}
+                <hr class="my-8" />
+                <div class="space-y-2">
+                    <div class="flex gap-2">
+                        <x-icons.calendar />
+                        {{ $donation->created_at->isoFormat('L LT') }}
+                    </div>
+                    <div class="flex gap-2">
+                        <x-icons.rotate />
+                        {{ $donation->type->label() }}
+                    </div>
+                    <div class="flex gap-2">
+                        @if ($donation->paidFees())
+                            <x-icons.square-percent />
+                            <span>{{ $donation->paidFeeAmount() }} ({{ $donation->campaign->fees }}%)
+                                {{ __('Transaction fees paid') }}</span>
+                        @endif
+                    </div>
                 </div>
-                <div class="flex gap-2">
-                    <x-icons.rotate />
-                    {{ $donation->type->label() }}
-                </div>
-                <div class="flex gap-2">
-                    @if ($donation->paidFees())
-                        <x-icons.square-percent />
-                        <span>{{ $donation->paidFeeAmount() }} ({{ $donation->campaign->fees }}%)
-                            {{ __('Transaction fees paid') }}</span>
-                    @endif
-                </div>
-
+                <hr class="my-8" />
                 @if ($donation->receipt_address)
                     <dic class="">
                         <span>{{ __('Receipt address') }}</span>
@@ -46,33 +48,43 @@
             </div>
             <div class="flex flex-col gap-8">
                 <div>
-                    <span>{{ __('Donor') }}</span>
-                    <div class="text-xl">
-                        <p>{{ $donation->donor->name }}</p>
-                        <span class="text-sm"> {{ $donation->donor->email }}</span>
+                    <span class="text-gray-500 text-sm">{{ __('Donor') }}</span>
+                    <div>
+                        <p class="text-xl font-serif">{{ $donation->donor->name }}</p>
+                        <p class="flex gap-2 mt-2 items-center">
+                            <x-icons.mail />
+                            {{ $donation->donor->email }}
+                        </p>
                     </div>
                 </div>
                 <div>
-                    <span>{{ __('Type') }}</span>
-                    <div class="text-xl">
+                    <span class="text-gray-500 text-sm">{{ __('Type') }}</span>
+                    <div class="text-xl font-serif">
                         {{ $donation->label() }}
                     </div>
-                    <div class="">
-                        {{ $donation->reward?->name }}
+                    <div class="mt-2">
+                        @if ($donation->reward)
+                            <p class="flex gap-2 items-center">
+                                <x-icons.gift />
+                                {{ $donation->reward->name }}
+                            </p>
+                        @endif
                         @if ($donation->rewardVariant)
-                            {{ $donation->rewardVariant->name }}
+                            <p class="flex gap-2 items-center">
+                                <x-icons.tag />
+                                {{ $donation->rewardVariant->name }}
+                            </p>
                         @endif
                     </div>
                 </div>
 
                 @if ($donation->order)
                     <div class="">
-                        {{-- {{ $donation->order->status }} --}}
-                        {{ __('Shipment address') }}
+                        <span class="text-sm text-gray-500">{{ __('Shipment address') }}</span>
                         <div>
                             {{ $donation->order->shipping_address['name'] }}<br />
-                            {{ $donation->order->shipping_address['address'] }} <br />
-                            {{ $donation->order->shipping_address['address_addition'] }}
+                            {{ $donation->order->shipping_address['street'] }} <br />
+                            {{ $donation->order->shipping_address['address_addition'] ?? '' }}
                             {{ $donation->order->shipping_address['postal_code'] }}
                             {{ $donation->order->shipping_address['city'] }} <br />
                             {{ $donation->order->shipping_address['country'] }}

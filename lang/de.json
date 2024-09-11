@@ -35,5 +35,11 @@
     "General": "Allgemein",
     "Description": "Beschreibung",
     "Image": "Bild",
-    "One-time donation": "Einmalige Spende"
+    "One-time donation": "Einmalige Spende",
+    "Receipt address": "Quittungsadresse",
+    "Download receipt": "Quittung herunterladen",
+    "Showing": "Zeige",
+    "to": "bis",
+    "of": "von",
+    "results": "Ergebnissen"
 }
