@@ -3,7 +3,9 @@
 namespace Funds\Campaign\Http\Controller;
 
 use Funds\Campaign\Models\Campaign;
+use Funds\Foundation\Support\Amount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class CampaignController
@@ -45,9 +47,23 @@ class CampaignController
         //switch to campaign
         $request->user()->switchCurrentCampaignTo($campaign);
 
+        $averageDonation = $campaign->donations->averageAmount();
+
+        $adjustedTotalAmount = $campaign->total_donated * (1 - $campaign->fees / 100);
+        $adjustedTotalAmount = new Amount((int) $adjustedTotalAmount);
+
         return view('campaigns::show',
             [
                 'campaign' => $campaign,
+                'averageDonation' => $averageDonation,
+                'adjustedTotalAmount' => $adjustedTotalAmount,
+                'rewards' => $rewards = $campaign
+                    ->rewards() // Assuming you have a rewards relationship defined on the Campaign model
+                    ->leftJoin('orders', 'rewards.id', '=', 'orders.reward_id')
+                    ->select('rewards.*', DB::raw('COUNT(orders.id) as order_count'))
+                    ->groupBy('rewards.id')
+                    ->orderByDesc('order_count')
+                    ->get(),
             ]
         );
     }

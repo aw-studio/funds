@@ -25,4 +25,9 @@ class DonationCollection extends Collection
     {
         return new Amount($this->sum('amount.cents'));
     }
+
+    public function averageAmount(): Amount
+    {
+        return new Amount((int) $this->avg('amount.cents'));
+    }
 }
