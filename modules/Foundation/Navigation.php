@@ -9,14 +9,14 @@ class Navigation
     public function register(
         string $title,
         ?string $routeName,
-        ?string $active = null,
+        ?callable $active = null,
         ?string $permission = null,
         ?string $badge = null,
     ): void {
         $this->items[] = [
             'title' => $title,
             'route' => route($routeName),
-            'active' => $active ?? request()->routeIs($routeName),
+            'active' => $active() ?? request()->routeIs($routeName),
             'permission' => $permission,
             'badge' => $badge,
         ];
