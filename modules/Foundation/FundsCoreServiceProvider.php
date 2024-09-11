@@ -28,6 +28,15 @@ class FundsCoreServiceProvider extends ServiceProvider
 
     }
 
+    public function boot(): void
+    {
+        $this->mergeConfigFrom(__DIR__.'/config/funds.php', 'funds');
+        if ($this->app->runningInConsole()) {
+            $this->guessFactoryNamespaces();
+        }
+
+    }
+
     public function registerModuleServiceProviders()
     {
         $modulesPath = base_path('modules');
@@ -45,15 +54,6 @@ class FundsCoreServiceProvider extends ServiceProvider
                 $this->app->register($providerClass);
             }
         }
-    }
-
-    public function boot(): void
-    {
-        $this->mergeConfigFrom(__DIR__.'/config/funds.php', 'funds');
-        if ($this->app->runningInConsole()) {
-            $this->guessFactoryNamespaces();
-        }
-
     }
 
     protected function guessFactoryNamespaces()

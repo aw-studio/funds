@@ -18,21 +18,25 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        $camapgin = Campaign::factory()->create();
+        $campaign = Campaign::factory()->create();
 
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'user@user.com',
-            'current_campaign_id' => $camapgin->id,
+            'current_campaign_id' => $campaign->id,
             'password' => bcrypt('secret'),
         ]);
 
-        Reward::factory()->for($camapgin, 'campaign')->count(3)->create();
+        Reward::factory()->for($campaign, 'campaign')->count(5)->create();
 
-        $campaign = Campaign::factory()->create();
-
-        Reward::factory()->for($campaign, 'campaign')->count(3)->create();
-        Donation::factory()->for($campaign, 'campaign')->count(3)->create();
+        foreach ($campaign->rewards as $reward) {
+            Donation::factory()->for($campaign, 'campaign')->count(random_int(1, 15))->create();
+            Donation::factory()->for($campaign, 'campaign')
+                ->has(\Funds\Order\Models\Order::factory([
+                    'reward_id' => $reward->id,
+                ]))
+                ->count(random_int(0, 200))->create();
+        }
 
     }
 }

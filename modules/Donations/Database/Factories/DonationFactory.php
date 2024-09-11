@@ -23,10 +23,30 @@ class DonationFactory extends Factory
     public function definition(): array
     {
         return [
-            'amount' => fake()->numberBetween(100, 10000),
+            'amount' => random_int(10, 100) * 100,
             'campaign_id' => Campaign::factory(),
             'type' => DonationType::OneTime,
             'donor_id' => Donor::factory(),
+            'receipt_address' => fake()->randomElement([null, [
+                'name' => fake()->name,
+                'address' => fake()->address,
+                'postal_code' => fake()->postcode,
+                'city' => fake()->city,
+                'country' => fake()->country,
+            ]]),
         ];
+    }
+
+    public function withReceiptAddress($address = []): DonationFactory
+    {
+        return $this->state([
+            'receipt_address' => array_merge([
+                'name' => fake()->name,
+                'address' => fake()->address,
+                'postal_code' => fake()->postcode,
+                'city' => fake()->city,
+                'country' => fake()->country,
+            ], $address),
+        ]);
     }
 }
