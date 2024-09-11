@@ -6,7 +6,7 @@ readonly class ShippingAddressData
 {
     public function __construct(
         public string $name,
-        public string $address,
+        public string $streetAddress,
         public ?string $addressAddition,
         public string $postalCode,
         public string $city,
@@ -17,7 +17,7 @@ readonly class ShippingAddressData
     {
         return new self(
             name: $array['name'],
-            address: $array['address'],
+            streetAddress: $array['street'],
             addressAddition: $array['address_addition'] ?? null,
             postalCode: $array['postal_code'],
             city: $array['city'],
@@ -29,7 +29,7 @@ readonly class ShippingAddressData
     {
         return [
             'name' => $this->name,
-            'address' => $this->address,
+            'street' => $this->streetAddress,
             'address_addition' => $this->addressAddition,
             'postal_code' => $this->postalCode,
             'city' => $this->city,

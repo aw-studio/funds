@@ -10,17 +10,16 @@ use Funds\Foundation\Facades\Funds;
 use Funds\Reward\Models\Reward;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\Intl\Countries;
 
 class CheckoutController
 {
     public function show(Request $request, Campaign $campaign, ?Reward $reward = null)
     {
+        $countries = Countries::getNames(app()->getLocale());
+
         return view('donations::public.checkout', [
-            'countries' => [
-                'DE' => 'Germany',
-                'AT' => 'Austria',
-                'CH' => 'Switzerland',
-            ],
+            'countries' => $countries,
             'campaign' => $campaign,
             'reward' => $reward,
         ]);

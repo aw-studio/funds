@@ -75,7 +75,7 @@ class DonationIntentService implements DonationIntentServiceInterface
             'reward_variant_id' => $validatedData['reward_variant'] ?? null,
             'shipping_address' => [
                 'name' => $validatedData['shipping_name'],
-                'address' => $validatedData['address'],
+                'street' => $validatedData['street'],
                 'address_addition' => $validatedData['address_addition'] ?? null,
                 'postal_code' => $validatedData['postal_code'],
                 'city' => $validatedData['city'],

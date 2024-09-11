@@ -30,7 +30,7 @@ class CheckoutDonationRequest extends FormRequest
             'pays_fees' => ['nullable', 'boolean'],
             'recipient_address' => ['nullable', 'array:'.implode(',', [
                 'name',
-                'address',
+                'street',
                 'address_addition',
                 'postal_code',
                 'city',
@@ -41,8 +41,8 @@ class CheckoutDonationRequest extends FormRequest
         if ($this->route('reward') !== null) {
             $rules = array_merge($rules, [
                 'shipping_name' => ['required', 'string'],
+                'street' => ['required', 'string', 'min:5'],
                 'address_addition' => ['nullable', 'string'],
-                'address' => ['required', 'string', 'min:5'],
                 'postal_code' => ['required', 'string', 'min:4'],
                 'city' => ['required', 'string', 'min:2'],
                 'country' => ['required', 'string'],
@@ -59,14 +59,15 @@ class CheckoutDonationRequest extends FormRequest
             return $this->input('requires_receipt') === true
                 && $this->input('use_shipping_address_for_receipt') !== true;
         });
+        ray($this->all());
         $rules = array_merge($rules, [
             'requires_receipt' => ['nullable', 'boolean'],
             'use_shipping_address_for_receipt' => ['nullable', 'boolean'],
-            'receipt_name' => [$receiptAddressRule, 'string'],
-            'receipt_address' => [$receiptAddressRule, 'string'],
-            'receipt_postal_code' => [$receiptAddressRule, 'string'],
-            'receipt_city' => [$receiptAddressRule, 'string'],
-            'receipt_country' => [$receiptAddressRule, 'string'],
+            'receipt_name' => [$receiptAddressRule, 'nullable', 'string'],
+            'receipt_address' => [$receiptAddressRule,  'nullable', 'string'],
+            'receipt_postal_code' => [$receiptAddressRule,  'nullable', 'string'],
+            'receipt_city' => [$receiptAddressRule,  'nullable', 'string'],
+            'receipt_country' => [$receiptAddressRule, 'nullable', 'string'],
         ]);
 
         return array_merge($rules, $this->paymentGateway::rules());
