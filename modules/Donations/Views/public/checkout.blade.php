@@ -111,7 +111,7 @@
 
             <button
                 id="submit"
-                class="flex bg-primary-500 text-white p-4 rounded-lg mt-4 disabled:opacity-50"
+                class="flex bg-primary text-white p-4 rounded-lg mt-4 disabled:opacity-50"
                 :disabled="!submitEnabled"
             >
                 <svg

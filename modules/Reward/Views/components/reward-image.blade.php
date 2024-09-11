@@ -6,13 +6,13 @@
      <template x-if="!imageUrl">
          <div class="space-y-1 text-center px-6 pt-5 pb-6 w-full">
              <x-icons.add-image />
-             <div class="text-sm text-gray-600 dark:text-gray-400">
+             <div class="text-sm text-gray-600 ">
                  <label
-                     class="relative cursor-pointer bg-transparent rounded-md font-medium text-orange-500 dark:text-pink-500"
+                     class="relative cursor-pointer bg-transparent rounded-md font-medium text-orange-500 "
                      for="post_image"
                  >
-                     <p class="text-gray-500 dark:text-white space-y-1">
-                         <span class="text-orange-500 dark:text-pink-500">Upload a file</span> or drag and drop
+                     <p class="text-gray-500  space-y-1">
+                         <span class="text-orange-500 ">Upload a file</span> or drag and drop
                          <span class="block text-xs text-gray-500">PNG, JPG up to *MB</span>
                      </p>
                  </label>

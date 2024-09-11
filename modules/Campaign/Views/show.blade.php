@@ -1,7 +1,7 @@
 <x-campaign-layout :campaign="$campaign">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div class=" dark:bg-gray-800 overflow-hidden  sm:rounded-lg bg-gray-50">
-            <div class="p-6 text-gray-900 dark:text-gray-100">
+        <div class="  overflow-hidden  sm:rounded-lg bg-gray-50">
+            <div class="p-6 text-gray-900 ">
                 <div class="mb-4">
                     <span class="bg-gray-200 text-xs p-1 rounded-md">{{ $campaign->status }}</span>
                 </div>
@@ -36,7 +36,7 @@
                     </div>
             </div>
         </div>
-        <div class="bg-gray-50 dark:bg-gray-800 overflow-hidden  sm:rounded-lg">
+        <div class="bg-gray-50  overflow-hidden  sm:rounded-lg">
             <x-campaigns::donut-chart :$campaign />
             <div class="text-center my-4">
                 <span class="text-lg">
@@ -46,9 +46,8 @@
             </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 overflow-hidden  sm:rounded-lg">
-            <div class="p-6 text-gray-900 dark:text-gray-100">
-
+        <div class="bg-white  overflow-hidden  sm:rounded-lg">
+            <div class="p-6 text-gray-900 ">
             </div>
         </div>
     </div>

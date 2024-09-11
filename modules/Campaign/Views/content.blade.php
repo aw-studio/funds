@@ -14,7 +14,7 @@
 
         <div
             x-data="fileUpload"
-            class="flex justify-center items-center border-2 border-gray-300 dark:border-dark-line border-dashed rounded-md h-56 overflow-y-hidden"
+            class="flex justify-center items-center border-2 border-gray-300  border-dashed rounded-md h-56 overflow-y-hidden"
             :class="imageUrl && 'border-primary-500'"
         >
             <template x-if="!imageUrl">
@@ -33,13 +33,13 @@
                             stroke-width="2"
                         />
                     </svg>
-                    <div class="text-sm text-gray-600 dark:text-gray-400">
+                    <div class="text-sm text-gray-600 ">
                         <label
-                            class="relative cursor-pointer bg-transparent rounded-md font-medium text-orange-500 dark:text-pink-500"
+                            class="relative cursor-pointer bg-transparent rounded-md font-medium text-orange-500 "
                             for="post_image"
                         >
-                            <p class="text-gray-500 dark:text-white space-y-1">
-                                <span class="text-orange-500 dark:text-pink-500">Upload a file</span> or drag and drop
+                            <p class="text-gray-500  space-y-1">
+                                <span class="text-orange-500 ">Upload a file</span> or drag and drop
                                 <span class="block text-xs text-gray-500">PNG, JPG up to *MB</span>
                             </p>
                         </label>

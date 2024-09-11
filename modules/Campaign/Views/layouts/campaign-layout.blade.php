@@ -11,7 +11,7 @@
         <div class="flex min-h-12">
 
             <a
-                class="font-bold text-2xl font-serif text-gray-800 dark:text-gray-200 leading-tight"
+                class="font-bold text-2xl font-serif text-gray-800  leading-tight"
                 href="{{ $campaign->appRoute() }}"
             >
                 {{ $campaign->name }}
