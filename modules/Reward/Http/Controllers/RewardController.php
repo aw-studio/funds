@@ -77,7 +77,7 @@ class RewardController
     {
         try {
             $reward->delete();
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             flash(__('Unable to delete reward.'), 'error');
 
             return redirect()->back();

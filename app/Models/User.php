@@ -56,7 +56,7 @@ class User extends Authenticatable
         return $this->belongsTo(Campaign::class, 'current_campaign_id');
     }
 
-    public function switchCurrentCampaignTo(Campaign $campaign)
+    public function switchCurrentCampaignTo(Campaign $campaign): void
     {
         $this->current_campaign_id = $campaign->id;
         $this->save();

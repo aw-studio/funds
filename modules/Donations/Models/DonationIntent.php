@@ -97,7 +97,7 @@ class DonationIntent extends Model
         return Funds::donationService()->createDonationFromIntent($this->asDto());
     }
 
-    public function fail()
+    public function fail(): void
     {
         if ($this->status !== DonationIntentStatus::Pending) {
             throw new \Exception('Cannot fail intent that is not pending');

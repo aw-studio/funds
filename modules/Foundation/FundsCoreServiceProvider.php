@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 
 class FundsCoreServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->registerModuleServiceProviders();
 
@@ -37,12 +37,12 @@ class FundsCoreServiceProvider extends ServiceProvider
 
     }
 
-    public function registerModuleServiceProviders()
+    public function registerModuleServiceProviders(): void
     {
         $modulesPath = base_path('modules');
 
         foreach (File::directories($modulesPath) as $modulePath) {
-            $moduleName = basename($modulePath);
+            $moduleName = basename((string) $modulePath);
             $namespace = 'Funds\\'.$moduleName;
             $providerClass = $namespace.'\\Providers\\'.$moduleName.'ServiceProvider';
 
