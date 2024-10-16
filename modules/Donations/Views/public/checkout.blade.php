@@ -1,4 +1,4 @@
-<x-campaigns::public.layout :$campaign>
+<x-campaigns::public.campaign-layout :$campaign>
     <div>
         <h1 class="text-2xl font-semibold">{{ $campaign->name }}</h1>
         @if ($reward)
@@ -27,7 +27,7 @@
                 requiresReceipt: false,
                 init() {
                     this.fees = this.amount * 0.03;
-            
+
                     this.$watch('amount', () => {
                         this.fees = this.amount * 0.03;
                     });
@@ -111,7 +111,7 @@
 
             <button
                 id="submit"
-                class="flex bg-primary text-white p-4 rounded-lg mt-4 disabled:opacity-50"
+                class="flex bg-accent-1 text-on-accent-1 p-4 rounded-lg mt-4 disabled:opacity-50"
                 :disabled="!submitEnabled"
             >
                 <svg
@@ -142,4 +142,4 @@
             @endif
         </form>
     </main>
-</x-campaigns::public.layout>
+</x-campaigns::public.campaign-layout>

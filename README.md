@@ -9,3 +9,8 @@ A self hosted crowd-fundraising platform.
 -   [Donations](modules/Donations/README.md)
 -   [Orders](modules/Order/README.md)
 -   [Rewards](modules/Reward/README.md)
+
+## Requirements
+
+-   Stripe
+-   ffmpeg (to generate thumbnails for videos)

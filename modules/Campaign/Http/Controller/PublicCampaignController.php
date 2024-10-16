@@ -8,9 +8,23 @@ class PublicCampaignController
 {
     public function show(Campaign $campaign)
     {
+        $campaign->loadCount('donations');
+
         return view('campaigns::public.show',
             [
                 'campaign' => $campaign,
+                'donation_options' => $campaign->rewards,
+                'faqs' => $campaign->faqs,
+            ]
+        );
+    }
+
+    public function rewards(Campaign $campaign)
+    {
+        return view('campaigns::public.rewards',
+            [
+                'campaign' => $campaign,
+                'donation_options' => $campaign->rewards,
             ]
         );
     }

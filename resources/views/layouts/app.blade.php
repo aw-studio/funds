@@ -14,10 +14,34 @@
     >
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <link
+        rel="icon"
+        type="image/png"
+        href="/favicon-48x48.png"
+        sizes="48x48"
+    />
+    <link
+        rel="icon"
+        type="image/svg+xml"
+        href="/favicon.svg"
+    />
+    <link
+        rel="shortcut icon"
+        href="/favicon.ico"
+    />
+    <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/apple-touch-icon.png"
+    />
+    <link
+        rel="manifest"
+        href="/site.webmanifest"
+    />
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/editor.js'])
     @stack('scripts')
+
 </head>
 
 <body class="font-sans antialiased">

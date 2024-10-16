@@ -1,4 +1,4 @@
-<x-campaigns::public.layout :$campaign>
+<x-campaigns::public.campaign-layout :$campaign>
     <div class="text-center my-24">
         @env('local')
         {{ $status }}
@@ -15,4 +15,4 @@
             href="{{ route('public.campaigns.show', $campaign) }}"
         >{{ __('Back to campaign') }}</a>
     </div>
-</x-campaigns::public.layout>
+</x-campaigns::public.campaign-layout>

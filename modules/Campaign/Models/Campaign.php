@@ -2,6 +2,7 @@
 
 namespace Funds\Campaign\Models;
 
+use Funds\Campaign\Actions\RenderEditorContent;
 use Funds\Campaign\Enum\CampaignStatus;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\DonationIntent;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @property int total_donated
@@ -26,6 +28,7 @@ class Campaign extends Model implements HasMedia
     public $fillable = [
         'name',
         'description',
+        'content',
         'goal',
         'start_date',
         'end_date',
@@ -49,6 +52,17 @@ class Campaign extends Model implements HasMedia
         ];
     }
 
+    public function getRenderedContentAttribute(): ?string
+    {
+        try {
+            return app(RenderEditorContent::class)->execute($this, $this->content);
+        } catch (\Exception $e) {
+            ray($e->getMessage());
+
+            return '';
+        }
+    }
+
     public static function booted()
     {
         static::addGlobalScope('total_donated_scope', function ($query) {
@@ -69,6 +83,11 @@ class Campaign extends Model implements HasMedia
     public function donations()
     {
         return $this->hasMany(Donation::class);
+    }
+
+    public function faqs()
+    {
+        return $this->hasMany(Faq::class);
     }
 
     public function appRoute()
@@ -105,6 +124,22 @@ class Campaign extends Model implements HasMedia
     {
         $this->addMediaCollection('header_image')
             ->singleFile();
+
+        $this->addMediaCollection('intro_image')
+            ->singleFile();
+
+        $this->addMediaCollection('content_images');
+
+        $this->addMediaCollection('pitch_video')
+            ->singleFile();
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(368)
+            ->height(232)
+            ->performOnCollections('pitch_video');
     }
 
     public function orderDonationCount()
