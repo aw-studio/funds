@@ -97,6 +97,9 @@
             </div>
             @foreach ($donation_options as $reward)
                 <x-campaigns::public.donation-card>
+                    <div class="w-full mb-2">
+                        {{ $reward->getFirstMedia('image') }}
+                    </div>
                     <div class="flex gap-2 mb-2">
                         <div class="tag text-sm p-1 px-2 bg-accent-2 text-accent-2">
                             {{ $reward->min_amount }}

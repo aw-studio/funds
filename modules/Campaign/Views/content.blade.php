@@ -33,24 +33,24 @@
             class="w-1/2 mb-10"
             currentUrl="{{ $campaign->getFirstMediaUrl('intro_image', 'thumb') }}"
         />
-        @if ($campaign->getFirstMedia('pitch_video'))
-            <video
-                controls
-                class="w-1/2"
-            >
-                <source
-                    src="{{ $campaign->getFirstMediaUrl('pitch_video') }}"
-                    type="video/mp4"
-                >
-                Your browser does not support the video tag.
-            </video>
-            <div class="mb-4">
+        @if ($pitchVideo = $campaign->getFirstMedia('pitch_video'))
+            <div class=" bg-gray-50 rounded-md block p-4">
+                <img src="{{ $pitchVideo->getUrl('thumb') }}" />
+                {{ $pitchVideo->file_name }}
             </div>
         @endif
-        <x-input
-            name="pitch_video"
-            type="file"
-        />
+        <div class="relative flex w-full max-w-sm flex-col gap-1">
+            <label
+                class="w-fit pl-0.5 text-sm text-slate-700 dark:text-slate-300"
+                for="fileInput"
+            >Pitch Video</label>
+            <input
+                id="fileInput"
+                type="file"
+                name="pitch_video"
+                class="w-full overflow-clip rounded-xl border border-slate-300 bg-slate-100/50 text-sm text-slate-700 file:mr-4 file:cursor-pointer file:border-none file:bg-slate-100 file:px-4 file:py-2 file:font-medium file:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 disabled:cursor-not-allowed disabled:opacity-75 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-300 dark:file:bg-slate-800 dark:file:text-white dark:focus-visible:outline-blue-600"
+            />
+        </div>
 
         <x-section-headline value="Story" />
 
@@ -67,8 +67,10 @@
 
             <x-textarea
                 name="custom_css"
+                label="Custom CSS"
                 style="font-family: 'Courier New', Courier, monospace; font-size: 13px; resize: vertical; font-weight: 600; color: #505050;"
                 :value="old('custom_css', $campaign->settings['custom_css'] ?? '')"
+                placeholder=":root {   }"
                 rows="5"
             />
         </div>

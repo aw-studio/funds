@@ -18,7 +18,7 @@
         margin-bottom: 1rem;
     }
 </style>
-<div class="min-h-fit">
+<div class="min-h-32">
     <textarea
         id="content"
         type="hidden"

@@ -1,3 +1,4 @@
+{{-- @dump($data) --}}
 @php
     $service = $data['service'];
     $source = $data['source'];
@@ -11,235 +12,115 @@
         return "editorjs-embed__content--$baseService";
     };
 @endphp
+<script>
+    function videoEmbed() {
+        return {
+            consentGiven: false,
 
-<div class="editorjs-embed">
-    <div class="editorjs-embed__content {{ $getServiceClass($service) }}">
-        @switch($service)
-            @case('youtube')
-                <iframe
-                    class="editorjs-embed__iframe"
-                    width="{{ $width }}"
-                    height="{{ $height }}"
-                    src="{{ $embed }}"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                ></iframe>
-            @break
+            checkConsent() {
+                const consentCookie = document.cookie.split('; ').find(row => row.startsWith('videoConsent='));
+                if (consentCookie) {
+                    this.consentGiven = true;
+                }
+            },
 
-            @case('facebook')
-                <div class="editorjs-embed__facebook">
-                    <iframe
-                        class="editorjs-embed__iframe"
-                        src="https://www.facebook.com/plugins/post.php?href={{ urlencode($source) }}&width={{ $width }}"
-                        width="{{ $width }}"
-                        height="{{ $height }}"
-                        scrolling="no"
-                        frameborder="0"
-                        allowTransparency="true"
-                        allow="encrypted-media"
-                    ></iframe>
-                </div>
-            @break
+            giveConsent() {
+                this.consentGiven = true;
+                document.cookie = "videoConsent=true; path=/; max-age=31536000"; // Set cookie for 1 year
+            },
 
-            @case('instagram')
-                <div class="editorjs-embed__instagram">
-                    <iframe
-                        class="editorjs-embed__iframe"
-                        src="{{ $embed }}"
-                        width="{{ $width }}"
-                        height="{{ $height }}"
-                        frameborder="0"
-                        scrolling="no"
-                        allowtransparency="true"
-                    ></iframe>
-                </div>
-            @break
-
-            @case('twitter')
-                <div class="editorjs-embed__twitter">
-                    <blockquote class="twitter-tweet">
-                        <a href="{{ $source }}"></a>
-                    </blockquote>
-                    <script
-                        async
-                        src="https://platform.twitter.com/widgets.js"
-                        charset="utf-8"
-                    ></script>
-                </div>
-            @break
-
-            @case('twitch-video')
-                <iframe
-                    class="editorjs-embed__iframe"
-                    src="https://player.twitch.tv/?video={{ $embed }}&parent={{ request()->getHost() }}"
-                    height="{{ $height }}"
-                    width="{{ $width }}"
-                    allowfullscreen
-                ></iframe>
-            @break
-
-            @case('twitch-channel')
-                <iframe
-                    class="editorjs-embed__iframe"
-                    src="https://player.twitch.tv/?channel={{ $embed }}&parent={{ request()->getHost() }}"
-                    height="{{ $height }}"
-                    width="{{ $width }}"
-                    allowfullscreen
-                ></iframe>
-            @break
-
-            @case('miro')
-                <iframe
-                    class="editorjs-embed__iframe"
-                    src="{{ $embed }}"
-                    width="{{ $width }}"
-                    height="{{ $height }}"
-                    frameborder="0"
-                    scrolling="no"
-                    allowfullscreen
-                ></iframe>
-            @break
-
-            @case('vimeo')
-                <iframe
-                    class="editorjs-embed__iframe"
-                    src="https://player.vimeo.com/video/{{ $embed }}"
-                    width="{{ $width }}"
-                    height="{{ $height }}"
-                    frameborder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowfullscreen
-                ></iframe>
-            @break
-
-            @case('gfycat')
-                <iframe
-                    class="editorjs-embed__iframe"
-                    src="{{ $embed }}"
-                    width="{{ $width }}"
-                    height="{{ $height }}"
-                    frameborder="0"
-                    scrolling="no"
-                    allowfullscreen
-                ></iframe>
-            @break
-
-            @case('imgur')
-                <iframe
-                    class="editorjs-embed__iframe"
-                    src="{{ $embed }}/embed"
-                    width="{{ $width }}"
-                    height="{{ $height }}"
-                    frameborder="0"
-                    class="imgur-embed-iframe-pub"
-                    allowfullscreen
-                ></iframe>
-            @break
-
-            @case('vine')
-                <iframe
-                    class="editorjs-embed__iframe editorjs-embed__iframe--vine"
-                    src="{{ $embed }}/embed/simple"
-                    width="{{ $width }}"
-                    height="{{ $height }}"
-                    frameborder="0"
-                ></iframe>
-            @break
-
-            @case('aparat')
-                <div class="editorjs-embed__aparat">
-                    <iframe
-                        class="editorjs-embed__iframe"
-                        src="{{ $embed }}"
-                        width="{{ $width }}"
-                        height="{{ $height }}"
-                        frameborder="0"
-                        allowfullscreen
-                    ></iframe>
-                </div>
-            @break
-
-            @case('yandex-music-track')
-                <iframe
-                    class="editorjs-embed__iframe"
-                    src="{{ $embed }}"
-                    width="{{ $width }}"
-                    height="{{ $height }}"
-                    frameborder="0"
-                ></iframe>
-            @break
-
-            @case('yandex-music-album')
-                <iframe
-                    class="editorjs-embed__iframe"
-                    src="{{ $embed }}"
-                    width="{{ $width }}"
-                    height="{{ $height }}"
-                    frameborder="0"
-                ></iframe>
-            @break
-
-            @case('yandex-music-playlist')
-                <iframe
-                    class="editorjs-embed__iframe"
-                    src="{{ $embed }}"
-                    width="{{ $width }}"
-                    height="{{ $height }}"
-                    frameborder="0"
-                ></iframe>
-            @break
-
-            @case('coub')
-                <iframe
-                    class="editorjs-embed__iframe"
-                    src="{{ $embed }}"
-                    width="{{ $width }}"
-                    height="{{ $height }}"
-                    frameborder="0"
-                    allow="autoplay"
-                ></iframe>
-            @break
-
-            @case('codepen')
-                <iframe
-                    class="editorjs-embed__iframe"
-                    src="{{ $embed }}"
-                    width="{{ $width }}"
-                    height="{{ $height }}"
-                    frameborder="0"
-                    scrolling="no"
-                    allowfullscreen
-                ></iframe>
-            @break
-
-            @case('pinterest')
-                <iframe
-                    class="editorjs-embed__iframe"
-                    src="{{ $embed }}"
-                    width="{{ $width }}"
-                    height="{{ $height }}"
-                    frameborder="0"
-                    scrolling="no"
-                ></iframe>
-            @break
-
-            @case('github')
-                <script src="{{ $source }}"></script>
-            @break
-
-            @default
-                <iframe
-                    class="editorjs-embed__iframe"
-                    src="{{ $embed }}"
-                    width="{{ $width }}"
-                    height="{{ $height }}"
-                    frameborder="0"
-                ></iframe>
-        @endswitch
+            clearConsent() {
+                document.cookie = "videoConsent=; path=/; max-age=0"; // Delete cookie
+                this.consentGiven = false;
+            }
+        };
+    }
+</script>
+<div
+    x-data="videoEmbed()"
+    x-init="checkConsent()"
+    class="flex flex-col items-center justify-center w-full"
+>
+    <div
+        x-show="!consentGiven"
+        class="w-full p-6 text-center bg-accent-2 card-radius"
+    >
+        <p class="mb-4 text-on-accent-2">@lang('Recommended external content. By activating the button, external content is displayed and personal data is transmitted to third-party platforms.')</p>
+        <button
+            class="fc-button"
+            @click="giveConsent"
+        >
+            @lang('Load video')
+        </button>
     </div>
 
-    @if ($caption)
-        <div class="editorjs-embed__caption">{{ $caption }}</div>
-    @endif
+    <template
+        x-if="consentGiven"
+        x-cloak
+    >
+        <div class="w-full max-w-lg">
+            @switch($service)
+                @case('youtube')
+                    <iframe
+                        class="editorjs-embed__iframe w-full"
+                        width="{{ $width }}"
+                        height="{{ $height }}"
+                        src="{{ $embed }}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                    ></iframe>
+                @break
+
+                @case('vimeo')
+                    <iframe
+                        class="editorjs-embed__iframe w-full"
+                        src="{{ $embed }}"
+                        width="{{ $width }}"
+                        height="{{ $height }}"
+                        frameborder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen
+                    ></iframe>
+                @break
+
+                @default
+                    <iframe
+                        class="editorjs-embed__iframe w-full"
+                        src="{{ $embed }}"
+                        width="{{ $width }}"
+                        height="{{ $height }}"
+                        frameborder="0"
+                    ></iframe>
+            @endswitch
+        </div>
+    </template>
+    <div
+        x-show="consentGiven"
+        x-cloak
+    >
+        <label
+            for="defaultToggle"
+            class="inline-flex cursor-pointer items-center gap-3"
+            @click="clearConsent()"
+        >
+            <input
+                id="defaultToggle"
+                type="checkbox"
+                class="peer sr-only"
+                role="switch"
+                checked
+            />
+            <div
+                class="relative h-6 w-11 after:h-5 after:w-5 peer-checked:after:translate-x-5 rounded-full border border-slate-300 bg-slate-100 after:absolute after:bottom-0 after:left-[0.0625rem] after:top-0 after:my-auto after:rounded-full after:bg-slate-700 after:transition-all after:content-[''] peer-checked:bg-blue-700 peer-checked:after:bg-slate-100 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-slate-800 peer-focus:peer-checked:outline-blue-700 peer-active:outline-offset-0 peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:border-slate-700 dark:bg-slate-800 dark:after:bg-slate-300 dark:peer-checked:bg-blue-600 dark:peer-checked:after:bg-slate-100 dark:peer-focus:outline-slate-300 dark:peer-focus:peer-checked:outline-blue-600"
+                aria-hidden="true"
+            ></div>
+            <span
+                class="trancking-wide text-sm font-medium text-slate-700 peer-checked:text-black peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:text-slate-300 dark:peer-checked:text-white"
+            >Revoke Consent</span>
+        </label>
+    </div>
 </div>
+@if ($caption)
+    <div class="text-sm my-2">{{ $caption }}</div>
+@endif
