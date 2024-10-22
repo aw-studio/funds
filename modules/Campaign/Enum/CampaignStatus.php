@@ -14,6 +14,11 @@ enum CampaignStatus: string
         return $this->value === $status;
     }
 
+    public function isPublic(): bool
+    {
+        return $this->is(self::Published->value);
+    }
+
     public function label(): string
     {
         return match ($this) {

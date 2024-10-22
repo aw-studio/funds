@@ -38,6 +38,7 @@
                 amount: @js(old('amount') ?? $defaultAmount),
                 originalAmount: undefined,
                 optionalAmount: 0,
+                campaignFees: @js($campaign->fees),
                 fees: undefined,
                 paysFees: false,
                 requiresReceipt: false,
@@ -56,7 +57,7 @@
                     if (!this.paysFees) {
                         return 0;
                     }
-                    return (parseInt(this.amount) + this.optionalAmount) * 0.03;
+                    return (parseInt(this.amount) + this.optionalAmount) * (this.campaignFees / 100);
                 },
                 get totalAmount() {
                     return this.totalDonationAmount + (this.totalFees);
@@ -64,6 +65,12 @@
             }"
         >
             @csrf
+            <input
+                type="hidden"
+                name="amount"
+                x-model="totalDonationAmount"
+                {{-- we don't trust nobody... the feees are calculated in the backend --}}
+            >
             @if ($reward && $reward->variants->isNotEmpty())
                 <p>{{ __('Select a variant') }}</p>
                 <x-select
