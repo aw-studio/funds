@@ -48,7 +48,7 @@ class Campaign extends Model implements HasMedia
         return [
             'start_date' => 'datetime',
             'end_date' => 'datetime',
-            'status' => CampaignStatus::class,
+            // 'status' => CampaignStatus::enum,
             'goal' => AmountCast::class,
             'settings' => 'array',
             'is_active' => 'boolean',
@@ -76,7 +76,7 @@ class Campaign extends Model implements HasMedia
     public function getStatusAttribute()
     {
 
-        if (! $this->is_active && $this->start_date > now()) {
+        if ($this->is_active && $this->start_date > now()) {
             return CampaignStatus::Planned;
         }
 
