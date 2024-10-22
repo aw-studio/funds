@@ -101,7 +101,11 @@ class Donation extends Model
 
     public function paidFeeAmount(): Amount
     {
-        return new Amount($this->campaign->fees * $this->amount->get() / 100);
+        $feePercentage = $this->campaign->fees / 100;
+        $amountWithoutFees = $this->amount->get() / (1 + $feePercentage);
+        $feeAmount = $this->amount->get() - $amountWithoutFees;
+
+        return new Amount($feeAmount);
     }
 
     public function paidFees(): bool
