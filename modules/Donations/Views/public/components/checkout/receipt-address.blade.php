@@ -5,7 +5,6 @@
 <div x-data="{
     useShippingAddress: false,
 }">
-
     @if ($reward)
         <label class="flex items-center">
             <input
@@ -14,24 +13,29 @@
                 value="1"
                 x-model="useShippingAddress"
             >
-            <span class="ml-2">{{ __('Use shipping address') }}</span>
+            <span class="ml-2">{{ __('Use my shipping address') }}</span>
         </label>
     @endif
 
-    <div x-show="!useShippingAddress">
+    <div
+        x-show="!useShippingAddress"
+        class="my-8"
+    >
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div>
                 <x-input
                     id="receipt_name"
                     type="text"
                     name="receipt_name"
-                    :label="__('Name')"
+                    :label="__('Full name')"
+                    class="mb-4"
                 />
                 <x-input
                     id="receipt_address"
                     type="text"
                     name="receipt_address"
-                    :label="__('Address')"
+                    :label="__('Street address')"
+                    class="mb-4"
                 />
                 <div class="grid grid-cols-3 gap-2">
                     <div class="col-span-1">
@@ -57,11 +61,13 @@
                     type="text"
                     name="organization"
                     :label="__('Organization')"
+                    class="mb-4"
                 />
                 <x-select
                     id="receipt_country"
                     name="receipt_country"
                     :label="__('Country')"
+                    class="md:max-w-1/2"
                 >
                     @foreach ($countries as $code => $country)
                         <option value="{{ $code }}">{{ $country }}</option>

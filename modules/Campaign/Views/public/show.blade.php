@@ -1,4 +1,7 @@
-<x-campaigns::public.campaign-layout :$campaign>
+<x-public::campaign-layout
+    :$campaign
+    :header="false"
+>
     @if ($headerImage = $campaign->getFirstMediaUrl('header_image'))
         <div class="h-96 mb-10">
             <img
@@ -10,7 +13,7 @@
     @endif
     <section class="grid md:grid-cols-2 gap-8  mb-10">
         @if ($pitchVideo = $campaign->getFirstMedia('pitch_video'))
-            <x-campaigns::public.pitchVideo
+            <x-public::pitchVideo
                 :video="$pitchVideo"
                 :$campaign
             />
@@ -46,7 +49,7 @@
             </p>
 
             <a
-                href="{{ route('public.checkout', ['campaign' => $campaign]) }}"
+                href="{{ route('campaigns.public.rewards', ['campaign' => $campaign]) }}"
                 class="fc-button"
             >
                 {{ __('Support now') }}
@@ -55,7 +58,7 @@
 
         <div class="col-span-full">
             @lang('Share this campaign')
-            <x-campaigns::public.share-icons />
+            <x-public::share-icons />
         </div>
     </section>
 
@@ -96,7 +99,7 @@
                 {{ __('Choose a reward') }}
             </div>
             @foreach ($donation_options as $reward)
-                <x-campaigns::public.donation-card>
+                <x-public::donation-card>
                     <div class="w-full mb-2">
                         {{ $reward->getFirstMedia('image') }}
                     </div>
@@ -119,9 +122,9 @@
                             {{ __('Select and Continue') }}
                         </a>
                     </div>
-                </x-campaigns::public.donation-card>
+                </x-public::donation-card>
             @endforeach
-            <x-campaigns::public.donation-card>
+            <x-public::donation-card>
                 <div class="flex gap-2 mb-2">
                     <p class="text-lg">
                         {{ 'Simple Donation' }}
@@ -140,7 +143,7 @@
                     </a>
                 </div>
 
-            </x-campaigns::public.donation-card>
+            </x-public::donation-card>
         </div>
     </div>
-</x-campaigns::public.campaign-layout>
+</x-public::campaign-layout>

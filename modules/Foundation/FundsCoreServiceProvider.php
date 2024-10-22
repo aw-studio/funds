@@ -5,7 +5,9 @@ namespace Funds\Foundation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Number;
 use Illuminate\Support\ServiceProvider;
+use NumberFormatter;
 
 class FundsCoreServiceProvider extends ServiceProvider
 {
@@ -31,9 +33,20 @@ class FundsCoreServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->mergeConfigFrom(__DIR__.'/config/funds.php', 'funds');
+
         if ($this->app->runningInConsole()) {
             $this->guessFactoryNamespaces();
         }
+
+        Number::useLocale(app()->getLocale());
+        Number::useCurrency(config('funds.default_currency'));
+
+        Number::macro('currencyWithoutDigits', function (int|float $number, ?string $in = null, ?string $locale = null) {
+            $formatter = new NumberFormatter($locale ?? Number::defaultLocale(), NumberFormatter::CURRENCY);
+            $formatter->setAttribute(NumberFormatter::FRACTION_DIGITS, 0);
+
+            return $formatter->formatCurrency($number, $in ?? Number::defaultCurrency());
+        });
 
     }
 

@@ -33,20 +33,85 @@
                     this.registerFormSubmitListener()
                 },
 
+
                 initStripeElements() {
+                    const element = document.querySelector('.campaign');
+
+                    // Get the computed styles of the element
+                    const styles = getComputedStyle(element);
+
+                    const variables = [
+                        '--accent-1-color',
+                        '--input-radius',
+                        '--font-family-sans',
+                        '--input-border-color'
+                    ];
+
+                    cssVars = {};
+                    for (let variable of variables) {
+                        let name = variable.replace('--', '');
+                        name = name.replace(/-([a-z0-9])/g, function(g) {
+                            return g[1].toUpperCase();
+                        });
+                        cssVars[name] = styles.getPropertyValue(variable).trim();
+                    }
+
+
                     const options = {
                         mode: 'payment',
                         amount: this.amount,
                         currency: 'eur',
                         paymentMethodCreation: 'manual',
-                        appearance: {},
-                    };
+                        appearance: {
+                            theme: 'stripe',
+
+                            rules: {
+                                '.Tab': {
+                                    border: `1px solid ${cssVars.inputBorderColor}`,
+                                    boxShadow: 'none',
+                                    borderRadius: `${cssVars.inputRadius}`,
+                                    backgroundColor: 'transparent'
+                                },
+                                '.Tab--selected': {
+                                    backgroundColor: 'transparent',
+                                    color: `${cssVars.accent1Color}`,
+                                    boxShadow: 'none',
+                                },
+                                '.p-TabIconContainer': {
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                },
+                                '.Input': {
+                                    border: `1px solid  ${cssVars.inputBorderColor}`,
+                                    boxShadow: 'none',
+                                    borderRadius: `${cssVars.inputRadius}`,
+                                    backgroundColor: 'transparent'
+                                },
+                                '.Block': {
+                                    border: `1px solid ${cssVars.inputBorderColor}`,
+                                    boxShadow: 'none',
+                                    borderRadius: `${cssVars.inputRadius}`,
+                                    backgroundColor: 'transparent'
+                                },
+                                '.TabLabel': {
+                                    marginLeft: 'auto',
+                                    marginRight: 'auto',
+                                },
+                                '.TabIcon': {
+                                    marginLeft: 'auto',
+                                    marginRight: 'auto',
+                                },
+                            }
+                        }
+                    }
 
                     // Set up Stripe.js and Elements to use in checkout form
                     const elements = this.stripe.elements(options);
                     // Create and mount the Payment Element
                     const paymentElement = elements.create('payment');
-                    paymentElement.mount('#payment-element');
+                    paymentElement.mount(
+                        '#payment-element');
                     return elements;
                 },
 
@@ -76,6 +141,7 @@
                         event.preventDefault();
 
                         this.submitEnabled = false;
+                        this.submitting = true;
                         this.submitStripeCheckoutForm(form);
                     });
                 },
@@ -182,12 +248,14 @@
                 },
 
                 resetErrorMessages() {
-                    const messageContainer = document.querySelector('#error-message');
+                    const messageContainer = document.querySelector(
+                        '#error-message');
                     messageContainer.innerHTML = '';
                 },
 
                 handleErrors(errors) {
-                    const messageContainer = document.querySelector('#error-message');
+                    const messageContainer = document.querySelector(
+                        '#error-message');
 
                     for (let field in errors) {
                         let errorMessage = errors[field][0];
@@ -197,12 +265,15 @@
                     }
 
                     this.submitEnabled = true;
+                    this.submitting = false;
                 },
 
                 handleError(error) {
-                    const messageContainer = document.querySelector('#error-message');
+                    const messageContainer = document.querySelector(
+                        '#error-message');
                     messageContainer.textContent = error.message;
                     this.submitEnabled = true;
+                    this.submitting = false;
                 }
 
             }))

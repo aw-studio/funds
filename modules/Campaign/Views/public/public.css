@@ -1,0 +1,286 @@
+:root {
+    --font-family-sans: Inter, sans-serif;
+    --general-bg-color: #f2f2f2;
+
+    --general-text-color: #000000;
+    --accent-1-color: #274dba;
+    --accent-1-15-color\/15: rgba(39, 77, 186, 0.15);
+    --accent-1-25-color: rgba(39, 77, 186, 0.25);
+    --accent-1-50-color: rgba(39, 77, 186, 0.5);
+    --interaction-color: #7017a6;
+    --interaction-text-color: #ffffff;
+    --text-on-accent-1-color: var(--interaction-text-color);
+    --accent-2-color: #e3e5e8;
+    --accent-2-text-color: #000000;
+
+    --button-radius: 10px;
+    --tab-radius: 10px;
+    --tag-radius: 8px;
+    --input-radius: 8px;
+    --checkbox-radius: 4px;
+    --card-radio-radius: 4px;
+    --choice-chip-radius: 4px;
+    --sidebar-radius: 16px;
+    --summary-radius: var(--sidebar-radius);
+    --image-radius: 8px;
+    --card-radius: 16px;
+    --progress-bar-radius: 4px;
+
+    --input-border-color: rgba(0, 0, 0, 0.25);
+    --sumary-bg-color: rgba(0, 0, 0, 0.05);
+}
+
+.nor-theme {
+    /* --button-radius: 0px;
+    --image-radius: 0px;
+    --card-radius: 0px;
+    --tag-radius: 0px;
+    --progress-bar-radius: 0px;
+    --choice-chip-radius: 0px;
+    --input-radius: 0px; */
+}
+
+.campaign {
+    font-family: var(--font-family-sans);
+    color: var(--general-text-color);
+
+    .tag {
+        border-radius: var(--tag-radius);
+    }
+
+    .choice-chip {
+        border-radius: var(--choice-chip-radius);
+    }
+
+    label > span.text-red-500 {
+        color: var(--general-text-color);
+    }
+
+    .choice-chip-wrapper {
+        input:checked + .choice-chip {
+            border-color: var(--accent-1-color);
+            color: var(--accent-1-color);
+        }
+    }
+
+    .card-radio {
+        border-radius: var(--card-radio-radius);
+    }
+
+    select,
+    input:not([type="radio"]) {
+        background-color: transparent;
+        border-radius: var(--input-radius);
+        border-color: var(--input-border-color);
+    }
+
+    input[type="checkbox"] {
+        border-radius: var(--checkbox-radius);
+
+        &:checked {
+            background-color: var(--accent-1-color);
+        }
+        &:focus {
+            background-color: var(--interaction-color);
+            box-shadow: none;
+        }
+    }
+
+    .progress-bar {
+        border-radius: var(--progress-bar-radius);
+
+        .rounded-l {
+            border-top-left-radius: var(--progress-bar-radius);
+            border-bottom-left-radius: var(--progress-bar-radius);
+        }
+        .rounded {
+            border-radius: var(--progress-bar-radius);
+        }
+    }
+
+    .text-sm {
+        font-size: var(--font-size-sm, 14px);
+        line-height: var(--line-height-sm, 20px);
+    }
+
+    .text-base {
+        font-size: var(--font-size-base, 16px);
+        line-height: var(--line-height-base, 24px);
+    }
+
+    .text-xl {
+        font-size: var(--font-size-xl, 20px);
+        line-height: var(--line-height-xl, 28px);
+    }
+
+    .text-2xl {
+        font-size: var(--font-size-2xl, 24px);
+        line-height: var(--line-height-2xl, 32px);
+    }
+
+    .text-3xl {
+        font-size: var(--font-size-3xl, 30px);
+        line-height: var(--line-height-3xl, 36px);
+    }
+
+    .rounded-md {
+        border-radius: var(--input-radius);
+    }
+
+    img {
+        border-radius: var(--image-radius);
+    }
+
+    [role="tablist"] {
+        display: flex;
+        border-bottom: 1px solid var(--accent-1-color);
+    }
+
+    [role="tab"] {
+        padding: 10px;
+        border-top-left-radius: var(--button-radius);
+        border-top-right-radius: var(--button-radius);
+        transition: background 0.1s;
+    }
+
+    [role="tab"]:focus {
+        outline: none;
+        text-decoration: underline;
+    }
+
+    [role="tab"]:hover {
+        background: var(--interaction-color);
+        color: var(--interaction-text-color);
+    }
+
+    [role="tab"][aria-selected="true"] {
+        background: var(--accent-1-color);
+        color: var(--interaction-text-color);
+    }
+
+    blockquote {
+        background: var(--accent-2-color);
+        border-radius: var(--card-radius);
+        padding: 10px 20px;
+        font-style: normal;
+    }
+}
+.summary {
+    border-radius: var(--summary-radius);
+    background: var(--sumary-bg-color);
+}
+.amountSlider {
+    .overlay {
+        /* background-color: var(--accent-2-color); */
+        background-color: var(--accent-1-25-color);
+        border-radius: var(--button-radius);
+    }
+
+    .overlay::before {
+        content: var(--tw-content);
+        -webkit-mask-image: linear-gradient(
+            to right,
+            #ffffff,
+            #ffffff var(--progress),
+            transparent var(--progress)
+        );
+        mask-image: linear-gradient(
+            to right,
+            #ffffff,
+            #ffffff var(--progress),
+            transparent var(--progress)
+        );
+        background-color: var(--accent-1-color);
+    }
+
+    .thumb {
+        &::-webkit-slider-thumb {
+            background-color: var(--accent-1-color);
+            border: 1px solid var(--general-bg-color);
+            border-radius: var(--button-radius);
+        }
+    }
+}
+
+.bg-general-color {
+    background-color: var(--general-bg-color);
+}
+
+.text--general-color {
+    color: var(--general-text-color);
+}
+
+.bg-accent-1 {
+    background-color: var(--accent-1-color);
+}
+
+.text-accent-1 {
+    color: var(--accent-1-color);
+}
+
+.border-accent-1 {
+    border-color: var(--accent-1-color);
+}
+
+.text-on-accent-1 {
+    color: var(--interaction-text-color);
+}
+
+.bg-accent-2 {
+    background-color: var(--accent-2-color);
+}
+
+.text-accent-2 {
+    color: var(--accent-2-text-color);
+}
+
+.bg-interaction {
+    color: var(--interaction-color);
+}
+
+.hover\:bg-interaction:hover {
+    background-color: var(--interaction-color);
+}
+
+.text-interaction {
+    color: var(--interaction-color);
+}
+.hover\:text-interaction:hover {
+    color: var(--interaction-color);
+}
+
+.border-color-input {
+    border-color: var(--input-border-color);
+}
+
+.button-radius {
+    border-radius: var(--button-radius);
+}
+
+.choice-radius {
+    border-radius: var(--choice-chip-radius);
+}
+
+.image-radius {
+    border-radius: var(--image-radius);
+}
+
+.input-radius {
+    borde-radius: var(--input-radius);
+}
+
+.card-radius {
+    border-radius: var(--card-radius);
+}
+
+.fc-button {
+    background: var(--accent-1-color);
+    color: var(--interaction-text-color);
+    border-radius: var(--button-radius);
+    padding: 10px 20px;
+    transition: background 0.1s;
+
+    &:hover {
+        background: var(--interaction-color);
+    }
+}

@@ -1,4 +1,4 @@
-<x-campaign-layout :campaign="$campaign">
+<x-campaigns::layout :campaign="$campaign">
 
     <form
         method="post"
@@ -41,14 +41,14 @@
         @endif
         <div class="relative flex w-full max-w-sm flex-col gap-1">
             <label
-                class="w-fit pl-0.5 text-sm text-slate-700 dark:text-slate-300"
+                class="w-fit pl-0.5 text-sm text-slate-700 "
                 for="fileInput"
             >Pitch Video</label>
             <input
                 id="fileInput"
                 type="file"
                 name="pitch_video"
-                class="w-full overflow-clip rounded-xl border border-slate-300 bg-slate-100/50 text-sm text-slate-700 file:mr-4 file:cursor-pointer file:border-none file:bg-slate-100 file:px-4 file:py-2 file:font-medium file:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 disabled:cursor-not-allowed disabled:opacity-75 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-300 dark:file:bg-slate-800 dark:file:text-white dark:focus-visible:outline-blue-600"
+                class="w-full overflow-clip rounded-xl border border-slate-300 bg-slate-100/50 text-sm text-slate-700 file:mr-4 file:cursor-pointer file:border-none file:bg-slate-100 file:px-4 file:py-2 file:font-medium file:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 disabled:cursor-not-allowed disabled:opacity-75 "
             />
         </div>
 
@@ -73,8 +73,9 @@
                 placeholder=":root {   }"
                 rows="5"
             />
-        </div>
 
+        </div>
+        <x-campaigns::style-settings :campaign="$campaign" />
         <div>
             <x-button type="submit">
                 {{ __('Save') }}
@@ -87,4 +88,4 @@
         <livewire:faqs :campaign="$campaign" />
     </div>
 
-</x-campaign-layout>
+</x-campaigns::layout>

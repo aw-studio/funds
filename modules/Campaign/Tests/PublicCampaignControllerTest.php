@@ -8,7 +8,7 @@ uses(TestCase::class, RefreshDatabase::class);
 
 test('A published campaign can be viewed publically ', function () {
     $campaign = Campaign::factory()->create();
-    $response = $this->get(route('public.campaigns.show', $campaign));
+    $response = $this->get(route('campaigns.public.show', $campaign));
 
     $response->assertViewIs('campaigns::public.show');
     $response->assertViewHas('campaign', $campaign);

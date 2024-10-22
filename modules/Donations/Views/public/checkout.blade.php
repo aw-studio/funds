@@ -1,63 +1,97 @@
-<x-campaigns::public.campaign-layout :$campaign>
+@php
+    $defaultAmount = $reward ? $reward->min_amount->get() : 500;
+@endphp
+<x-public::campaign-layout :$campaign>
+    <a
+        class="flex items-center text-sm text-gray-500 gap-2 mb-4"
+        href="{{ route('campaigns.public.show', ['campaign' => $campaign]) }}"
+    >
+        <x-icons.arrow-left />
+        {{ __('Back') }}
+    </a>
+
     <div>
-        <h1 class="text-2xl font-semibold">{{ $campaign->name }}</h1>
+        {{ __('With your Donation you are supporting the Campaign:') }}
+        <h1 class="text-3xl mb-4">{{ $campaign->name }}</h1>
         @if ($reward)
-            {{ __('Selected reward') }}:
-            <div class="bg-gray-50 my-4 p-4 shadow-md ronded-md">
-                {{ $reward->name }}
-                {{ $reward->min_amount }}
+            <div class="reward mb-4">
+                <p class="text-2xl mb-4">{{ __('Selected reward') }}</span>
+                <div class="flex gap-2">
+                    <div class="mb-2 max-w-48">
+                        {{ $reward->getFirstMedia('image') }}
+                    </div>
+                    <div>
+                        <p class="mb-2">{{ $reward->name }}</p>
+                        <p>@lang('Donation amount'): {{ $reward->min_amount }}</p>
+                    </div>
+                </div>
             </div>
         @endif
     </div>
     <main>
-        @php
-            $defaulAmount = $reward ? $reward->min_amount->get() : 1000;
-        @endphp
         <form
             id="payment-form"
             method="POST"
             action="{{ route('public.checkout.store', ['campaign' => $campaign, 'reward' => $reward]) }}"
             x-data="{
                 type: @js(old('donation_type') ?? 'one_time'),
-                amount: @js(old('amount') ?? $defaulAmount),
+                amount: @js(old('amount') ?? $defaultAmount),
                 originalAmount: undefined,
+                optionalAmount: 0,
                 fees: undefined,
-                submitEnabled: true,
                 paysFees: false,
                 requiresReceipt: false,
-                init() {
-                    this.fees = this.amount * 0.03;
-
-                    this.$watch('amount', () => {
-                        this.fees = this.amount * 0.03;
-                    });
+                submitting: false,
+                submitEnabled: true,
+                init() {},
+            
+                get canSubmit() {
+                    return this.amount > 0 && this.submitEnabled;
+                },
+                get totalDonationAmount() {
+                    return parseInt(this.amount) + this.optionalAmount;
+                },
+            
+                get totalFees() {
+                    if (!this.paysFees) {
+                        return 0;
+                    }
+                    return (parseInt(this.amount) + this.optionalAmount) * 0.03;
                 },
                 get totalAmount() {
-                    return parseInt(this.amount) + (this.paysFees ? this.fees : 0);
+                    return this.totalDonationAmount + (this.totalFees);
                 }
             }"
         >
             @csrf
             @if ($reward && $reward->variants->isNotEmpty())
-                <x-select name="reward_variant">
+                <p>{{ __('Select a variant') }}</p>
+                <x-select
+                    name="reward_variant"
+                    class="bg-transparent max-w-md"
+                >
                     @foreach ($reward->variants as $variant)
                         <option value="{{ $variant->id }}">{{ $variant->name }}</option>
                     @endforeach
                 </x-select>
             @endif
 
-            <x-donations::checkout.donation-amount :$reward />
-            <x-donations::checkout.contact-details />
-            <x-donations::checkout.shipment-details
+            <x-public::checkout.donation-amount
+                :$reward
+                :$defaultAmount
+            />
+            <div class="mb-16"></div>
+            <x-public::checkout.contact-details />
+            <x-public::checkout.shipment-details
                 :$reward
                 :$countries
             />
-            <x-donations::checkout.donation-types />
-            <div>
-                <h1 class="font-semibold">Payment</h1>
+            <x-public::checkout.donation-types />
+            <div class="payment">
+                <p class="text-2xl checkout-section-header mb-4">@lang('Payment')</p>
                 <x-stripe-payment-elements x-show="type == 'one_time'" />
-                <x-donations::checkout.sepa-payment-elements x-show="type == 'recurring'" />
-                <div class="mt-4">
+                <x-public::checkout.sepa-payment-elements x-show="type == 'recurring'" />
+                <div class="mt-8">
                     <label class="flex items-center">
                         <input
                             type="checkbox"
@@ -65,12 +99,13 @@
                             value="1"
                             x-model="paysFees"
                         >
-                        <span class="ml-2">{{ __('Cover processing fees') }}</span>
+                        <span
+                            class="ml-2">{{ __('I would like to pay the fees amounting to :amount% of the donation amount', ['amount' => $campaign->fees]) }}</span>
                     </label>
                 </div>
             </div>
 
-            <div class="mt-4">
+            <div class="mt-4 mb-8">
                 <label class="flex items-center">
                     <input
                         type="checkbox"
@@ -78,48 +113,32 @@
                         value="1"
                         x-model="requiresReceipt"
                     >
-                    <span class="ml-2">{{ __('I require a receipt') }}</span>
+                    <span class="ml-2">{{ __('I would like to receive a donation receipt by e-mail') }}</span>
                 </label>
-                <div x-show="requiresReceipt">
-                    <x-donations::checkout.receipt-address :$countries />
+                <div
+                    x-show="requiresReceipt"
+                    class="p-4"
+                >
+                    <x-public::checkout.receipt-address
+                        :$countries
+                        :$reward
+                    />
                 </div>
             </div>
 
-            <div class="bg-gray-100 p-2 ">
-                <span class="text-xl"> {{ __('Summary') }}</span>
-                @if ($reward)
-                    <div class="flex justify-between">
-                        <span>{{ __('Reward') }}</span>
-                        <span>{{ $reward->name }}</span>
-                    </div>
-                @endif
-                <div class="flex justify-between">
-                    <span>{{ __('Donation amount') }}</span>
-                    <span x-money="amount"></span>
-                </div>
-                <div x-show="paysFees">
-                    <div class="flex justify-between">
-                        <span>{{ __('Processing fees') }}</span>
-                        <span x-money="fees"></span>
-                    </div>
-                </div>
-                <div class="flex justify-between">
-                    <span x-uppercase>{{ __('Total amount') }}</span>
-                    <span x-money="totalAmount"></span>
-                </div>
-            </div>
+            <x-public::checkout.summary :$reward />
 
             <button
                 id="submit"
                 class="flex bg-accent-1 text-on-accent-1 p-4 rounded-lg mt-4 disabled:opacity-50"
-                :disabled="!submitEnabled"
+                :disabled="!canSubmit"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
                     class="fill-gray-100 w-6 h-6 mr-2 animate-spin"
-                    x-show="!submitEnabled"
+                    x-show="submitting"
                 >
                     <path
                         d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
@@ -142,4 +161,4 @@
             @endif
         </form>
     </main>
-</x-campaigns::public.campaign-layout>
+</x-public::campaign-layout>

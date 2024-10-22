@@ -7,10 +7,8 @@ Alpine.directive(
         const getValue = evaluateLater(expression);
         effect(() => {
             getValue((moneyValue) => {
-                if (!moneyValue) {
-                    return;
-                }
                 const formattedMoney = moneyValue / 100;
+                // TODO - Add support for other currencies
                 const formattedPrice = new Intl.NumberFormat("de", {
                     style: "currency",
                     currency: "EUR",

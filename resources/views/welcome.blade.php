@@ -45,7 +45,7 @@
                                 $campaign = \Funds\Campaign\Models\Campaign::first();
                             @endphp
                             <a
-                                href="{{ route('public.campaigns.show', $campaign) }}"
+                                href="{{ route('campaigns.public.show', $campaign) }}"
                                 class="flex items-center gap-4 text-lg font-semibold text-black /80 hover:text-black/70 :text-white/70"
                             >
                                 {{ $campaign->name }}

@@ -12,7 +12,7 @@ class StripePaymentElements extends Component
      */
     public function render(): View
     {
-        return view('donations::components.checkout.stripe-elements', [
+        return view('public::components.checkout.stripe-elements', [
             'publishableKey' => env('STRIPE_PUBLISHABLE_KEY'),
             'supportedDonationTypes' => StripePaymentGateway::supportedDonationTypes(),
         ]);

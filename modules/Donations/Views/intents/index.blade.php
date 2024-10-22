@@ -1,4 +1,4 @@
-<x-campaign-layout backRoute="{{ $campaign->appRoute() }}">
+<x-campaigns::layout backRoute="{{ $campaign->appRoute() }}">
     {{-- <h2 class="text-2xl font-serif  font-bold text-gray-800 ">
         {{ __('Donation Intents') }}
     </h2> --}}
@@ -35,4 +35,4 @@
     </div>
     </div>
 
-</x-campaign-layout>
+</x-campaigns::layout>

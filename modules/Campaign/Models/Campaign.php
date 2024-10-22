@@ -99,7 +99,7 @@ class Campaign extends Model implements HasMedia
 
     public function publicRoute()
     {
-        return route('public.campaigns.show', [
+        return route('campaigns.public.show', [
             'campaign' => $this,
         ]);
     }

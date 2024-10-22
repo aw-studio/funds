@@ -26,6 +26,10 @@ class DonationsServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
         $this->loadViewsFrom(__DIR__.'/Views', 'donations');
 
+        $this->loadViewsFrom(__DIR__.'/Views/public', 'public');
+
+        $this->loadJsonTranslationsFrom(__DIR__.'/lang');
+
         Volt::mount([
             base_path('modules/Donations/Views/livewire'),
         ]);

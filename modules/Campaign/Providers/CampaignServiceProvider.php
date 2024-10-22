@@ -2,7 +2,6 @@
 
 namespace Funds\Campaign\Providers;
 
-use Funds\Campaign\Views\ViewComponents\CampaignLayout;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Volt\Volt;
@@ -15,8 +14,12 @@ class CampaignServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../Http/routes.php');
         $this->loadViewsFrom(__DIR__.'/../Views', 'campaigns');
         $this->loadJsonTranslationsFrom(__DIR__.'/../lang');
-        // not really required if we are going to inject the campaign?
-        Blade::component(CampaignLayout::class, 'campaign-layout');
+
+        // Blade::anonymousComponentPath(__DIR__.'/../Views/layouts', 'campaigns');
+
+        // Blade::anonymousComponentPath(__DIR__.'/../Views/public/components', 'public');
+        $this->loadViewsFrom(__DIR__.'/../Views/public', 'public');
+
         Volt::mount([
             base_path('modules/Campaign/Views/livewire'),
         ]);

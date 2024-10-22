@@ -3,8 +3,6 @@
 use Funds\Campaign\Http\Controller\API\CampaignApiController;
 use Funds\Campaign\Http\Controller\CampaignContentController;
 use Funds\Campaign\Http\Controller\CampaignController;
-use Funds\Campaign\Http\Controller\FaqController;
-use Funds\Campaign\Http\Controller\PublicCampaignController;
 use Funds\Campaign\Models\Campaign;
 use Illuminate\Support\Facades\Route;
 
@@ -28,9 +26,5 @@ Route::group([
     'middleware' => ['web'],
 ], function () {
 
-    Route::get('c/{campaign}', function (\Funds\Campaign\Models\Campaign $campaign) {
-        return redirect()->route('public.campaigns.show', ['campaign' => $campaign]);
-    });
-
-    Route::get('campaign/{campaign:slug}', [PublicCampaignController::class, 'show'])->name('public.campaigns.show');
+    require __DIR__.'/public.php';
 });

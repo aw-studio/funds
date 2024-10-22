@@ -37,7 +37,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 config: {
                     placeholder: "Enter a header",
                     levels: [2, 3, 4],
-                    defaultLevel: 3,
+                    defaultLevel: 2,
                 },
             },
 

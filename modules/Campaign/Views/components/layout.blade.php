@@ -40,6 +40,7 @@
                             <x-dropdown-link
                                 :href="$campaign->publicRoute()"
                                 wire:navigate
+                                target="_blank"
                             >
                                 {{ __('View Campaign') }}
                             </x-dropdown-link>

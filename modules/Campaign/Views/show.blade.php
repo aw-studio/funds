@@ -1,4 +1,4 @@
-<x-campaign-layout :campaign="$campaign">
+<x-campaigns::layout :campaign="$campaign">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div class="  overflow-hidden  sm:rounded-lg bg-gray-50">
             <div class="p-6 text-gray-900 ">
@@ -88,4 +88,4 @@
             </div>
         </div>
     </div>
-</x-campaign-layout>
+</x-campaigns::layout>
