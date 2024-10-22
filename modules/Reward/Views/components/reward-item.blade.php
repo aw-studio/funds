@@ -5,6 +5,8 @@
                 src="{{ $reward->getFirstMediaUrl('image', 'thumb') }}"
                 class="w-full h-full object-cover rounded-l-lg"
             />
+        @else
+            <x-rewards::placeholder-image class="h-full rounded-l-lg w-full" />
         @endif
     </div>
     <div class="flex col-span-2">
