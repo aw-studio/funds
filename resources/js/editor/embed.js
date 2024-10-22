@@ -1,5 +1,7 @@
 import EmbedTool from "@editorjs/embed";
 
+// The Default Embed is "Paste Only" - This is a custom Embed Tool also allows
+// the user to enter a URL manually.
 export class Embed extends EmbedTool {
     static get toolbox() {
         return {

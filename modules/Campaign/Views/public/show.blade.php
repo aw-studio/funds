@@ -34,7 +34,8 @@
             <p class="mb-2">{{ __('Campaign goal') }}</p>
             <p class="text-2xl">
                 {{ $campaign->totalAmountDonated() }} /
-                {{ $campaign->goal }}</p>
+                {{ $campaign->goal }}
+            </p>
             <div class="bg-gray-200 w-full h-3 my-4 progress-bar">
                 <div
                     @class([
@@ -48,12 +49,16 @@
                 {{ $campaign->donations_count }} {{ __('Supporters') }}
             </p>
 
-            <a
-                href="{{ route('campaigns.public.rewards', ['campaign' => $campaign]) }}"
-                class="fc-button"
-            >
-                {{ __('Support now') }}
-            </a>
+            @if ($campaign->status->is('published'))
+                <a
+                    href="{{ route('campaigns.public.rewards', ['campaign' => $campaign]) }}"
+                    class="fc-button"
+                >
+                    {{ __('Support now') }}
+                </a>
+            @elseif($campaign->status->is('closed'))
+                <p class="font-semibold">{{ __('This campaign is closed') }}</p>
+            @endif
         </div>
 
         <div class="col-span-full">

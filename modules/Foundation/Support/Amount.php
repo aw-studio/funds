@@ -3,7 +3,6 @@
 namespace Funds\Foundation\Support;
 
 use Illuminate\Support\Number;
-use NumberFormatter;
 
 class Amount implements \Stringable
 {
@@ -13,7 +12,7 @@ class Amount implements \Stringable
 
     public function format(): string
     {
-        return NumberFormatter::create('de_DE', NumberFormatter::CURRENCY)->format($this->cents / 100);
+        return Number::currency($this->cents / 100);
     }
 
     public function get(): int
