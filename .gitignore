@@ -19,3 +19,5 @@ yarn-error.log
 /.vscode
 /.reports
 storage/media-library/temp/
+resources/views/vendor/public
+lang/custom
