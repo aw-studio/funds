@@ -266,7 +266,7 @@
 }
 
 .input-radius {
-    borde-radius: var(--input-radius);
+    border-radius: var(--input-radius);
 }
 
 .card-radius {

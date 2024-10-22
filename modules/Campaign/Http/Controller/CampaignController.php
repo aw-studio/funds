@@ -5,7 +5,6 @@ namespace Funds\Campaign\Http\Controller;
 use Funds\Campaign\Models\Campaign;
 use Funds\Foundation\Support\Amount;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class CampaignController

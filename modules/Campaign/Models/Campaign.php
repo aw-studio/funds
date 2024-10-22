@@ -4,6 +4,7 @@ namespace Funds\Campaign\Models;
 
 use Funds\Campaign\Actions\RenderEditorContent;
 use Funds\Campaign\Enum\CampaignStatus;
+use Funds\Campaign\Theme\CampaginStyles;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\DonationIntent;
 use Funds\Foundation\Support\Amount;
@@ -94,6 +95,7 @@ class Campaign extends Model implements HasMedia
     {
         return $this->hasMany(Reward::class);
     }
+
     public function topRewards()
     {
         return $this->rewards()
@@ -175,5 +177,20 @@ class Campaign extends Model implements HasMedia
     public function noOrderDonationCount()
     {
         return $this->donations()->whereDoesntHave('order')->count();
+    }
+
+    public function styles()
+    {
+        return new CampaginStyles(
+            colors: array_filter($this->settings['colors'] ?? []),
+            radii: array_filter($this->settings['radius'] ?? []),
+        );
+    }
+
+    public function getCssVariables()
+    {
+        $styles = $this->styles();
+
+        return $styles->toCssVariables();
     }
 }

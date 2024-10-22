@@ -69,9 +69,19 @@ class CampaignContentController
             app(DeleteMediaByUrl::class)->execute($campaign, $block['data']['file']['url']);
         }
 
+        $colors = collect($request->colors)->mapWithKeys(function ($color, $key) {
+            if ($color == '#010101') {
+                return [$key => null];
+            }
+
+            return [$key => $color];
+        });
+
         $campaign->settings = [
             ...$campaign->settings ?? [],
             'custom_css' => $request->custom_css,
+            'colors' => $colors,
+            'radius' => $request->radius,
         ];
 
         $campaign->save();
