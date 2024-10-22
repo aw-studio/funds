@@ -8,7 +8,7 @@ export default defineConfig({
                 "resources/css/app.css",
                 "resources/js/app.js",
                 "resources/js/editor.js",
-                "modules/Campaign/Views/components/public/public-layout.css",
+                "modules/Campaign/Views/public/public.css",
             ],
             refresh: true,
         }),
