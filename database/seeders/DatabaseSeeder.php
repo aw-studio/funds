@@ -16,8 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         $campaign = Campaign::factory()->create();
 
         User::factory()->create([

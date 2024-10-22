@@ -8,6 +8,7 @@ use Funds\Reward\Models\Scopes\CampaignScope;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -37,6 +38,14 @@ class Reward extends Model implements HasMedia
     public function variants()
     {
         return $this->hasMany(RewardVariant::class);
+    }
+
+    public function scopeTopForCampaign($campaign)
+    {
+        return $this->leftJoin('orders', 'rewards.id', '=', 'orders.reward_id')
+            ->select('rewards.*', DB::raw('COUNT(orders.id) as order_count'))
+            ->groupBy('rewards.id')
+            ->orderByDesc('order_count');
     }
 
     public function registerMediaCollections(): void

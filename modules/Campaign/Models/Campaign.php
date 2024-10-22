@@ -94,6 +94,11 @@ class Campaign extends Model implements HasMedia
     {
         return $this->hasMany(Reward::class);
     }
+    public function topRewards()
+    {
+        return $this->rewards()
+            ->topForCampaign($this);
+    }
 
     public function donationIntents()
     {

@@ -47,23 +47,16 @@ class CampaignController
         //switch to campaign
         $request->user()->switchCurrentCampaignTo($campaign);
 
-        $averageDonation = $campaign->donations->averageAmount();
-
         $adjustedTotalAmount = $campaign->total_donated * (1 - $campaign->fees / 100);
         $adjustedTotalAmount = new Amount((int) $adjustedTotalAmount);
+
+        $rewards = $campaign->topRewards()->get();
 
         return view('campaigns::show',
             [
                 'campaign' => $campaign,
-                'averageDonation' => $averageDonation,
                 'adjustedTotalAmount' => $adjustedTotalAmount,
-                'rewards' => $rewards = $campaign
-                    ->rewards() // Assuming you have a rewards relationship defined on the Campaign model
-                    ->leftJoin('orders', 'rewards.id', '=', 'orders.reward_id')
-                    ->select('rewards.*', DB::raw('COUNT(orders.id) as order_count'))
-                    ->groupBy('rewards.id')
-                    ->orderByDesc('order_count')
-                    ->get(),
+                'rewards' => $rewards,
             ]
         );
     }
