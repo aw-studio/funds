@@ -1,4 +1,4 @@
-@props(['header' => true, 'campaign'])
+@props(['header' => true, 'campaign' => null])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -29,11 +29,15 @@
         href="/site.webmanifest"
     />
     @vite(['resources/css/app.css', 'resources/js/app.js', 'modules/Campaign/Views/public/public.css'])
-    <style>
-        {{-- {{ $campaign->settings['custom_css'] ?? '' }} --}} :root {
-            {{ $campaign->getCssVariables() }}
-        }
-    </style>
+    @if ($campaign)
+        <style>
+            :root {
+                {{ $campaign->getCssVariables() }}
+            }
+
+            {{ $campaign->settings['custom_css'] ?? '' }}
+        </style>
+    @endif
     @stack('scripts')
 
 </head>

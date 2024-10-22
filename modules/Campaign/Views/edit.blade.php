@@ -49,6 +49,20 @@
                         :value="$campaign->end_date->format('Y-m-d')"
                     />
                 </div>
+                <div class="mb-4">
+                    <x-input-label>
+                        {{ __('Active') }}
+                    </x-input-label>
+                    <input
+                        type="checkbox"
+                        name="is_active"
+                        :label="__('Active')"
+                        value="1"
+                        class="rounded-md"
+                        {{ old('is_active', $campaign->is_active) ? 'checked' : '' }}
+                    />
+
+                </div>
                 <x-button
                     outlined
                     :href="route('campaigns.show', $campaign)"

@@ -8,6 +8,10 @@ class PublicCampaignController
 {
     public function show(Campaign $campaign)
     {
+        if (! $campaign->status->isPublic() && ! auth()->check()) {
+            return view('campaigns::public.404');
+        }
+
         $campaign->loadCount('donations');
 
         return view('campaigns::public.show',

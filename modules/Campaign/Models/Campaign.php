@@ -35,6 +35,7 @@ class Campaign extends Model implements HasMedia
         'status',
         'fees',
         'slug',
+        'is_active',
     ];
 
     protected $attributes = [
@@ -49,6 +50,7 @@ class Campaign extends Model implements HasMedia
             'status' => CampaignStatus::class,
             'goal' => AmountCast::class,
             'settings' => 'array',
+            'is_active' => 'boolean',
         ];
     }
 
@@ -68,6 +70,24 @@ class Campaign extends Model implements HasMedia
         static::addGlobalScope('total_donated_scope', function ($query) {
             $query->withSum('donations as total_donated', 'amount');
         });
+    }
+
+    public function getStatusAttribute()
+    {
+
+        if (! $this->is_active && $this->start_date > now()) {
+            return CampaignStatus::Planned;
+        }
+
+        if ($this->is_active && $this->start_date < now() && $this->end_date > now()) {
+            return CampaignStatus::Published;
+        }
+
+        if ($this->is_active && $this->end_date < now()) {
+            return CampaignStatus::Closed;
+        }
+
+        return CampaignStatus::Draft;
     }
 
     public function rewards()

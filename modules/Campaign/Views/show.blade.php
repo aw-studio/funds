@@ -3,7 +3,8 @@
         <div class="  overflow-hidden  sm:rounded-lg bg-gray-50">
             <div class="p-6 text-gray-900 ">
                 <div class="mb-4">
-                    <span class="bg-gray-200 text-xs p-1 rounded-md">{{ $campaign->status }}</span>
+                    <x-campaigns::status-badge :campaign="$campaign" />
+
                 </div>
                 {{ __('Campaign') }}
                 <p class="text-xl">{{ $campaign->name }}</p>
