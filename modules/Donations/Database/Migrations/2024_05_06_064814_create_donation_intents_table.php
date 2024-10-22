@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('amount');
             $table->string('status');
             $table->foreignId('campaign_id')->constrained();
-            $table->foreignId('donation_id')->nullable()->constrained();
+            $table->foreignId('donation_id')->nullable();
             $table->boolean('pays_fees');
             $table->json('order_details')->nullable();
             $table->string('payment_intent')->nullable();

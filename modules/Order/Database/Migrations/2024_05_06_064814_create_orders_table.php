@@ -19,8 +19,8 @@ return new class extends Migration
                 ->comment('Donation is the source and paymentof the order')
                 ->constrained();
             $table->json('shipping_address')->nullable();
-            $table->foreignId('reward_id')->nullable()->constrained();
-            $table->foreignId('reward_variant_id')->nullable()->constrained();
+            $table->foreignId('reward_id')->nullable();
+            $table->foreignId('reward_variant_id')->nullable();
             $table->timestamps();
         });
     }
