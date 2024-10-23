@@ -8,10 +8,9 @@ use Funds\Foundation\Facades\Funds;
         <div class="flex gap-2 my-5">
             @foreach (Funds::donationTypes() as $key => $type)
                 <label
-                    class="flex items-center border p-4 mb-2 cursor-pointer card-radio min-w-48 text-center justify-center"
+                    class="card-radio flex items-center border p-4 mb-2 cursor-pointer min-w-48 text-center justify-center"
                     :class="{
-                        'border-accent-1': type === @js($key),
-                        'border-color-input': type !== @js($key)
+                        'selected': type === @js($key),
                     }"
                 >
                     <input
@@ -23,17 +22,11 @@ use Funds\Foundation\Facades\Funds;
                     >
                     <p class="flex flex-col">
                         @if (Lang::has('donate_' . $key . '_label'))
-                            <span class="text-sm pb-1">
+                            <small class="text-xs pb-1">
                                 {{ __('donate_' . $key . '_label') }}
-                            </span>
+                            </small>
                         @endif
-                        <span
-                            class="ml-2"
-                            :class="{
-                                'text-accent-1': type === @js($key),
-                                'text-gray-500': type !== @js($key)
-                            }"
-                        >
+                        <span class="ml-2">
                             {{ __('donate_' . $key) }}
                         </span>
                     </p>

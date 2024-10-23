@@ -10,7 +10,7 @@
             <p>
                 <a
                     href="/"
-                    class="text--general-color underline underline-offset-4 text-accent-1"
+                    class="button-link underline underline-offset-4"
                 >
                     {{ __('Back to campaigns') }}
                 </a>

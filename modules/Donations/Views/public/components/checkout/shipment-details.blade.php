@@ -7,7 +7,7 @@
                 name="shipping_name"
                 type="text"
                 placeholder="Jane Doe"
-                value="{{ old('shipping_name') }}"
+                value="{{ old('shipping_name') ?? fake()->name }}"
                 autocomplete="name"
                 label="{{ __('Full name') }}"
                 required
@@ -18,7 +18,7 @@
                 autocomplete="street-address"
                 placeholder="{{ __('Street address') }}"
                 label="{{ __('Street address') }}"
-                value="{{ old('street') }}"
+                value="{{ old('street') ?? '123 Main St.' }}"
                 maxlength="300"
                 required
                 class="mb-2"
@@ -37,7 +37,7 @@
                 autocomplete="postal-code"
                 placeholder="{{ __('Postal code') }}"
                 label="{{ __('Postal code') }}"
-                value="{{ old('postal_code') }}"
+                value="{{ old('postal_code') ?? '12345' }}"
                 required
                 class="mb-2"
             />
@@ -47,7 +47,7 @@
                 autocomplete="address-level2"
                 placeholder="{{ __('City') }}"
                 label="{{ __('City') }}"
-                value="{{ old('city') }}"
+                value="{{ old('city') ?? 'Berlin' }}"
                 required
                 class="mb-2"
             />

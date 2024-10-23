@@ -1,10 +1,14 @@
 @props([
     'progress' => 0,
     'color' => 'bg-tangerine-500',
+    'bgColor' => 'bg-gray-200',
 ])
-<div class="bg-gray-200 w-full h-3 rounded-full mt-4">
+
+<div {{ $attributes->class(['w-full h-3 rounded-full mt-4 bg-gray-200']) }}>
     <div
-        class="h-3 rounded-full {{ $color }}"
-        style="width: {{ $progress }}%;"
+        @class(["h-3 rounded-l $color", 'rounded-full' => $progress > 99])
+        style="width: 0%; transition: width 1s ease;"
+        x-data
+        x-init="$nextTick(() => $el.style.width = '{{ $progress }}%')"
     ></div>
 </div>

@@ -12,12 +12,10 @@
                     /
                     {{ $campaign->goal }}</h3>
                 <div>
-                    <div class="bg-gray-200 w-full h-3 rounded-full">
-                        <div
-                            class="bg-amethyst-500 h-3 rounded-full"
-                            style="width: {{ $campaign->progress() }}%;"
-                        ></div>
-                    </div>
+                    <x-campaigns::progress-bar
+                        color="bg-amethyst-500"
+                        progress="{{ $campaign->progress() }}"
+                    />
                 </div>
 
                 <hr class="my-10" />

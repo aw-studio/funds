@@ -1,7 +1,10 @@
 @php
     $defaultAmount = $reward ? $reward->min_amount->get() : 500;
 @endphp
-<x-public::campaign-layout :$campaign>
+<x-public::campaign-layout
+    :$campaign
+    bodyClass="page-checkout"
+>
     <a
         class="flex items-center text-sm text-gray-500 gap-2 mb-4"
         href="{{ route('campaigns.public.show', ['campaign' => $campaign]) }}"
@@ -137,7 +140,7 @@
 
             <button
                 id="submit"
-                class="flex bg-accent-1 text-on-accent-1 p-4 rounded-lg mt-4 disabled:opacity-50"
+                class="flex p-4 mt-4 disabled:opacity-50 fc-button"
                 :disabled="!canSubmit"
             >
                 <svg

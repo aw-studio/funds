@@ -42,7 +42,7 @@
 
 </head>
 
-<body class="bg-general-color campaign {{ $attributes->get('bodyClass', '') }} nor-theme">
+<body class="campaign {{ $attributes->get('bodyClass', '') }}">
     @if ($header)
         <x-public::layout-header />
     @endif

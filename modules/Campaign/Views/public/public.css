@@ -1,7 +1,6 @@
 :root {
     --font-family-sans: Inter, sans-serif;
     --general-bg-color: #f2f2f2;
-
     --general-text-color: #000000;
     --accent-1-color: #274dba;
     --accent-1-15-color\/15: rgba(39, 77, 186, 0.15);
@@ -18,11 +17,11 @@
     --tag-radius: 8px;
     --input-radius: 8px;
     --checkbox-radius: 4px;
-    --card-radio-radius: 4px;
     --choice-chip-radius: 4px;
     --sidebar-radius: 16px;
     --summary-radius: var(--sidebar-radius);
     --image-radius: 8px;
+    --card-radio-radius: 12px;
     --card-radius: 16px;
     --progress-bar-radius: 4px;
 
@@ -30,26 +29,20 @@
     --sumary-bg-color: rgba(0, 0, 0, 0.05);
 }
 
-.nor-theme {
-    /* --button-radius: 0px;
-    --image-radius: 0px;
-    --card-radius: 0px;
-    --tag-radius: 0px;
-    --progress-bar-radius: 0px;
-    --choice-chip-radius: 0px;
-    --input-radius: 0px; */
-}
-
 .campaign {
+    background-color: var(--general-bg-color);
     font-family: var(--font-family-sans);
     color: var(--general-text-color);
 
     .tag {
         border-radius: var(--tag-radius);
+        background-color: var(--accent-2-color);
+        color: var(--accent-2-text-color);
     }
 
     .choice-chip {
         border-radius: var(--choice-chip-radius);
+        border-color: var(--input-border-color);
     }
 
     label > span.text-red-500 {
@@ -63,8 +56,54 @@
         }
     }
 
+    .page-header {
+        background-color: var(--general-bg-color);
+    }
+
+    .radio {
+        border-color: var(--input-border-color);
+        border-radius: var(--card-radio-radius);
+
+        &:has(:checked) {
+            border-color: var(--accent-1-color);
+        }
+
+        input:checked {
+            color: var(--accent-1-color);
+        }
+    }
+
     .card-radio {
         border-radius: var(--card-radio-radius);
+        border-color: var(--input-border-color);
+
+        &.selected {
+            border-color: var(--accent-1-color);
+            span {
+                color: var(--accent-1-color);
+            }
+        }
+    }
+
+    .sidebar {
+        border-radius: var(--sidebar-radius);
+        background-color: var(--accent-2-color);
+        color: var(--accent-2-text-color);
+    }
+
+    .card {
+        border-radius: var(--card-radius);
+        background-color: var(--general-bg-color);
+        /*general text color 60%*/
+        color: var(--general-test-color);
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .button-link {
+        color: var(--accent-1-color);
     }
 
     select,
@@ -86,16 +125,9 @@
         }
     }
 
-    .progress-bar {
-        border-radius: var(--progress-bar-radius);
-
-        .rounded-l {
-            border-top-left-radius: var(--progress-bar-radius);
-            border-bottom-left-radius: var(--progress-bar-radius);
-        }
-        .rounded {
-            border-radius: var(--progress-bar-radius);
-        }
+    .text-xs {
+        font-size: var(--font-size-xs, 12px);
+        line-height: var(--line-height-xs, 16px);
     }
 
     .text-sm {
@@ -138,8 +170,8 @@
 
     [role="tab"] {
         padding: 10px;
-        border-top-left-radius: var(--button-radius);
-        border-top-right-radius: var(--button-radius);
+        border-top-left-radius: var(--tab-radius);
+        border-top-right-radius: var(--tab-radius);
         transition: background 0.1s;
     }
 
@@ -165,6 +197,34 @@
         font-style: normal;
     }
 }
+.progress-bar {
+    background-color: var(--accent-2-color);
+    .progress {
+        background-color: var(--accent-1-color);
+    }
+    border-radius: var(--progress-bar-radius);
+
+    .rounded-l {
+        border-top-left-radius: var(--progress-bar-radius);
+        border-bottom-left-radius: var(--progress-bar-radius);
+    }
+    .rounded {
+        border-radius: var(--progress-bar-radius);
+    }
+}
+.backlink {
+    color: var(--accent-2-text-color);
+}
+.page-select-reward {
+    background-color: var(--accent-2-color);
+}
+
+.share-icons {
+    svg {
+        fill: var(--general-text-color);
+    }
+}
+
 .summary {
     border-radius: var(--summary-radius);
     background: var(--sumary-bg-color);
@@ -202,75 +262,34 @@
     }
 }
 
-.bg-general-color {
-    background-color: var(--general-bg-color);
-}
-
-.text--general-color {
-    color: var(--general-text-color);
-}
-
-.bg-accent-1 {
-    background-color: var(--accent-1-color);
-}
-
-.text-accent-1 {
+.play-pause-button {
     color: var(--accent-1-color);
 }
 
-.border-accent-1 {
-    border-color: var(--accent-1-color);
+.embed {
+    .no-consent {
+        background-color: var(--accent-2-color);
+        border-radius: var(--card-radius);
+    }
 }
 
-.text-on-accent-1 {
-    color: var(--interaction-text-color);
-}
-
-.bg-accent-2 {
-    background-color: var(--accent-2-color);
-}
-
-.text-accent-2 {
-    color: var(--accent-2-text-color);
-}
-
-.bg-interaction {
-    color: var(--interaction-color);
-}
-
-.hover\:bg-interaction:hover {
-    background-color: var(--interaction-color);
-}
-
-.text-interaction {
-    color: var(--interaction-color);
-}
-.hover\:text-interaction:hover {
-    color: var(--interaction-color);
-}
-
-.border-color-input {
-    border-color: var(--input-border-color);
-}
-
-.button-radius {
-    border-radius: var(--button-radius);
-}
-
-.choice-radius {
-    border-radius: var(--choice-chip-radius);
-}
-
-.image-radius {
-    border-radius: var(--image-radius);
-}
-
-.input-radius {
-    border-radius: var(--input-radius);
-}
-
-.card-radius {
+.pitch-video {
     border-radius: var(--card-radius);
+
+    .video-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+        overflow: hidden;
+    }
+
+    .video-container video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .fc-button {

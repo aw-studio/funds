@@ -26,7 +26,7 @@
                 <div>
                     <button
                         x-on:click.prevent="toggleCustomAmount"
-                        class="border px-4 py-2 choice-radius border-color-input text-gray-500 hover:border-black hover:text-black"
+                        class="border px-4 py-2 choice-chip text-gray-500 hover:border-black hover:text-black"
                     >
                         @lang('Custom amount')
                     </button>

@@ -1,24 +1,7 @@
  @props(['video', 'campaign'])
- <style>
-     .video-container {
-         position: relative;
-         width: 100%;
-         /* or specify a width */
-         padding-bottom: 56.25%;
-         /* 16:9 aspect ratio (9/16 = 0.5625) */
-         overflow: hidden;
-     }
 
-     .video-container video {
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-     }
- </style>
  <div
-     class="flex flex-col card-radius overflow-hidden"
+     class="flex flex-col overflow-hidden pitch-video"
      x-data="{
          playing: false,
          paused: false,
@@ -67,11 +50,11 @@
              x-transition:leave="transition ease-in duration-100"
              x-transition:leave-start="opacity-100 transform scale-100"
              x-transition:leave-end="opacity-0 transform scale-90"
-             class="absolute inset-0 w-full h-full flex items-center justify-center"
+             class="absolute inset-0 w-full h-full flex items-center justify-center play-pause-button"
              x-on:click="playing = true"
          >
              <svg
-                 class="h-20 w-20 text-accent-1 z-20"
+                 class="h-20 w-20 z-20 play-button"
                  viewBox="0 0 84 84"
              >
                  <circle
@@ -93,12 +76,12 @@
              x-transition:leave="transition ease-in duration-100"
              x-transition:leave-start="opacity-100 transform scale-100"
              x-transition:leave-end="opacity-0 transform scale-90"
-             class="absolute inset-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-100"
+             class="absolute inset-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-100 play-pause-button"
              x-on:click="playing = false"
              x-cloak
          >
              <svg
-                 class="h-20 w-20 text-accent-1 z-20"
+                 class="h-20 w-20 z-20"
                  viewBox="0 0 84 84"
              >
                  <circle

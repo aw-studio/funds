@@ -1,3 +1,3 @@
-<div class="bg-general-color mb-8 card-radius p-4">
+<div class="mb-8 p-4 card">
     {{ $slot }}
 </div>

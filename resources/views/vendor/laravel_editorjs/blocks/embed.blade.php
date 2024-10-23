@@ -39,11 +39,11 @@
 <div
     x-data="videoEmbed()"
     x-init="checkConsent()"
-    class="flex flex-col items-center justify-center w-full"
+    class="flex flex-col items-center justify-center w-full embed"
 >
     <div
         x-show="!consentGiven"
-        class="w-full p-6 text-center bg-accent-2 card-radius"
+        class="w-full p-6 text-center no-consent"
     >
         <p class="mb-4 text-on-accent-2">@lang('Recommended external content. By activating the button, external content is displayed and personal data is transmitted to third-party platforms.')</p>
         <button
