@@ -1,5 +1,5 @@
-[submodule "modules/RecurringDonations"]
-	path = modules/RecurringDonations
+[submodule "modules/RecurringDonation"]
+	path = modules/RecurringDonation
 	url = git@github.com:aw-studio/funds-recurring-donations
 [submodule "modules/Shipping"]
 	path = modules/Shipping
