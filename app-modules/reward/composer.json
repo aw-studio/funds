@@ -1,0 +1,24 @@
+{
+	"name": "funds/reward",
+	"description": "",
+	"type": "library",
+	"version": "1.0",
+	"license": "proprietary",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"Funds\\Reward\\": "src/",
+			"Funds\\Reward\\Tests\\": "tests/",
+			"Funds\\Reward\\Database\\Factories\\": "database/factories/",
+			"Funds\\Reward\\Database\\Seeders\\": "database/seeders/"
+		}
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Funds\\Reward\\Providers\\RewardServiceProvider"
+			]
+		}
+	}
+}
