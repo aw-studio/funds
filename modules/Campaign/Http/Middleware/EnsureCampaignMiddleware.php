@@ -3,7 +3,7 @@
 namespace Funds\Campaign\Http\Middleware;
 
 use Closure;
-use Funds\Donations\Models\Donation;
+use Funds\Donation\Models\Donation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Context;
 use Illuminate\Support\Facades\URL;

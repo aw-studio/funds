@@ -2,7 +2,7 @@
 
 namespace Funds\Order\Listeners;
 
-use Funds\Donations\Events\DonationIntentSucceeded;
+use Funds\Donation\Events\DonationIntentSucceeded;
 use Funds\Order\Models\Order;
 
 class CreateOrderFromDonationIntent
@@ -21,7 +21,7 @@ class CreateOrderFromDonationIntent
             return;
         }
 
-        $order = new Order();
+        $order = new Order;
         $order->campaign_id = $event->donationIntentData->campaignId;
         $order->donation_id = $event->donationIntentData->donationId;
 

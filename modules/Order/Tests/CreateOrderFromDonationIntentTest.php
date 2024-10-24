@@ -1,8 +1,8 @@
 <?php
 
-use Funds\Donations\Events\DonationIntentSucceeded;
-use Funds\Donations\Models\Donation;
-use Funds\Donations\Models\DonationIntent;
+use Funds\Donation\Events\DonationIntentSucceeded;
+use Funds\Donation\Models\Donation;
+use Funds\Donation\Models\DonationIntent;
 use Funds\Order\Listeners\CreateOrderFromDonationIntent;
 use Funds\Order\Models\Order;
 use Funds\Reward\Models\Reward;
@@ -24,7 +24,7 @@ test('It creates an order from a donation intent', function () {
             ],
         ]);
 
-    $listener = new CreateOrderFromDonationIntent();
+    $listener = new CreateOrderFromDonationIntent;
     $listener->handle(new DonationIntentSucceeded(
         $intent->asDto()
     ));

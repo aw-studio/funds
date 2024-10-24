@@ -2,13 +2,13 @@
 
 namespace Funds\Order\Database\Factories;
 
-use Funds\Donations\Models\Donation;
+use Funds\Donation\Models\Donation;
 use Funds\Order\Models\Order;
 use Funds\Reward\Models\Reward;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Funds\Donations\Models\Donation>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Funds\Donation\Models\Donation>
  */
 class OrderFactory extends Factory
 {

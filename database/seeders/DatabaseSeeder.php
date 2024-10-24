@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Funds\Campaign\Models\Campaign;
-use Funds\Donations\Models\Donation;
+use Funds\Donation\Models\Donation;
 use Funds\Reward\Models\Reward;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;

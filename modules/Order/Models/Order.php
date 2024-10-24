@@ -2,7 +2,7 @@
 
 namespace Funds\Order\Models;
 
-use Funds\Donations\Models\Donation;
+use Funds\Donation\Models\Donation;
 use Funds\Reward\Models\Reward;
 use Funds\Reward\Models\RewardVariant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

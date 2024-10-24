@@ -3,8 +3,8 @@
 namespace Funds\Foundation\Contracts;
 
 use Funds\Campaign\Models\Campaign;
-use Funds\Donations\Models\DonationIntent;
-use Funds\Donations\Payment\PaymentResponseData;
+use Funds\Donation\Models\DonationIntent;
+use Funds\Donation\Payment\PaymentResponseData;
 use Funds\Reward\Models\Reward;
 
 interface DonationIntentServiceInterface

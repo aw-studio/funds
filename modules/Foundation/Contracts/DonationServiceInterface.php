@@ -2,8 +2,8 @@
 
 namespace Funds\Foundation\Contracts;
 
-use Funds\Donations\DTOs\DonationIntentDto;
-use Funds\Donations\Models\Donation;
+use Funds\Donation\DTOs\DonationIntentDto;
+use Funds\Donation\Models\Donation;
 
 interface DonationServiceInterface
 {

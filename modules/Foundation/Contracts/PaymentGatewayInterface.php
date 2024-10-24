@@ -2,9 +2,9 @@
 
 namespace Funds\Foundation\Contracts;
 
-use Funds\Donations\Enums\DonationType;
-use Funds\Donations\Models\DonationIntent;
-use Funds\Donations\Payment\PaymentResponseData;
+use Funds\Donation\Enums\DonationType;
+use Funds\Donation\Models\DonationIntent;
+use Funds\Donation\Payment\PaymentResponseData;
 
 interface PaymentGatewayInterface
 {

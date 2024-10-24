@@ -1,7 +1,7 @@
 <?php
 
 use function Livewire\Volt\{state};
-use Funds\Donations\Models\Donation;
+use Funds\Donation\Models\Donation;
 use function Livewire\Volt\{with, usesPagination};
 
 state(['reward', 'new_variant_name', 'edit_variant', 'edit_variant_name']);

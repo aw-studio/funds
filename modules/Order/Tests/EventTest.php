@@ -1,6 +1,6 @@
 <?php
 
-use Funds\Donations\Events\DonationIntentSucceeded;
+use Funds\Donation\Events\DonationIntentSucceeded;
 use Funds\Order\Listeners\CreateOrderFromDonationIntent;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;

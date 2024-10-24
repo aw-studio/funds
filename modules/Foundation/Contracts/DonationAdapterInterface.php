@@ -2,7 +2,7 @@
 
 namespace Funds\Foundation\Contracts;
 
-use Funds\Donations\Models\Donation;
+use Funds\Donation\Models\Donation;
 
 interface DonationAdapterInterface
 {

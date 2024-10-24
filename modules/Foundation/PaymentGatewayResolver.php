@@ -2,7 +2,7 @@
 
 namespace Funds\Foundation;
 
-use Funds\Donations\Enums\DonationType;
+use Funds\Donation\Enums\DonationType;
 use Funds\Foundation\Contracts\PaymentGatewayInterface;
 
 class PaymentGatewayResolver

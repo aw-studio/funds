@@ -1,7 +1,7 @@
 <?php
 
 use Funds\Campaign\Models\Campaign;
-use Funds\Donations\Models\Donation;
+use Funds\Donation\Models\Donation;
 use Funds\Foundation\Support\Amount;
 use Funds\Order\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
