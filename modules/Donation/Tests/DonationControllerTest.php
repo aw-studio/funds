@@ -14,7 +14,7 @@ test('It renders a list of donation completed donations', function () {
         ->create();
     $response = $this->get(route('donations.index'));
 
-    $response->assertViewIs('donations::index');
+    $response->assertViewIs('donation::index');
     // $response->assertViewHas('donations', $donations);
     // expect($response)->viewData('donations')->count()->toBe(10);
 });
@@ -25,7 +25,7 @@ test('An authenticated user can view the donation creation form', function () {
 
     $response = $this->get(route('donations.create'));
 
-    $response->assertViewIs('donations::create');
+    $response->assertViewIs('donation::create');
 });
 
 test('An authenticated user can add a new donation', function () {
@@ -52,7 +52,7 @@ test('An authenticated user can view a donation', function () {
     $this->withoutExceptionHandling();
     $response = $this->get(route('donations.show', $donation));
 
-    $response->assertViewIs('donations::show');
+    $response->assertViewIs('donation::show');
     $response->assertViewHas('donation', $donation);
     $response->assertViewHas('donor', $donation->donor);
 });

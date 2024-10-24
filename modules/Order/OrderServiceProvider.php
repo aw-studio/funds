@@ -16,7 +16,7 @@ class OrderServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
         $this->loadViewsFrom(__DIR__.'/Views', 'order');
 
-        view()->composer('donations::show', function ($view) {
+        view()->composer('donation::show', function ($view) {
             $view->with('widgets',
                 view('order::components.donation-order', $view->getData()));
         });

@@ -10,7 +10,7 @@ class DonationReceiptController
 {
     public function __invoke(Request $request, Donation $donation)
     {
-        $pdf = Pdf::loadView('donations::pdf.donation-receipt', [
+        $pdf = Pdf::loadView('donation::pdf.donation-receipt', [
             'donation' => $donation,
         ]);
 

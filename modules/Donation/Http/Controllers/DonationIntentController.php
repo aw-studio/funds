@@ -9,7 +9,7 @@ class DonationIntentController
 {
     public function index(Request $request)
     {
-        return view('donations::intents.index', [
+        return view('donation::intents.index', [
             'intents' => DonationIntent::query()
                 ->orderBy('created_at', 'desc')
                 ->when($request->has('recurring'), function ($query) {
@@ -24,7 +24,7 @@ class DonationIntentController
 
     public function show(DonationIntent $intent)
     {
-        return view('donations::intents.show', [
+        return view('donation::intents.show', [
             'intent' => $intent,
         ]);
     }

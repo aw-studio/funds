@@ -13,7 +13,7 @@ class DonationController
 {
     public function index(Request $request)
     {
-        return view('donations::index',
+        return view('donation::index',
             [
                 'donations' => collect([]),
                 'pendingDonationsCount' => DonationIntent::query()->where('status', DonationIntentStatus::Pending)->count(),
@@ -23,7 +23,7 @@ class DonationController
 
     public function create()
     {
-        return view('donations::create');
+        return view('donation::create');
     }
 
     public function store(Request $request)
@@ -51,7 +51,7 @@ class DonationController
     {
         $donation->load(['donor', 'donationIntent']);
 
-        return view('donations::show', [
+        return view('donation::show', [
             'donation' => $donation,
             'donor' => $donation->donor,
         ]);

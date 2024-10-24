@@ -10,7 +10,6 @@ use Funds\Foundation\Contracts\DonationServiceInterface;
 use Funds\Foundation\Facades\Funds;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\View\Compilers\BladeCompiler;
 use Livewire\Volt\Volt;
 
 class DonationServiceProvider extends ServiceProvider
@@ -24,7 +23,7 @@ class DonationServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
-        $this->loadViewsFrom(__DIR__.'/Views', 'donations');
+        $this->loadViewsFrom(__DIR__.'/Views', 'donation');
 
         $this->loadViewsFrom(__DIR__.'/Views/public', 'public');
 
@@ -40,10 +39,6 @@ class DonationServiceProvider extends ServiceProvider
         $this->app->singleton(DonationIntentServiceInterface::class, DonationIntentService::class);
 
         Blade::component('stripe-payment-elements', \Funds\Donation\Payment\StripePaymentElements::class);
-
-        // $this->callAfterResolving(BladeCompiler::class, function () {
-        //     Blade::component('stripe-payment-elements', \Funds\Donation\Payment\StripePaymentElements::class);
-        // });
 
     }
 }

@@ -18,7 +18,7 @@ class CheckoutController
     {
         $countries = Countries::getNames(app()->getLocale());
 
-        return view('donations::public.checkout', [
+        return view('donation::public.checkout', [
             'countries' => $countries,
             'campaign' => $campaign,
             'reward' => $reward,
@@ -66,7 +66,7 @@ class CheckoutController
     ) {
         $status = $request->get('redirect_status') ?? $donationIntent->status;
 
-        return view('donations::public.checkout-completed', [
+        return view('donation::public.checkout-completed', [
             'campaign' => $campaign,
             'donationIntent' => $donationIntent,
             'status' => $status,

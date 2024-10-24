@@ -5,10 +5,10 @@
         </h2>
         <hr class="mt-4 mb-8" />
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <x-donations::show.details :$donation />
+            <x-donation::show.details :$donation />
             <div class="flex flex-col gap-8">
-                <x-donations::show.donor :$donation />
-                <x-donations::show.type :$donation />
+                <x-donation::show.donor :$donation />
+                <x-donation::show.type :$donation />
                 @stack('widgets')
             </div>
         </div>

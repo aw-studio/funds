@@ -9,7 +9,7 @@ class DonationReceiptAddressController
 {
     public function edit(Request $request, Donation $donation)
     {
-        return view('donations::receipt-address.edit', [
+        return view('donation::receipt-address.edit', [
             'donation' => $donation,
         ]);
     }

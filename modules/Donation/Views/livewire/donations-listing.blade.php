@@ -26,7 +26,7 @@ with(
 <section>
     <div class="flex justify-between items-center mb-4">
         <div class="flex gap-2">
-            <x-donations::search-listing />
+            <x-donation::search-listing />
             <x-select wire:model.live="filterReward">
                 <option value="">{{ __('All rewards') }}</option>
                 @foreach ($campaign->rewards as $reward)
@@ -97,6 +97,6 @@ with(
     </x-table>
 
     <div class="mt-8">
-        {{ $donations->onEachSide(0)->links('donations::components.pagination') }}
+        {{ $donations->onEachSide(0)->links('donation::components.pagination') }}
     </div>
 </section>
