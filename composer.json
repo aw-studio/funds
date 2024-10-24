@@ -13,6 +13,7 @@
         "barryvdh/laravel-dompdf": "^3.0",
         "funds/campaign": "*",
         "funds/donation": "*",
+        "funds/order": "*",
         "internachi/modular": "^2.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",

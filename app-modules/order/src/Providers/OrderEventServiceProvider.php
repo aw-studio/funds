@@ -1,6 +1,6 @@
 <?php
 
-namespace Funds\Order;
+namespace Funds\Order\Providers;
 
 use Funds\Donation\Events\DonationIntentSucceeded;
 use Funds\Order\Listeners\CreateOrderFromDonationIntent;

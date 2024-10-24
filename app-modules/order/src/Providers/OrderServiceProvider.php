@@ -1,6 +1,6 @@
 <?php
 
-namespace Funds\Order;
+namespace Funds\Order\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,8 +13,8 @@ class OrderServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
-        $this->loadViewsFrom(__DIR__.'/Views', 'order');
+        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'order');
 
         view()->composer('donation::show', function ($view) {
             $view->with('widgets',

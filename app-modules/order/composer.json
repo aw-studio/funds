@@ -1,0 +1,24 @@
+{
+	"name": "funds/order",
+	"description": "",
+	"type": "library",
+	"version": "1.0",
+	"license": "proprietary",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"Funds\\Order\\": "src/",
+			"Funds\\Order\\Tests\\": "tests/",
+			"Funds\\Order\\Database\\Factories\\": "database/factories/",
+			"Funds\\Order\\Database\\Seeders\\": "database/seeders/"
+		}
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Funds\\Order\\Providers\\OrderServiceProvider"
+			]
+		}
+	}
+}
