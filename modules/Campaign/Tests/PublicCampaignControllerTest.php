@@ -10,6 +10,6 @@ test('A published campaign can be viewed publically ', function () {
     $campaign = Campaign::factory()->create();
     $response = $this->get(route('campaigns.public.show', $campaign));
 
-    $response->assertViewIs('campaigns::public.show');
+    $response->assertViewIs('campaign::public.show');
     $response->assertViewHas('campaign', $campaign);
 });

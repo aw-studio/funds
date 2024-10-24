@@ -1,4 +1,4 @@
-<x-campaigns::layout backRoute="{{ $campaign->appRoute() }}">
+<x-campaign::layout backRoute="{{ $campaign->appRoute() }}">
     <livewire:donations-listing :campaign="$campaign" />
 
     @if ($pendingDonationsCount > 0)
@@ -9,4 +9,4 @@
             {{ __('Pending Donations') }}: {{ $pendingDonationsCount }}
         </a>
     @endif
-</x-campaigns::layout>
+</x-campaign::layout>

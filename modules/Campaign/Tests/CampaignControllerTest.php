@@ -95,7 +95,7 @@ test('A user can visit a page to edit a campaign', function () {
     ])->create())
         ->get("app/campaigns/$campaign->id/edit");
 
-    $response->assertViewIs('campaigns::edit');
+    $response->assertViewIs('campaign::edit');
 });
 
 test('A user can update a campaign', function () {

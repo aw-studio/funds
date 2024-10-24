@@ -1,4 +1,4 @@
-<x-campaigns::layout :campaign="$campaign">
+<x-campaign::layout :campaign="$campaign">
     <form
         method="post"
         enctype="multipart/form-data"
@@ -79,4 +79,4 @@
         </div>
     </form>
 
-</x-campaigns::layout>
+</x-campaign::layout>

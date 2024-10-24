@@ -9,12 +9,12 @@ class PublicCampaignController
     public function show(Campaign $campaign)
     {
         if (! $campaign->isPublic() && ! auth()->check()) {
-            return view('campaigns::public.404');
+            return view('campaign::public.404');
         }
 
         $campaign->loadCount('donations');
 
-        return view('campaigns::public.show',
+        return view('campaign::public.show',
             [
                 'campaign' => $campaign,
                 'donation_options' => $campaign->rewards,
@@ -25,7 +25,7 @@ class PublicCampaignController
 
     public function rewards(Campaign $campaign)
     {
-        return view('campaigns::public.rewards',
+        return view('campaign::public.rewards',
             [
                 'campaign' => $campaign,
                 'donation_options' => $campaign->rewards,

@@ -11,7 +11,7 @@ class CampaignController
 {
     public function index()
     {
-        return view('campaigns::index',
+        return view('campaign::index',
             [
                 'campaigns' => Campaign::withCount('donations')
                     ->get(),
@@ -21,7 +21,7 @@ class CampaignController
 
     public function create()
     {
-        return view('campaigns::create');
+        return view('campaign::create');
     }
 
     public function store(Request $request)
@@ -51,7 +51,7 @@ class CampaignController
 
         $rewards = $campaign->topRewards()->get();
 
-        return view('campaigns::show',
+        return view('campaign::show',
             [
                 'campaign' => $campaign,
                 'adjustedTotalAmount' => $adjustedTotalAmount,
@@ -62,7 +62,7 @@ class CampaignController
 
     public function edit(Request $request, Campaign $campaign)
     {
-        return view('campaigns::edit',
+        return view('campaign::edit',
             [
                 'campaign' => $campaign,
             ]

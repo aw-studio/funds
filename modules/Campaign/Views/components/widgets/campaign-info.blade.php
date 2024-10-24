@@ -1,7 +1,7 @@
         <div class="  overflow-hidden  sm:rounded-lg bg-gray-50">
             <div class="p-6 text-gray-900 ">
                 <div class="mb-4">
-                    <x-campaigns::status-badges :campaign="$campaign" />
+                    <x-campaign::status-badges :campaign="$campaign" />
                 </div>
                 <hr class="my-5" />
                 {{ __('Campaign') }}
@@ -13,7 +13,7 @@
                     /
                     {{ $campaign->goal }}</h3>
                 <div>
-                    <x-campaigns::progress-bar
+                    <x-campaign::progress-bar
                         color="bg-purple-500"
                         progress="{{ $campaign->progress() }}"
                     />

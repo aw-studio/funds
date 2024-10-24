@@ -1,4 +1,4 @@
     <div class="flex gap-2">
-        <x-campaigns::visibility-badge :campaign="$campaign" />
-        <x-campaigns::stage-badge :campaign="$campaign" />
+        <x-campaign::visibility-badge :campaign="$campaign" />
+        <x-campaign::stage-badge :campaign="$campaign" />
     </div>

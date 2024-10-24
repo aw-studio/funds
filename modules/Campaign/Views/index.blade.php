@@ -18,7 +18,7 @@
             @foreach ($campaigns as $campaign)
                 <div class="overflow-hidden shadow-sm sm:rounded-lg bg-gray-50">
                     <div class="p-6 text-gray-900 ">
-                        <x-campaigns::status-badges :campaign="$campaign" />
+                        <x-campaign::status-badges :campaign="$campaign" />
                         <div class="mt-4">
                             <a
                                 class="font-serif text-xl font-semibold"
@@ -28,7 +28,7 @@
                         <div class="text-sm text-gray-500 mt-1">
                             {{ $campaign->start_date->isoFormat('L') }} - {{ $campaign->end_date->isoFormat('L') }}
                         </div>
-                        <x-campaigns::progress-bar :progress="$campaign->progress()" />
+                        <x-campaign::progress-bar :progress="$campaign->progress()" />
                         <div class="mt-4 flex gap-4">
                             <div class="inline-flex">
                                 <x-icons.money />

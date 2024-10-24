@@ -11,7 +11,7 @@ test('A user can see a page to edit a campaign', function () {
     $response = $this->actingAs($user = User::factory()->create())
         ->get('app/campaigns/'.$user->currentCampaign->id.'/content');
 
-    $response->assertViewIs('campaigns::content');
+    $response->assertViewIs('campaign::content');
 });
 
 test('A user can update a campaigns content', function () {

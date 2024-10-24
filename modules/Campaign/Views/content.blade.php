@@ -1,4 +1,4 @@
-<x-campaigns::layout :campaign="$campaign">
+<x-campaign::layout :campaign="$campaign">
 
     <form
         method="post"
@@ -75,7 +75,7 @@
             />
 
         </div>
-        <x-campaigns::style-settings :campaign="$campaign" />
+        <x-campaign::style-settings :campaign="$campaign" />
         <div>
             <x-button type="submit">
                 {{ __('Save') }}
@@ -88,4 +88,4 @@
         <livewire:faqs :campaign="$campaign" />
     </div>
 
-</x-campaigns::layout>
+</x-campaign::layout>

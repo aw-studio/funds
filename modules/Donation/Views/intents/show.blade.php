@@ -10,7 +10,7 @@ $confirm = function () {
 };
 
 ?>
-<x-campaigns::layout :backRoute="route('donations.intents.index')">
+<x-campaign::layout :backRoute="route('donations.intents.index')">
     <h2 class="text-2xl font-semibold text-gray-800 ">
         {{ __('Donation Intent') }} #{{ $intent->id }}
     </h2>
@@ -24,4 +24,4 @@ $confirm = function () {
         @endvolt
     </div>
 
-</x-campaigns::layout>
+</x-campaign::layout>

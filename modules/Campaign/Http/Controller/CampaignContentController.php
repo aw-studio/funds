@@ -11,7 +11,7 @@ class CampaignContentController
 {
     public function edit(Campaign $campaign)
     {
-        return view('campaigns::content',
+        return view('campaign::content',
             [
                 'campaign' => $campaign,
             ]
