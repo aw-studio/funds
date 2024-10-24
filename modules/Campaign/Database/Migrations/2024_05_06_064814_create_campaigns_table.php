@@ -15,13 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->boolean('is_active')->default(false);
             $table->integer('goal');
             $table->integer('fees');
             $table->text('description')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->string('status');
+            $table->date('published_at')->nullable();
             $table->longText('content')->nullable();
             $table->json('settings')->nullable();
             $table->timestamps();

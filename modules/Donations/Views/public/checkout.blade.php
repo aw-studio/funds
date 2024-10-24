@@ -141,7 +141,7 @@
             <button
                 id="submit"
                 class="flex p-4 mt-4 disabled:opacity-50 fc-button"
-                :disabled="!canSubmit"
+                @if ($campaign->isRunning()) x-bind:disabled="!canSubmit" @else disabled @endif
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

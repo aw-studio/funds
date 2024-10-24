@@ -3,7 +3,8 @@
 namespace Funds\Campaign\Models;
 
 use Funds\Campaign\Actions\RenderEditorContent;
-use Funds\Campaign\Enum\CampaignStatus;
+use Funds\Campaign\Enum\CampaignStage;
+use Funds\Campaign\Enum\CampaignVisibility;
 use Funds\Campaign\Theme\CampaginStyles;
 use Funds\Donations\Models\Donation;
 use Funds\Donations\Models\DonationIntent;
@@ -36,11 +37,7 @@ class Campaign extends Model implements HasMedia
         'status',
         'fees',
         'slug',
-        'is_active',
-    ];
-
-    protected $attributes = [
-        'status' => CampaignStatus::Draft,
+        'published_at',
     ];
 
     public function casts()
@@ -48,10 +45,8 @@ class Campaign extends Model implements HasMedia
         return [
             'start_date' => 'datetime',
             'end_date' => 'datetime',
-            // 'status' => CampaignStatus::enum,
             'goal' => AmountCast::class,
             'settings' => 'array',
-            'is_active' => 'boolean',
         ];
     }
 
@@ -73,22 +68,34 @@ class Campaign extends Model implements HasMedia
         });
     }
 
-    public function getStatusAttribute()
+    public function getStageAttribute()
     {
+        return match (true) {
+            $this->start_date == null => CampaignStage::Unplanned,
+            $this->start_date > now() => CampaignStage::Upcoming,
+            $this->start_date <= now() && $this->end_date >= now() => CampaignStage::Running,
+            $this->end_date < now() => CampaignStage::Ended,
+        };
 
-        if ($this->is_active && $this->start_date > now()) {
-            return CampaignStatus::Planned;
+    }
+
+    public function getVisibilityAttribute()
+    {
+        if ($this->published_at == null) {
+            return CampaignVisibility::Draft;
         }
 
-        if ($this->is_active && $this->start_date < now() && $this->end_date > now()) {
-            return CampaignStatus::Published;
-        }
+        return CampaignVisibility::Published;
+    }
 
-        if ($this->is_active && $this->end_date < now()) {
-            return CampaignStatus::Closed;
-        }
+    public function isPublic()
+    {
+        return $this->visibility == CampaignVisibility::Published;
+    }
 
-        return CampaignStatus::Draft;
+    public function isRunning()
+    {
+        return $this->stage == CampaignStage::Running;
     }
 
     public function rewards()
@@ -142,7 +149,7 @@ class Campaign extends Model implements HasMedia
         $goal = $this->goal->get();
 
         $progress = ($totalAmountDonated / $goal) * 100;
-        $progress = max(1, min(100, (int) $progress));
+        $progress = max(0, min(100, (int) $progress));
 
         return $progress;
     }

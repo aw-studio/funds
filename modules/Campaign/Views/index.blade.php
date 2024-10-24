@@ -18,9 +18,7 @@
             @foreach ($campaigns as $campaign)
                 <div class="overflow-hidden shadow-sm sm:rounded-lg bg-gray-50">
                     <div class="p-6 text-gray-900 ">
-                        <div>
-                            <x-campaigns::status-badge :campaign="$campaign" />
-                        </div>
+                        <x-campaigns::status-badges :campaign="$campaign" />
                         <div class="mt-4">
                             <a
                                 class="font-serif text-xl font-semibold"

@@ -47,7 +47,7 @@
                 {{ $campaign->donations_count }} {{ __('Supporters') }}
             </p>
 
-            @if ($campaign->status->is('published'))
+            @if ($campaign->isRunning())
                 <a
                     href="{{ route('campaigns.public.rewards', ['campaign' => $campaign]) }}"
                     class="fc-button inline-block"

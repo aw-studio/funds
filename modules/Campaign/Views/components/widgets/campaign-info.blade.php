@@ -1,12 +1,13 @@
         <div class="  overflow-hidden  sm:rounded-lg bg-gray-50">
             <div class="p-6 text-gray-900 ">
                 <div class="mb-4">
-                    <x-campaigns::status-badge :campaign="$campaign" />
+                    <x-campaigns::status-badges :campaign="$campaign" />
                 </div>
+                <hr class="my-5" />
                 {{ __('Campaign') }}
                 <p class="text-xl">{{ $campaign->name }}</p>
 
-                <hr class="my-10">
+                <hr class="my-5">
                 <h3 class="text-lg mb-4">
                     {{ $campaign->totalAmountDonated() }}
                     /

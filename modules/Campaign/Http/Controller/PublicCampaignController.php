@@ -8,7 +8,7 @@ class PublicCampaignController
 {
     public function show(Campaign $campaign)
     {
-        if (! $campaign->status->isPublic() && ! auth()->check()) {
+        if (! $campaign->isPublic() && ! auth()->check()) {
             return view('campaigns::public.404');
         }
 
