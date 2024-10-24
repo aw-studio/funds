@@ -49,4 +49,9 @@ class Order extends Model
     {
         return $this->belongsTo(RewardVariant::class);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('shipping_address', 'like', "%$search%");
+    }
 }
