@@ -1,0 +1,24 @@
+{
+    "name": "funds/campaign",
+    "description": "The Core Camapign Module",
+    "type": "library",
+    "version": "1.0",
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Funds\\Campaign\\": "src/",
+            "Funds\\Campaign\\Tests\\": "tests/",
+            "Funds\\Campaign\\Database\\Factories\\": "database/factories/",
+            "Funds\\Campaign\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Funds\\Campaign\\Providers\\CampaignServiceProvider"
+            ]
+        }
+    }
+}

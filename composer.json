@@ -11,6 +11,7 @@
         "php": "^8.2",
         "alaminfirdows/laravel-editorjs": "^2.2",
         "barryvdh/laravel-dompdf": "^3.0",
+        "funds/campaign": "*",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
@@ -96,5 +97,14 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "app-modules/*",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
 }
