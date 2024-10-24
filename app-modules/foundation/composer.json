@@ -1,0 +1,24 @@
+{
+	"name": "funds/foundation",
+	"description": "",
+	"type": "library",
+	"version": "1.0",
+	"license": "proprietary",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"Funds\\Foundation\\": "src/",
+			"Funds\\Foundation\\Tests\\": "tests/",
+			"Funds\\Foundation\\Database\\Factories\\": "database/factories/",
+			"Funds\\Foundation\\Database\\Seeders\\": "database/seeders/"
+		}
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Funds\\Foundation\\Providers\\FoundationServiceProvider"
+			]
+		}
+	}
+}

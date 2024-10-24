@@ -1,7 +1,10 @@
 <?php
 
-namespace Funds\Foundation;
+namespace Funds\Foundation\Providers;
 
+use Funds\Foundation\Core;
+use Funds\Foundation\Navigation;
+use Funds\Foundation\PaymentGatewayResolver;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -9,7 +12,7 @@ use Illuminate\Support\Number;
 use Illuminate\Support\ServiceProvider;
 use NumberFormatter;
 
-class FundsCoreServiceProvider extends ServiceProvider
+class FoundationServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
@@ -32,7 +35,7 @@ class FundsCoreServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/config/funds.php', 'funds');
+        $this->mergeConfigFrom(__DIR__.'/../../config/funds.php', 'funds');
 
         if ($this->app->runningInConsole()) {
             $this->guessFactoryNamespaces();
@@ -52,9 +55,10 @@ class FundsCoreServiceProvider extends ServiceProvider
 
     public function registerModuleServiceProviders(): void
     {
-        $modulesPath = base_path('modules');
+        $modulesPath = base_path('extensions');
 
         foreach (File::directories($modulesPath) as $modulePath) {
+
             $moduleName = basename((string) $modulePath);
             $namespace = 'Funds\\'.$moduleName;
             $providerClass = $namespace.'\\Providers\\'.$moduleName.'ServiceProvider';
