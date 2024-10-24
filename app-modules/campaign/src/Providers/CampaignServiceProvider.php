@@ -16,7 +16,7 @@ class CampaignServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../../resources/views/public', 'public');
 
         Volt::mount([
-            base_path('modules/Campaign/Views/livewire'),
+            __DIR__.'/../../resources/views/livewire',
         ]);
 
     }

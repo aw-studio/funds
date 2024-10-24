@@ -1,6 +1,6 @@
 <?php
 
-namespace Funds\Donation;
+namespace Funds\Donation\Providers;
 
 use Funds\Donation\Payment\StripePaymentGateway;
 use Funds\Donation\Services\DonationIntentService;
@@ -21,16 +21,16 @@ class DonationServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
-        $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
-        $this->loadViewsFrom(__DIR__.'/Views', 'donation');
+        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
-        $this->loadViewsFrom(__DIR__.'/Views/public', 'public');
+        $this->loadRoutesFrom(__DIR__.'/../Http/routes.php');
 
-        $this->loadJsonTranslationsFrom(__DIR__.'/lang');
+        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'donation');
+        $this->loadViewsFrom(__DIR__.'/../../resources/views/public', 'public');
+        $this->loadJsonTranslationsFrom(__DIR__.'/../../resources/lang');
 
         Volt::mount([
-            base_path('modules/Donation/Views/livewire'),
+            __DIR__.'/../../resources/views/livewire',
         ]);
 
         Funds::payment()->register(StripePaymentGateway::class);

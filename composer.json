@@ -12,6 +12,8 @@
         "alaminfirdows/laravel-editorjs": "^2.2",
         "barryvdh/laravel-dompdf": "^3.0",
         "funds/campaign": "*",
+        "funds/donation": "*",
+        "internachi/modular": "^2.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
