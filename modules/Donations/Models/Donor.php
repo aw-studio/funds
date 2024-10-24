@@ -18,4 +18,10 @@ class Donor extends Model
     {
         return $this->hasMany(Donation::class);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('email', 'like', "%$search%")
+            ->orWhere('name', 'like', "%$search%");
+    }
 }

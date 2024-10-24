@@ -1,6 +1,7 @@
 <?php
 
 use function Livewire\Volt\{state};
+use Funds\Foundation\Facades\Funds;
 use Funds\Donations\Models\Donation;
 use function Livewire\Volt\{with, usesPagination};
 
@@ -20,11 +21,6 @@ with(
     ],
 );
 
-$delete = function ($id) {
-    $donation = Donation::with('donor')->find($id);
-    $donation->delete();
-};
-
 ?>
 
 <section>
@@ -42,7 +38,7 @@ $delete = function ($id) {
             </x-select>
         </div>
         <div>
-            @if (\Funds\Foundation\Facades\Funds::hasDonationType('recurring'))
+            @if (Funds::hasDonationType('recurring'))
                 <label
                     for="includeRecurring"
                     class="cursor-pointer inline-flex items-center gap-2 select-none"
@@ -58,78 +54,47 @@ $delete = function ($id) {
         </div>
 
     </div>
-    <div
-        class="overflow-x-auto
-                    rounded-lg
-                    border
-                    border-gray-200">
-        <table class="min-w-full divide-y-2 divide-gray-200 bg-white m">
-            <thead>
-                <tr>
-                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">#</th>
-                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">
-                        {{ __('Date') }}
-                    </th>
-                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">
-                        {{ __('Donor') }}
-                    </th>
-                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">
-                        {{ __('Amount') }}
-                    </th>
-                    <th class="whitespace-nowrap text-left px-4 py-2 font-medium">
-                        {{ __('Reward') }}
-                    </th>
-                    @foreach ($moduleHeaders ?? [] as $header)
-                        <th class="whitespace-nowrap text-left px-4 py-2 font-medium">
-                            {{ $header }}
-                        </th>
-                    @endforeach
-                </tr>
-            </thead>
-
-            <tbody class="divide-y divide-gray-200">
-                @foreach ($donations as $donation)
-                    <tr>
-                        <td class="whitespace-nowrap px-4 py-2 font-medium">
-                            <a href="{{ route('donations.show', $donation) }}">
-                                {{ $donation->id }}
-                            </a>
-                        </td>
-                        </td>
-                        <td class="whitespace-nowrap px-4 py-2">
-                            <a href="{{ route('donations.show', $donation) }}">
-                                {{ $donation->created_at->isoFormat('L') }}
-                            </a>
-                        </td>
-                        <td class="whitespace-nowrap px-4 py-2">
-                            {{ $donation->donor->email }}
-                        </td>
-                        <td class="whitespace-nowrap px-4 py-2">
-                            {{ $donation->amount->format() }}
-                        </td>
-                        <td class="whitespace-nowrap px-4 py-2">
-                            {{ $donation->reward?->name }}
-                        </td>
-                        @foreach ($moduleColumnsRow ?? [] as $column)
-                            <td class="whitespace-nowrap px-4 py-2">
-                                @include($column)
-                            </td>
-                        @endforeach
-                    </tr>
+    <x-table>
+        <x-slot:thead>
+            <x-table.th>#</x-table.th>
+            <x-table.th>{{ __('Date') }}</x-table.th>
+            <x-table.th>{{ __('Donor') }}</x-table.th>
+            <x-table.th>{{ __('Amount') }}</x-table.th>
+            <x-table.th>{{ __('Reward') }}</x-table.th>
+            @foreach ($moduleHeaders ?? [] as $header)
+                <x-table.th>
+                    {{ $header }}
+                </x-table.th>
+            @endforeach
+        </x-slot:thead>
+        @foreach ($donations as $donation)
+            <x-table.tr
+                href="{{ route('donations.show', ['donation' => $donation]) }}"
+                wire:key="#{{ $donation->id }}"
+            >
+                <x-table.td>{{ $donation->id }}</x-table.td>
+                <x-table.td>{{ $donation->created_at->isoFormat('L') }}</x-table.td>
+                <x-table.td>{{ $donation->donor->name }}</x-table.td>
+                <x-table.td>{{ $donation->amount }}</x-table.td>
+                <x-table.td>{{ $donation->reward?->name }}</x-table.td>
+                @foreach ($moduleColumnsRow ?? [] as $column)
+                    <x-table.td>
+                        @include($column)
+                    </x-table.td>
                 @endforeach
-                @if ($donations->isEmpty())
-                    <tr>
-                        <td
-                            colspan="100%"
-                            class="text-center p-8"
-                        >
-                            {{ __('No donations found.') }}
-                        </td>
-                    </tr>
-                @endif
-            </tbody>
-        </table>
-    </div>
+            </x-table.tr>
+        @endforeach
+        @if ($donations->isEmpty())
+            <tr>
+                <td
+                    colspan="100%"
+                    class="text-center p-8"
+                >
+                    {{ __('No donations found.') }}
+                </td>
+            </tr>
+        @endif
+    </x-table>
 
     <div class="mt-8">
         {{ $donations->onEachSide(0)->links('donations::components.pagination') }}

@@ -21,7 +21,9 @@ class DonationBuilder extends Builder
     public function search($search)
     {
         return $this->whereHas('donor', function ($donorQuery) use ($search) {
-            $donorQuery->where('email', 'like', "%$search%");
+            $donorQuery->search($search);
+        })->orWhereHas('order', function ($orderQuery) use ($search) {
+            $orderQuery->search($search);
         });
     }
 
