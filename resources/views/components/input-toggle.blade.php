@@ -11,7 +11,7 @@
 @endphp
 <label
     for="{{ $attributes->get('id') ?? $attributes->get('name', '') }}"
-    class="relative inline-block cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-tangerine-500 {{ $labelClasses }}"
+    class="relative inline-block cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-orange-500 {{ $labelClasses }}"
 >
     <input
         type="checkbox"

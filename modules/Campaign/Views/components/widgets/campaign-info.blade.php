@@ -14,7 +14,7 @@
                     {{ $campaign->goal }}</h3>
                 <div>
                     <x-campaigns::progress-bar
-                        color="bg-amethyst-500"
+                        color="bg-purple-500"
                         progress="{{ $campaign->progress() }}"
                     />
                 </div>

@@ -62,7 +62,7 @@ new class extends Component {
 
                             @if ($nav['badge'])
                                 <span
-                                    class="ml-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs text-white bg-tangerine-500"
+                                    class="ml-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs text-white bg-orange-500"
                                 >
                                     {{ $nav['badge'] }}
                                 </span>

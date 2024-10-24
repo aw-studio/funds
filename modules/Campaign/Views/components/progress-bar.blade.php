@@ -1,6 +1,6 @@
 @props([
     'progress' => 0,
-    'color' => 'bg-tangerine-500',
+    'color' => 'bg-orange-500',
     'bgColor' => 'bg-gray-200',
 ])
 

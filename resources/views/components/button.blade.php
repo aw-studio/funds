@@ -7,10 +7,10 @@
 
     if ($outlined) {
         $class .=
-            ' text-black border border-tangerine-400 hover:border-tangerine-500 focus:border-tangerine-500 active:border-tangerine-600 ';
+            ' text-black border border-orange-400 hover:border-orange-500 focus:border-orange-500 active:border-orange-600 ';
     } else {
         $class .=
-            ' bg-tangerine-400 text-white hover:bg-tangerine-500 hover:bg-tangerine-500 focus:bg-tangerine-500  active:bg-tangerine-600 ';
+            ' bg-orange-400 text-white hover:bg-orange-500 hover:bg-orange-500 focus:bg-orange-500  active:bg-orange-600 ';
     }
 @endphp
 

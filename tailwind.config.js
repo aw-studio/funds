@@ -17,7 +17,7 @@ export default {
             colors: {
                 white: "#ffffff",
                 black: "#111111",
-                tangerine: {
+                orange: {
                     50: "#fef7ee",
                     100: "#fdecd7",
                     200: "#fbd6ad",
@@ -30,7 +30,7 @@ export default {
                     900: "#782e16",
                     950: "#411409",
                 },
-                amethyst: {
+                purple: {
                     50: "#faf6fe",
                     100: "#f2eafd",
                     200: "#e8d8fc",
@@ -43,7 +43,7 @@ export default {
                     900: "#552380",
                     950: "#380d5e",
                 },
-                azure: {
+                blue: {
                     50: "#eff6ff",
                     100: "#daebff",
                     200: "#beddff",
@@ -56,7 +56,7 @@ export default {
                     900: "#1c3c8c",
                     950: "#162555",
                 },
-                banana: {
+                yellow: {
                     50: "#fefde8",
                     100: "#fffcc2",
                     200: "#fff489",
