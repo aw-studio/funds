@@ -15,9 +15,7 @@ class FoundationServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        ray('boot foundation');
-        // $this->registerModuleServiceProviders();
-        $this->registerExtensions();
+        $this->app->register(ExtensionsServiceProvider::class);
 
         Route::macro(
             'app',
@@ -52,37 +50,6 @@ class FoundationServiceProvider extends ServiceProvider
             return $formatter->formatCurrency($number, $in ?? Number::defaultCurrency());
         });
 
-    }
-
-    protected function registerExtensions()
-    {
-
-        // Get the list of extensions
-        $extensions = glob(base_path('extensions/*'), GLOB_ONLYDIR);
-
-        foreach ($extensions as $extension) {
-            $composerJsonPath = $extension.'/composer.json';
-
-            if (file_exists($composerJsonPath)) {
-                $composerConfig = json_decode(file_get_contents($composerJsonPath), true);
-
-                // add the extension to the list of discovered extensions
-                // in extensions/extensions.json
-                $extensionsJson = json_decode(file_get_contents(base_path('extensions/extensions.json')), true) ?? [];
-
-                // if not in enabled extensions, skip
-                if (! in_array($composerConfig['name'], $extensionsJson['enabled'] ?? [])) {
-                    continue;
-                }
-
-                // Register service providers
-                if (isset($composerConfig['extra']['laravel']['providers'])) {
-                    foreach ($composerConfig['extra']['laravel']['providers'] as $provider) {
-                        $this->app->register($provider);
-                    }
-                }
-            }
-        }
     }
 
     protected function guessFactoryNamespaces()
