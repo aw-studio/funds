@@ -21,3 +21,4 @@ yarn-error.log
 storage/media-library/temp/
 resources/views/vendor/public
 lang/custom
+extensions
