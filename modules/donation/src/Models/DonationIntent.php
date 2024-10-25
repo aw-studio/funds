@@ -2,7 +2,7 @@
 
 namespace Funds\Donation\Models;
 
-use Funds\Campaign\Concerns\BelongsToCampaign;
+use Funds\Campaign\Traits\BelongsToCampaign;
 use Funds\Donation\DTOs\DonationIntentDto;
 use Funds\Donation\Enums\DonationIntentStatus;
 use Funds\Donation\Events\DonationIntentSucceeded;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Funds\Campaign\Concerns;
+namespace Funds\Campaign\Traits;
 
 use Funds\Campaign\Models\Campaign;
 

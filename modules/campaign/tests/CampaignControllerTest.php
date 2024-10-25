@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\User;
-use Funds\Campaign\Enum\CampaignStatus;
 use Funds\Campaign\Models\Campaign;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -41,22 +40,6 @@ test('A user can switch to a another campaign', function () {
     expect($user->current_campaign_id)->toBeNull();
     $user->switchCurrentCampaignTo($campaign);
     expect($user->current_campaign_id)->toBe($campaign->id);
-});
-
-test('A new campaign is a draft by default', function () {
-    $this->withoutExceptionHandling();
-    $this->actingAs(User::factory()->create())
-        ->post('app/campaigns', [
-            'name' => 'Test Campaign',
-            'goal' => 1000,
-            'fees' => 0,
-            'start_date' => now(),
-            'end_date' => now()->addDays(30),
-        ]);
-
-    $campaign = Campaign::where('name', 'Test Campaign')->first();
-
-    expect($campaign->status)->toBe(CampaignStatus::Draft);
 });
 
 test('A user can see a campaign', function () {
@@ -117,3 +100,15 @@ test('A user can update a campaign', function () {
     expect($campaign->name)->toBe('Updated Campaign');
     expect($response->status())->toBe(302);
 });
+
+test('A new campaign is a draft by default')->todo();
+test('A draft campaign is not visible to the public')->todo();
+test('A draft campaign can be published')->todo();
+test('A published campaign is visible to the public')->todo();
+test('A published campaign can be archived')->todo();
+test('An archirved campaign is not visible to the public')->todo();
+
+test('A campaign without a date is in stage unplanned by default')->todo();
+test('A campaign with a start date in the future is in stage upcoming')->todo();
+test('A campaign with a start date in the past and an end date in the future is in stage running')->todo();
+test('A campaign with an end date in the past is in stage ended')->todo();

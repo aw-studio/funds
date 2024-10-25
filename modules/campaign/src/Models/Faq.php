@@ -2,7 +2,7 @@
 
 namespace Funds\Campaign\Models;
 
-use Funds\Campaign\Concerns\BelongsToCampaign;
+use Funds\Campaign\Traits\BelongsToCampaign;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

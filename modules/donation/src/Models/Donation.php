@@ -2,7 +2,7 @@
 
 namespace Funds\Donation\Models;
 
-use Funds\Campaign\Concerns\BelongsToCampaign;
+use Funds\Campaign\Traits\BelongsToCampaign;
 use Funds\Donation\Builder\DonationBuilder;
 use Funds\Donation\Enums\DonationType;
 use Funds\Foundation\Support\Amount;
