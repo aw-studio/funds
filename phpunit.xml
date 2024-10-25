@@ -11,26 +11,22 @@
         <testsuite name="Feature">
             <directory>tests/Feature</directory>
         </testsuite>
-        <testsuite name="Core">
-            <directory>./modules/Foundation/Tests</directory>
-            <directory>./modules/Campaign/Tests</directory>
-            <directory>./modules/Donations/Tests</directory>
-            <directory>./modules/Reward/Tests</directory>
-            <directory>./modules/Order/Tests</directory>
-        </testsuite>
         <testsuite name="Modules">
-            <directory>./modules/*/Tests</directory>
+            <directory>./modules/*/tests</directory>
+        </testsuite>
+        <testsuite name="Extensions">
+            <directory>./extensions/*/tests</directory>
         </testsuite>
     </testsuites>
     <source>
         <include>
             <directory>./app</directory>
-            <directory>./modules</directory>
+            <directory>./modules/</directory>
         </include>
         <exclude>
-            <directory>./modules/*/Tests</directory>
-            <directory>./modules/*/Database</directory>
-            <directory suffix=".blade.php">./modules/*/Views</directory>
+            <directory>./modules/*/tests</directory>
+            <directory>./modules/*/database</directory>
+            <directory suffix=".blade.php">./modules/*/resources</directory>
         </exclude>
     </source>
     <php>
