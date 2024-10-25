@@ -68,9 +68,6 @@ class ExtensionsServiceProvider extends ServiceProvider
     protected function registerCommands()
     {
         $this->commands([
-            \Funds\Foundation\Commands\AddExtensionCommand::class,
-            \Funds\Foundation\Commands\RemoveExtensionCommand::class,
-            \Funds\Foundation\Commands\EnableExtensionCommand::class,
         ]);
     }
 
