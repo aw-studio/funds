@@ -12,8 +12,8 @@
             'route' => route('rewards.index'),
             'active' => request()->routeIs('rewards.*'),
         ],
-        'Content Editor' => [
-            'route' => route('campaigns.content.edit', ['campaign' => $campaign]),
+        'Content and Design' => [
+            'route' => route('campaigns.content', ['campaign' => $campaign]),
             'active' => request()->routeIs('campaigns.content.*'),
         ],
     ];

@@ -2,25 +2,15 @@
 
 namespace Funds\Campaign\Http\Controller;
 
-use Funds\Campaign\Actions\DeleteMediaByUrl;
 use Funds\Campaign\Actions\ExtractRemovedImageBlocks;
 use Funds\Campaign\Models\Campaign;
 use Illuminate\Http\Request;
 
-class CampaignContentController
+class CampaignPitchController
 {
     public function edit(Campaign $campaign)
     {
-        return view('campaign::content.index',
-            [
-                'campaign' => $campaign,
-            ]
-        );
-    }
-
-    public function editFaq(Campaign $campaign)
-    {
-        return view('campaign::content.faq',
+        return view('campaign::content.pitch',
             [
                 'campaign' => $campaign,
             ]
@@ -32,8 +22,6 @@ class CampaignContentController
         // validate
         $request->validate([
             'description' => 'required|string',
-            'content' => 'required|string',
-            'custom_css' => 'nullable|string',
             'header_image' => 'nullable|image|max:5000',
             'intro_image' => 'nullable|image|max:5000',
             'pitch_video' => 'nullable|file|mimetypes:video/*|max:50000',
@@ -64,20 +52,10 @@ class CampaignContentController
             $campaign->clearMediaCollection('intro_image');
         }
 
-        $removedImageBlocks = $action->execute(
-            json_decode($campaign->content, true),
-            json_decode($request->content, true)
-        );
-
         $campaign->update([
-            'content' => $request->content,
             'description' => strip_tags($request->description),
         ]);
 
-        foreach ($removedImageBlocks as $block) {
-            app(DeleteMediaByUrl::class)->execute($campaign, $block['data']['file']['url']);
-        }
-
-        return redirect()->route('campaigns.content.edit', $campaign);
+        return redirect()->back()->with('success', 'Pitch updated successfully');
     }
 }

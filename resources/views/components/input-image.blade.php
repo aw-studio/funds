@@ -6,7 +6,7 @@
 />
 <div
     x-data="fileUpload(@js($currentUrl))"
-    {{ $attributes->merge(['class' => 'flex justify-center items-center border bg-gray-50 border-gray-300  border-dashed rounded-md h-56 overflow-y-hidden']) }}
+    {{ $attributes->merge(['class' => 'flex justify-center items-center border bg-gray-50 border-gray-300  border-dashed rounded-md min-h-24 overflow-y-hidden']) }}
     :class="imageUrl && 'border-primary-500'"
 >
 
@@ -15,8 +15,8 @@
             class="relative cursor-pointer bg-transparent rounded-md space-y-1 text-center px-6 pt-5 pb-6 w-full"
             for="{{ $name }}"
         >
-            <x-icons.add-image class="mx-auto h-12 w-12 text-gray-400" />
-            <p class="text-gray-500 space-y-1">
+            <x-icons.add-image class="mx-auto h-8 w-8 text-gray-400" />
+            <p class="text-gray-500 space-y-1 text-sm">
                 <span>{{ __('Add a file') }}</span>
             </p>
         </label>

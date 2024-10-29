@@ -2,16 +2,15 @@
 
 namespace Funds\Campaign\Database\Factories;
 
-use Funds\Campaign\Models\Campaign;
+use Funds\Campaign\Models\Faq;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Funds\Campaign\Models\Campaign>
  */
-class CampaignFactory extends Factory
+class FaqFactory extends Factory
 {
-    protected $model = Campaign::class;
+    protected $model = Faq::class;
 
     /**
      * Define the model's default state.
@@ -21,13 +20,8 @@ class CampaignFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->randomElement($this->names()),
-            'slug' => fn ($attributes) => Str::slug($attributes['name']),
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-            'goal' => random_int(1, 25) * 1000 * 100,
-            'fees' => random_int(1, 5),
-            'start_date' => fake()->dateTimeBetween('-1 month', 'now'),
-            'end_date' => fake()->dateTimeBetween('now', '+1 month'),
+            'question' => fake()->sentence().'?',
+            'answer' => fake()->paragraph(),
         ];
     }
 

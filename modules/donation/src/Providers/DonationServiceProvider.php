@@ -21,7 +21,6 @@ class DonationServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        ray('boot donation');
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         $this->loadRoutesFrom(__DIR__.'/../Http/routes.php');

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
             $table->string('question');
-            $table->text('answer');
+            $table->text('answer')->nullable();
             $table->foreignId('campaign_id')->constrained()->onDelete('cascade');
             $table->integer('order')->default(0);
             $table->timestamps();

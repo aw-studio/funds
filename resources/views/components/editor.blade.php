@@ -18,7 +18,7 @@
         margin-bottom: 1rem;
     }
 </style>
-<div class="min-h-32">
+<div class="min-h-32 mb-8">
     <textarea
         id="content"
         type="hidden"
@@ -28,7 +28,7 @@
 
     <div
         id="editorjs"
-        style="border: 1px solid #ddd;"
+        class="border border-gray-200 rounded-lg p-2 bg"
     ></div>
 </div>
 

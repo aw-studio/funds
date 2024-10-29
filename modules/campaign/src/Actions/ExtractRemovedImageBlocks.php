@@ -7,6 +7,10 @@ class ExtractRemovedImageBlocks
     public function execute(array $oldContent, array $newContent)
     {
         $imageIdsInSecondJson = [];
+        if (! isset($oldContent['blocks']) || ! isset($newContent['blocks'])) {
+            return [];
+        }
+
         foreach ($newContent['blocks'] as $block) {
             if ($block['type'] === 'image') {
                 $imageIdsInSecondJson[] = $block['id'];
