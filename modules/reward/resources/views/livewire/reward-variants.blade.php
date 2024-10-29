@@ -1,6 +1,6 @@
 <?php
 
-use function Livewire\Volt\{state};
+use function Livewire\Volt\{state, mount};
 use Funds\Donation\Models\Donation;
 use function Livewire\Volt\{with, usesPagination};
 

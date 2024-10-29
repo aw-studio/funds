@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->integer('min_amount')->default(0)->comment('Amount in cents');
             $table->string('type')->default('default');
+            $table->string('shipping_type')->nullable();
+            $table->string('packaging_nstructions')->nullable();
             $table->timestamps();
         });
     }

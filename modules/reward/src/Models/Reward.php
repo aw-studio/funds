@@ -26,6 +26,8 @@ class Reward extends Model implements HasMedia
         'name',
         'description',
         'min_amount',
+        'shipping_type',
+        'packaging_instructions',
     ];
 
     public function casts(): array

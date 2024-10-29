@@ -60,6 +60,8 @@ class RewardController
             'name' => 'required|string',
             'description' => 'required|string',
             'min_amount' => 'required|numeric',
+            'shipping_type' => 'nullable|string',
+            'packaging_instructions' => 'nullable|string',
         ]);
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {

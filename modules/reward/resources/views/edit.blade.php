@@ -18,7 +18,7 @@
                     name="name"
                     :value="$reward->name"
                     :label="__('Name')"
-                    placeholder="Reward name"
+                    placeholder="{{ __('Reward Name') }}"
                     required
                 />
                 <x-money-input
@@ -28,55 +28,53 @@
                     placeholder="0.00"
                 />
             </div>
-            <x-textarea
-                name="description"
-                :label="__('Description')"
-                :value="$reward->description"
-                required
-            />
-            <x-input-label
-                :value="__('Image')"
-                :hint="__(
-                    'Aspect ratio 3:2. The maximum file size is 5 MB. Supported file formats are .jpg and .png.',
-                )"
-            />
-            <div class="max-w-sm">
-                <x-rewards::reward-image :$reward />
+            <div class="mb-4">
+                <x-textarea
+                    name="description"
+                    :label="__('Description')"
+                    :value="$reward->description"
+                    required
+                />
             </div>
+            <x-input-image
+                name="image"
+                label="{{ __('Upload image') }}"
+                hint="{{ 'The maximum file size is 5 MB. Supported file formats are .jpg and .png.' }}"
+                class="md:max-w-sm mb-10"
+                currentUrl="{{ $reward->getFirstMediaUrl('image', 'thumb') }}"
+            />
+
             <div class="max-w-md mt-10">
                 <livewire:reward-variants :reward="$reward" />
             </div>
             <div class="mt-10">
-                <span class="text-xl mb-4">{{ __('Shipment Settings') }}</span>
+                <p class="text-xl mb-4">{{ __('Shipment Settings') }}</p>
             </div>
-            <div>
+            <div class="mb-4">
                 <x-input-label
                     :value="__('Shipping Type')"
                     for="shipping_type"
                 />
-
-                <select
-                    id="HeadlineAct"
-                    name="shipping_type"
-                    class="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
-                >
-                    <option value="">Please select</option>
-                    <option value="JM">Package</option>
-                    <option value="SRV">Consignment</option>
-                </select>
+                <x-rewards::shipping-options :selected="$reward->shipping_type" />
             </div>
+            @if ($errors->any())
+                {{ implode('', $errors->all('<div>:message</div>')) }}
+            @endif
             <x-textarea
-                name="shipping_details"
+                name="packaging_instructions"
                 :label="__('Shipping Details')"
-            >{{ $reward->shipping_details ?? '' }}</x-textarea>
+                class="mb-4"
+            >{{ $reward->packaging_instructions }}</x-textarea>
+            <div class="flex items-end gap-4">
 
-            <x-outline-button :href="route('rewards.index')">
-                {{ __('Cancel') }}
-            </x-outline-button>
+                <x-outline-button :href="route('rewards.index')">
+                    {{ __('Cancel') }}
+                </x-outline-button>
 
-            <x-button type="submit">
-                {{ __('Update') }}
-            </x-button>
+                <x-button type="submit">
+                    {{ __('Update') }}
+                </x-button>
+            </div>
         </form>
     </x-form-page-container>
 </x-app-layout>
