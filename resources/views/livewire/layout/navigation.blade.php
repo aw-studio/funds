@@ -84,7 +84,14 @@ new class extends Component {
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  hover:text-gray-700 :text-gray-300 focus:outline-none transition ease-in-out duration-150"
                         >
 
-                            <p class="text-base font-normal mr-2">{{ Auth::user()->name }}</p>
+                            <p
+                                class="text-base font-normal mr-2"
+                                x-data="{
+                                    userName: @js(auth()->user()->name),
+                                }"
+                                x-text="userName"
+                                x-on:profile-updated.window="userName = $event.detail.name"
+                            >{{ auth()->user()->name }}</p>
                             <div class="rounded-full h-10 w-10 bg-white flex items-center justify-center">
                                 <div
                                     x-data="{{ json_encode(['initialLetters' => auth()->user()->initialLetters()]) }}"

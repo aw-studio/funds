@@ -39,7 +39,7 @@ new class extends Component {
 
         $user->save();
 
-        $this->dispatch('profile-updated', initialLetters: $user->initialLetters());
+        $this->dispatch('profile-updated', initialLetters: $user->initialLetters(), name: $user->name);
     }
 
     /**
