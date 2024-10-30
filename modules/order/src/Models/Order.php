@@ -20,12 +20,12 @@ class Order extends Model
     use HasFactory;
 
     public $fillable = [
-        'status',
+        'shipment_status',
         'shipment_adress',
     ];
 
     protected $attributes = [
-        'status' => 'pending',
+        'shipment_status' => 'pending',
     ];
 
     public function casts(): array

@@ -15,8 +15,6 @@ class FoundationServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->register(ExtensionsServiceProvider::class);
-
         Route::macro(
             'app',
             fn ($callback) => Route::group([
@@ -29,7 +27,7 @@ class FoundationServiceProvider extends ServiceProvider
         $this->app->bind('funds.core', Core::class);
         $this->app->singleton('funds.payment', PaymentGatewayResolver::class);
         $this->app->singleton('funds.navigation', Navigation::class);
-
+        $this->app->register(ExtensionsServiceProvider::class);
     }
 
     public function boot(): void

@@ -6,7 +6,11 @@
 
 <div {{ $attributes->class(['w-full h-3 rounded-full mt-4 bg-gray-200']) }}>
     <div
-        @class(["h-3 rounded-l $color", 'rounded-full' => $progress > 99])
+        @class([
+            "h-3 $color",
+            'rounded-l' => $progress < 99,
+            'rounded-full' => $progress > 99,
+        ])
         style="width: 0%; transition: width 1s ease;"
         x-data
         x-init="$nextTick(() => $el.style.width = '{{ $progress }}%')"

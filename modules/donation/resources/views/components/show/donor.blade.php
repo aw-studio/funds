@@ -1,4 +1,4 @@
-<div>
+<x-card-widget class="mb-8">
     <span class="text-gray-500 text-sm">{{ __('Donor') }}</span>
     <div>
         <p class="text-xl font-serif">{{ $donation->donor->name }}</p>
@@ -7,4 +7,4 @@
             {{ $donation->donor->email }}
         </p>
     </div>
-</div>
+</x-card-widget>

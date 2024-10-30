@@ -1,6 +1,6 @@
-<div>
+<x-card-widget class="mb-4">
     <div class="">
-        {{ __('Transaction') }}
+        <p class="text-sm">{{ __('Transaction') }}</p>
         <div class="text-xl font-bold font-serif mb-2">
             {{ $donation->amount }}
         </div>
@@ -59,4 +59,4 @@
         </div>
     @endif
 
-</div>
+</x-card-widget>

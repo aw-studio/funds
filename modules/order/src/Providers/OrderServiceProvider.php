@@ -2,6 +2,7 @@
 
 namespace Funds\Order\Providers;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 class OrderServiceProvider extends ServiceProvider
@@ -17,9 +18,9 @@ class OrderServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'order');
 
         view()->composer('donation::show', function ($view) {
-            $view->with('widgets',
-                view('order::components.donation-order', $view->getData()));
+            $view->nest('widget:donation-order', 'order::components.donation-order', $view->getData());
         });
 
+        Event::dispatch('funds.order.booted');
     }
 }

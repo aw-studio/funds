@@ -92,11 +92,7 @@ class Donation extends Model
 
     public function label(): string
     {
-        if (($this->reward) !== null) {
-            return __('Reward donation');
-        }
-
-        return __('Simple donation');
+        return __('Single donation');
     }
 
     public function paidFeeAmount(): Amount
