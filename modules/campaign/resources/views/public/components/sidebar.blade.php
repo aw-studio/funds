@@ -4,10 +4,12 @@
         {{ __('Choose a reward') }}
     </div>
     @foreach ($donation_options as $reward)
-        <x-public::donation-card>
-            <div class="w-full mb-2">
-                {{ $reward->getFirstMedia('image') }}
-            </div>
+        <x-public::donation-card href="{{ route('public.checkout', ['campaign' => $campaign, 'reward' => $reward]) }}">
+            @if ($image = $reward->getFirstMedia('image'))
+                <div class="w-full mb-2">
+                    {{ $image }}
+                </div>
+            @endif
             <div class="flex gap-2 mb-2">
                 <div class="tag text-sm p-1 px-2">
                     {{ $reward->min_amount }}
@@ -20,31 +22,32 @@
                 {{ $reward->description }}
             </p>
             <div class="text-right">
-                <a
-                    href="{{ route('public.checkout', ['campaign' => $campaign, 'reward' => $reward]) }}"
-                    class="button-link underline underline-offset-4"
-                >
+                <span class="button-link underline underline-offset-4">
                     {{ __('Select and Continue') }}
-                </a>
+                </span>
             </div>
         </x-public::donation-card>
     @endforeach
-    <x-public::donation-card>
+    <x-public::donation-card href="{{ route('public.checkout', ['campaign' => $campaign]) }}">
         <div class="flex gap-2 mb-2">
             <p class="title text-lg">
                 {{ 'Simple Donation' }}
             </p>
         </div>
+        <x-input
+            type="text"
+            name="amount"
+            value="5 €"
+            disabled
+            class="pointer-events-none"
+        />
         <p class="description mb-4">
             {{ 'Support us with a donation of any amount for nothing in return!' }}
         </p>
         <div class="text-right">
-            <a
-                href="{{ route('public.checkout', ['campaign' => $campaign]) }}"
-                class="button-link underline underline-offset-4"
-            >
+            <span class="button-link underline underline-offset-4">
                 {{ __('Donate now') }}
-            </a>
+            </span>
         </div>
     </x-public::donation-card>
 </div>

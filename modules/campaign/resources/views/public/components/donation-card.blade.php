@@ -1,3 +1,9 @@
-<div class="mb-8 p-4 card">
+@php
+    $href = $attributes->get('href');
+@endphp
+<a
+    class="mb-8 p-4 card block"
+    href="{{ $href }}"
+>
     {{ $slot }}
-</div>
+</a>
