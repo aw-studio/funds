@@ -33,8 +33,8 @@
                     <x-input
                         type="number"
                         name="fees"
-                        :label="__('Fees')"
-                        placeholder="{{ __('Fees') }} %"
+                        :label="__('Transaction fees')"
+                        placeholder="{{ __('Transaction fees') }} %"
                         {{-- required --}}
                     />
                 </div>

@@ -1,4 +1,9 @@
 {
+    "Donations": "Spenden",
+    "Donation": "Spende",
+    "Donation Intents": "Spendenabsichten",
+    "Donation Intent": "Spendenabsicht",
+    "Donor": "Spender:in",
     "donate_one_time": "Einmalig spenden",
     "Selected reward": "Ausgewählter Perk",
     "Select a variant": "Wählen Sie eine Variante",
@@ -20,5 +25,8 @@
     "Summary": "Zusammenfassung",
     "Optional amount": "Freiwilliger Beitrag",
     "Processing fees": "Transaktionsgebühren",
-    "Total amount": "Gesamtbetrag"
+    "Total amount": "Gesamtbetrag",
+    "One-time donation": "Einmalige Spende",
+    "Receipt address": "Quittungsadresse",
+    "Download receipt": "Quittung herunterladen"
 }

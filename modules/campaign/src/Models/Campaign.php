@@ -200,4 +200,21 @@ class Campaign extends Model implements HasMedia
 
         return $styles->toCssVariables();
     }
+
+    public function isPublished()
+    {
+        return $this->published_at !== null;
+    }
+
+    public function unPublish()
+    {
+        $this->published_at = null;
+        $this->save();
+    }
+
+    public function publish()
+    {
+        $this->published_at = now();
+        $this->save();
+    }
 }

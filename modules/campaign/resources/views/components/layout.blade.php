@@ -13,7 +13,8 @@
                     {{ $actions }}
                 </div>
             @else
-                <div class="ml-auto">
+                <div class="ml-auto flex items-center gap-4">
+                    <livewire:publish-campaign :campaign="$campaign" />
                     <x-dropdown align="right">
                         <x-slot name="trigger">
                             <x-button

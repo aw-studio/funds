@@ -27,8 +27,6 @@ class RewardShippingOptions extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('rewards::components.shipping-option-select', [
-            'options' => config('rewards.shipping_options', []),
-        ]);
+        return view('rewards::components.shipping-option-select');
     }
 }

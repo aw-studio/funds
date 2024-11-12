@@ -10,15 +10,17 @@ class OrderServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->register(OrderEventServiceProvider::class);
+        $this->loadJsonTranslationsFrom(__DIR__.'/../../resources/lang');
     }
 
     public function boot(): void
     {
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'order');
+        $this->loadRoutesFrom(__DIR__.'/../Http/routes.php');
 
         view()->composer('donation::show', function ($view) {
-            $view->nest('widget:donation-order', 'order::components.donation-order', $view->getData());
+            $view->nest('widget:donation-order-widget', 'order::components.donation-order-widget', $view->getData());
         });
 
         Event::dispatch('funds.order.booted');

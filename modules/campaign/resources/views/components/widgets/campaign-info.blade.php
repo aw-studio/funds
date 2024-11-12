@@ -34,7 +34,7 @@
                     <div class="inline-flex items-center">
                         <x-icons.percentage />
                         <span class="text-sm ml-4">
-                            {{ $campaign->fees }}% {{ __('Fees') }}
+                            {{ $campaign->fees }}% {{ __('Transaction fees') }}
                         </span>
                     </div>
                 </div>

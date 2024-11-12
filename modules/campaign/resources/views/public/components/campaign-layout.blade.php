@@ -43,6 +43,17 @@
 </head>
 
 <body class="campaign {{ $attributes->get('bodyClass', '') }}">
+    @if (!$campaign->isPublished())
+        <div class="border-b border-purple-500 bg-purple-100 text-purple-500 text-center p-4 text-sm sticky top-0">
+            {{ __('This campaign is not published yet.') }}
+            {{ __('Some features may not work as expected.') }}
+            <a
+                href="{{ route('campaigns.show', $campaign) }}"
+                class="underline"
+            >{{ __('Edit Campaign') }}</a>
+
+        </div>
+    @endif
     @if ($header)
         <x-public::layout-header />
     @endif

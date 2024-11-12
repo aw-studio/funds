@@ -42,9 +42,10 @@ class Reward extends Model implements HasMedia
         return $this->hasMany(RewardVariant::class);
     }
 
-    public function scopeTopForCampaign($campaign)
+    public function scopeTopForCampaign($query, $campaign)
     {
-        return $this->leftJoin('orders', 'rewards.id', '=', 'orders.reward_id')
+        return $query->where('rewards.campaign_id', $campaign->id)
+            ->leftJoin('orders', 'rewards.id', '=', 'orders.reward_id')
             ->select('rewards.*', DB::raw('COUNT(orders.id) as order_count'))
             ->groupBy('rewards.id')
             ->orderByDesc('order_count');

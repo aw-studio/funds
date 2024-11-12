@@ -6,12 +6,15 @@ use Funds\Donation\Http\Controllers\DonationController;
 use Funds\Donation\Http\Controllers\DonationIntentController;
 use Funds\Donation\Http\Controllers\DonationReceiptAddressController;
 use Funds\Donation\Http\Controllers\DonationReceiptController;
+use Funds\Donation\Http\Controllers\DonorController;
 use Funds\Donation\Http\Controllers\StripeWebhookController;
 use Illuminate\Support\Facades\Route;
 
 Route::app(function () {
     Route::resource('donations', DonationController::class)->only(['index', 'show', 'create', 'store'])
         ->middleware(EnsureCampaignMiddleware::class);
+
+    Route::resource('donors', DonorController::class)->only(['edit', 'update']);
 
     Route::get('intents', [DonationIntentController::class, 'index'])
         ->name('donations.intents.index')

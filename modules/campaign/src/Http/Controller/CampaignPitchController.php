@@ -2,7 +2,6 @@
 
 namespace Funds\Campaign\Http\Controller;
 
-use Funds\Campaign\Actions\ExtractRemovedImageBlocks;
 use Funds\Campaign\Models\Campaign;
 use Illuminate\Http\Request;
 
@@ -17,7 +16,7 @@ class CampaignPitchController
         );
     }
 
-    public function update(Request $request, Campaign $campaign, ExtractRemovedImageBlocks $action)
+    public function store(Request $request, Campaign $campaign)
     {
         // validate
         $request->validate([

@@ -1,9 +1,4 @@
 {
-    "Donations": "Spenden",
-    "Donation": "Spende",
-    "Donation Intents": "Spendenabsichten",
-    "Donation Intent": "Spendenabsicht",
-    "Donor": "Spender:in",
     "Profile": "Profil",
     "Profile Information": "Ihr Profil",
     "Update your account's profile information and email address.": "Aktualisieren Sie die Profilinformationen Ihres Kontos und die E-Mail-Adresse.",
@@ -18,9 +13,8 @@
     "Save": "Speichern",
     "Delete Account": "Konto löschen",
     "You're logged in!": "Sie sind angemeldet!",
-    "Add Donation": "Spende eintragen",
+
     "Back": "Zurück",
-    "Metrics": "Statistiken",
     "Log in": "Login",
     "Register": "Registrieren",
     "Password": "Passwort",
@@ -35,11 +29,9 @@
     "General": "Allgemein",
     "Description": "Beschreibung",
     "Image": "Bild",
-    "One-time donation": "Einmalige Spende",
-    "Receipt address": "Quittungsadresse",
-    "Download receipt": "Quittung herunterladen",
     "Showing": "Zeige",
     "to": "bis",
     "of": "von",
-    "results": "Ergebnissen"
+    "results": "Ergebnissen",
+    "Amount": "Betrag"
 }

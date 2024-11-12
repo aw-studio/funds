@@ -3,6 +3,7 @@
 namespace Funds\Order\Models;
 
 use Funds\Donation\Models\Donation;
+use Funds\Order\Enums\OrderShipmentStatus;
 use Funds\Reward\Models\Reward;
 use Funds\Reward\Models\RewardVariant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,13 +26,14 @@ class Order extends Model
     ];
 
     protected $attributes = [
-        'shipment_status' => 'pending',
+        'shipment_status' => OrderShipmentStatus::Pending,
     ];
 
     public function casts(): array
     {
         return [
             'shipping_address' => 'array',
+            'shipment_status' => OrderShipmentStatus::class,
         ];
     }
 
@@ -53,5 +55,11 @@ class Order extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where('shipping_address', 'like', "%$search%");
+    }
+
+    public function markAsShipped()
+    {
+        $this->shipment_status = OrderShipmentStatus::Shipped;
+        $this->save();
     }
 }

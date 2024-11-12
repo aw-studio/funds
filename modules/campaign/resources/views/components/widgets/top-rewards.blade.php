@@ -9,6 +9,11 @@
                     {{ $reward->name }} <span>{{ $reward->order_count }}</span>
                 </li>
             @endforeach
+            @if ($rewards->isEmpty())
+                <li class="py-4">
+                    {{ __('No data available') }}
+                </li>
+            @endif
         </ul>
     </div>
 </div>

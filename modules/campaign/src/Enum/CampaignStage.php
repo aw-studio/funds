@@ -5,10 +5,9 @@ namespace Funds\Campaign\Enum;
 enum CampaignStage: string
 {
     case Unplanned = 'unplanned';
-    case Upcoming = 'Upcoming';
+    case Upcoming = 'upcoming';
     case Running = 'running';
     case Ended = 'ended';
-    case Finished = 'finished';
 
     public function label(): string
     {
@@ -17,7 +16,6 @@ enum CampaignStage: string
             self::Upcoming => __('Upcoming'),
             self::Running => __('Running'),
             self::Ended => __('Ended'),
-            self::Finished => __('Finished'),
         };
     }
 }

@@ -24,16 +24,28 @@
         </div>
     </div>
     <hr class="my-8" />
-    @if ($donation->receipt_address)
-        <div class="relative">
-            <span class="text-sm text-gray-500">{{ __('Receipt address') }}</span>
+
+    <div class="relative">
+        <p class="text-sm text-gray-500 mb-2">{{ __('Receipt address') }}</p>
+        @if (!$donation->receipt_address)
+            <x-button
+                round
+                href="{{ route('donations.receipt-address.edit', $donation) }}"
+                class="w-10 h-10 "
+                outlined
+                iconButton
+            >
+                <x-icons.plus />
+            </x-button>
+        @else
             <x-button
                 round
                 outlined
-                class="w-8 h-8 items-center justify-center flex !p-0 absolute top-2 right-8"
                 href="{{ route('donations.receipt-address.edit', $donation) }}"
+                iconButton
+                class="w-10 h-10 absolute top-0 right-8"
             >
-                <x-icons.pencil class="w-4 h-4" />
+                <x-icons.pencil />
             </x-button>
             <div class="text-base">
                 {{ $donation->receipt_address['name'] }}<br />
@@ -48,6 +60,7 @@
                     <a
                         href="{{ route('donations.receipt', $donation) }}"
                         class="flex gap-4"
+                        target="_blank"
                     >
                         {{ __('Download receipt') }}
                         <x-icons.download />
@@ -55,8 +68,7 @@
 
                 </div>
             </div>
-
-        </div>
-    @endif
+        @endif
+    </div>
 
 </x-card-widget>
