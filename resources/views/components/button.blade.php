@@ -27,6 +27,10 @@
         $classes[] = 'rounded-full';
     }
 
+    if ($attributes->get('disabled')) {
+        $classes[] = 'cursor-not-allowed';
+    }
+
     $class = implode(' ', array_unique($classes));
 @endphp
 
