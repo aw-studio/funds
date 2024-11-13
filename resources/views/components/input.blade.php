@@ -16,6 +16,7 @@
                     'mt-1 w-full rounded-md border-gray-200 sm:text-s',
                     'border-red-500' => $errors->has($errorKey),
                     'bg-gray-50' => $attributes->get('disabled'),
+                    'ps-8 ' => isset($prefix),
                 ])->merge(['disabled' => false]) }}
         />
         @isset($prefix)

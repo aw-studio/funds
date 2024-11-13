@@ -13,7 +13,15 @@ class RewardVariant extends Model
     public $fillable = [
         'name',
         'description',
+        'is_active',
     ];
+
+    public function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+        ];
+    }
 
     public function reward()
     {
@@ -25,5 +33,11 @@ class RewardVariant extends Model
         return Attribute::make(
             get: fn ($value) => $this->reward->min_amount
         );
+    }
+
+    public function toggle(): void
+    {
+        $this->is_active = ! $this->is_active;
+        $this->save();
     }
 }

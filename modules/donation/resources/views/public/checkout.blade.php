@@ -81,11 +81,13 @@
                     class="bg-transparent max-w-md"
                 >
                     @foreach ($reward->variants as $variant)
-                        <option value="{{ $variant->id }}">{{ $variant->name }}</option>
+                        <option
+                            value="{{ $variant->id }}"
+                            @if (!$variant->is_active) disabled @endif
+                        >{{ $variant->name }}</option>
                     @endforeach
                 </x-select>
             @endif
-
             <x-public::checkout.donation-amount
                 :$reward
                 :$defaultAmount

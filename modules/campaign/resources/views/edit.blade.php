@@ -22,6 +22,7 @@
                         :value="$campaign->name"
                         required
                     />
+
                 </div>
                 <div class="grid grid-cols-2 gap-2 mb-4">
                     <x-money-input
@@ -35,7 +36,11 @@
                         :label="__('Transaction fees')"
                         :placeholder="__('Transaction fees')"
                         :value="$campaign->fees"
-                    />
+                    >
+                        <x-slot name="prefix">
+                            %
+                        </x-slot>
+                    </x-input>
                 </div>
                 <div class="grid grid-cols-2 gap-2 mb-4">
                     <x-input-date-simple
