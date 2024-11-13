@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class RewardShippingOptions extends Component
+class RewardShippingTypeSelect extends Component
 {
     public array $options;
 
@@ -16,10 +16,17 @@ class RewardShippingOptions extends Component
      * Create a new component instance.
      */
     public function __construct(
-        ?string $selected
+        ?string $selected,
+        array $options = [],
     ) {
-        $this->options = config('rewards.shipping_options', []);
+        $this->options = ! empty($options) ? $options : $this->defaultOptions();
+
         $this->selected = $selected;
+    }
+
+    protected function defaultOptions(): array
+    {
+        return config('rewards.shipping_options', []);
     }
 
     /**
@@ -27,6 +34,6 @@ class RewardShippingOptions extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('rewards::components.shipping-option-select');
+        return view('rewards::components.shipping-type-select');
     }
 }

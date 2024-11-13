@@ -2,7 +2,7 @@
 
 namespace Funds\Reward\Providers;
 
-use Funds\Reward\View\RewardShippingOptions;
+use Funds\Reward\View\RewardShippingTypeSelect;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Volt\Volt;
@@ -21,7 +21,7 @@ class RewardServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../Http/routes.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'rewards');
 
-        Blade::component(RewardShippingOptions::class, 'rewards::shipping-options');
+        Blade::component(RewardShippingTypeSelect::class, 'rewards::shipping-type-select');
 
         Volt::mount([
             __DIR__.'/../../resources/views/livewire',

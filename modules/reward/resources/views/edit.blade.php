@@ -55,7 +55,7 @@
                     :value="__('Shipping Type')"
                     for="shipping_type"
                 />
-                <x-rewards::shipping-options :selected="$reward->shipping_type" />
+                <x-rewards::shipping-type-select :selected="$reward->shipping_type" />
             </div>
             @if ($errors->any())
                 {{ implode('', $errors->all('<div>:message</div>')) }}
