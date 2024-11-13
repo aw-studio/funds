@@ -5,6 +5,7 @@ namespace Funds\Reward\Http\Controllers;
 use Funds\Reward\Models\Reward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Context;
+use Illuminate\Support\Str;
 
 class RewardController
 {
@@ -38,6 +39,13 @@ class RewardController
             'min_amount' => 'required|numeric',
         ]);
 
+        // generate unique slug
+        $validated['slug'] = Str::slug($validated['name']);
+
+        if ($count = Reward::where('slug', $validated['slug'])->count() > 0) {
+            $validated['slug'] .= '-'.$count;
+        }
+
         $reward = new Reward($validated);
         $campaign = Context::get('campaign');
 
@@ -63,6 +71,12 @@ class RewardController
             'shipping_type' => 'nullable|string',
             'packaging_instructions' => 'nullable|string',
         ]);
+
+        $validated['slug'] = Str::slug($validated['name']);
+
+        if ($count = Reward::where('slug', $validated['slug'])->count() > 0) {
+            $validated['slug'] .= '-'.$count + 1;
+        }
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $reward->addMediaFromRequest('image')->toMediaCollection('image');

@@ -41,7 +41,7 @@ Route::app(function () {
 Route::group([
     'middleware' => ['web'],
 ], function () {
-    Route::get('campaign/{campaign:slug}/donate/{reward?}', [CheckoutController::class, 'show'])->name('public.checkout');
+    Route::get('campaign/{campaign:slug}/donate/{reward:slug?}', [CheckoutController::class, 'show'])->name('public.checkout');
     Route::post('campaign/{campaign:slug}/donate/{reward?}', [CheckoutController::class, 'store'])->name('public.checkout.store');
     Route::get('campaign/{campaign:slug}/checkout/return/{donationIntent}', [CheckoutController::class, 'return'])->name('public.checkout.return');
 });

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('campaign_id');
             $table->string('name');
+            $table->string('slug');
             $table->string('description')->nullable();
             $table->integer('min_amount')->default(0)->comment('Amount in cents');
             $table->string('type')->default('default');

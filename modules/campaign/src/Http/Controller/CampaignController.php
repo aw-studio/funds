@@ -80,6 +80,8 @@ class CampaignController
             'end_date' => 'required|date|after:start_date',
         ]);
 
+        $validated['slug'] = Str::slug($validated['name']);
+
         $campaign->update($validated);
 
         flash('Campaign updated!', 'success');

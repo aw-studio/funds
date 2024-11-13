@@ -5,6 +5,7 @@ namespace Funds\Reward\Database\Factories;
 use Funds\Campaign\Models\Campaign;
 use Funds\Reward\Models\Reward;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Funds\Rewards\Models\Reward>
@@ -24,6 +25,7 @@ class RewardFactory extends Factory
 
         return [
             'name' => $item,
+            'slug' => Str::slug($item),
             'description' => $this->items()[$item],
             'min_amount' => random_int(1, 50) * 100,
             'campaign_id' => Campaign::factory(),
