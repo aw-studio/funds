@@ -1,4 +1,7 @@
-<x-app-layout :backLink="route('donations.index')">
+<x-app-layout
+    :backLink="route('donations.index')"
+    :title="page_title(__('Donation') . ' #' . $donation->id)"
+>
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-serif">
             @lang('Donation') #{{ $donation->id }}

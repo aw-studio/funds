@@ -1,4 +1,4 @@
-@props(['backLink' => null])
+@props(['backLink' => null, 'title' => null])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -13,7 +13,13 @@
         content="{{ csrf_token() }}"
     >
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>
+        @isset($title)
+            {{ $title }}
+        @else
+            {{ config('app.name', 'Laravel') }}
+        @endisset
+    </title>
     <link
         rel="icon"
         type="image/png"

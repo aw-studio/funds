@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :title="page_title(__('Campaigns'))">
     <x-slot name="header">
         <div class="flex">
             <h2 class="font-bold font-serif text-2xl text-gray-800  leading-tight font-rubik">

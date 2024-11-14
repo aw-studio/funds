@@ -18,7 +18,7 @@
         <h1 class="text-3xl mb-4">{{ $campaign->name }}</h1>
         @if ($reward)
             <div class="reward mb-4">
-                <p class="text-2xl mb-4">{{ __('Selected reward') }}</span>
+                <p class="text-2xl mb-4">{{ __('Selected Reward') }}</span>
                 <div class="flex gap-2">
                     <div class="mb-2 max-w-48">
                         {{ $reward->getFirstMedia('image') }}

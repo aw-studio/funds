@@ -1,5 +1,5 @@
-<x-app-layout>
-    <x-form-page-container title="Edit Donor">
+<x-app-layout :title="page_title(__('Edit Donor Details'))">
+    <x-form-page-container :title="__('Edit Donor Details')">
         <form
             action="{{ route('donors.update', $donor) }}"
             method="POST"

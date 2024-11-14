@@ -1,5 +1,8 @@
 @props(['campaign', 'actions' => null, 'backRoute' => null])
-<x-app-layout :backLink="$backRoute ?? route('campaigns.index')">
+<x-app-layout
+    :backLink="$backRoute ?? route('campaigns.index')"
+    :title="page_title($campaign->name, __('Campaigns'))"
+>
     <x-slot name="header">
         <div class="flex ">
             <a

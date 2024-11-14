@@ -1,5 +1,8 @@
-<x-app-layout :backRoute="route('donations.index')">
-    <x-form-page-container title="Edit Receipt Address">
+<x-app-layout
+    :backRoute="route('donations.index')"
+    :title="page_title(__('Edit Receipt Address'))"
+>
+    <x-form-page-container :title="__('Edit Receipt Address')">
         <form
             action="{{ route('donations.receipt-address.update', $donation) }}"
             method="POST"

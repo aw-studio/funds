@@ -1,5 +1,8 @@
-<x-app-layout :backRoute="route('donations.show', $order->donation_id)">
-    <x-form-page-container title="Edit Shipping Address">
+<x-app-layout
+    :backRoute="route('donations.show', $order->donation_id)"
+    :title="page_title(__('Edit Shipping Address'))"
+>
+    <x-form-page-container :title="__('Edit Shipping Address')">
         <form
             action="{{ route('orders.shipping-address.update', $order) }}"
             method="POST"

@@ -5,7 +5,7 @@
     "Donation Intent": "Spendenabsicht",
     "Donor": "Spender:in",
     "donate_one_time": "Einmalig spenden",
-    "Selected reward": "Ausgewählter Perk",
+    "Selected Reward": "Ausgewählter Perk",
     "Select a variant": "Wählen Sie eine Variante",
     "Increase your donation amount": "Erhöhen Sie Ihren Spendenbetrag",
     "New Amount": "Neuer Betrag",
@@ -29,5 +29,7 @@
     "One-time donation": "Einmalige Spende",
     "Receipt address": "Quittungsadresse",
     "Download receipt": "Quittung herunterladen",
-    "Simple Donation": "Freie Spende"
+    "Simple Donation": "Freie Spende",
+    "Edit Receipt Address": "Quittungsadressse bearbeiten",
+    "Edit Donor Details": "Spender:in bearbeiten"
 }

@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :title="page_title(__('Profile'))">
 
     <x-form-page-container
         class="py-12"

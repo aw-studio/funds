@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :title="page_title(__('Add Donation'))">
     @php
         $cancelRoute = url()->previous();
         $previousRoute = url()->previous();
