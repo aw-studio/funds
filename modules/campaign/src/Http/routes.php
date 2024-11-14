@@ -6,7 +6,6 @@ use Funds\Campaign\Http\Controller\CampaignFaqController;
 use Funds\Campaign\Http\Controller\CampaignPitchController;
 use Funds\Campaign\Http\Controller\CampaignStyleSettingsController;
 use Funds\Campaign\Models\Campaign;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 // App
@@ -36,14 +35,6 @@ Route::app(function () {
     });
 
 });
-
-// Route::name('foo.')->group(function () {
-//     Route::get('design', function () {
-//         dump(request()->route()->getName());
-//         dump(Request::is('foo'));
-//     })->name('design');
-//     // Route::get('design', [CampaignStyleSettingsController::class, 'edit'])->name('campaigns.style-settings.edit');
-// });
 
 // // Api
 Route::group([

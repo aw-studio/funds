@@ -59,7 +59,7 @@ class CheckoutDonationRequest extends FormRequest
             return $this->input('requires_receipt') === true
                 && $this->input('use_shipping_address_for_receipt') !== true;
         });
-        ray($this->all());
+
         $rules = array_merge($rules, [
             'requires_receipt' => ['nullable', 'boolean'],
             'use_shipping_address_for_receipt' => ['nullable', 'boolean'],

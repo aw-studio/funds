@@ -14,8 +14,6 @@ if (! function_exists('flash')) {
 if (! function_exists('page_title')) {
     function page_title(...$title): string
     {
-        ray($title);
-
         return collect($title)->push(config('app.name'))->join(' | ');
     }
 }

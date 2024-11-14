@@ -55,8 +55,6 @@ class Campaign extends Model implements HasMedia
         try {
             return app(RenderEditorContent::class)->execute($this, $this->content);
         } catch (\Exception $e) {
-            ray($e->getMessage());
-
             return '';
         }
     }
