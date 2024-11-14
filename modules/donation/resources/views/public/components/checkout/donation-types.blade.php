@@ -1,6 +1,16 @@
 <?php
 use Funds\Foundation\Facades\Funds;
 ?>
+@if (count(Funds::donationTypes()) == 1)
+    @foreach (Funds::donationTypes() as $key => $type)
+        <input
+            type="hidden"
+            name="donation_type"
+            value="{{ $key }}"
+        >
+    @endforeach
+@endif
+
 @if (count(Funds::donationTypes()) > 1)
     <div class="my-10">
         <p class="checkout-section-header text-2xl mb-4"> {{ __('Select Donation Type') }}</p>
