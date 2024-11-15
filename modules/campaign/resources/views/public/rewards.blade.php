@@ -62,7 +62,7 @@
             </p>
             <div class="text-right">
                 <span class="button-link underline underline-offset-4">
-                    {{ __('Donate now') }}
+                    {{ __('Donate an amount') }}
                 </span>
             </div>
         </x-public::donation-card>

@@ -52,7 +52,7 @@
                     href="{{ route('campaigns.public.rewards', ['campaign' => $campaign]) }}"
                     class="fc-button inline-block"
                 >
-                    {{ __('Support now') }}
+                    {{ __('Donate now') }}
                 </a>
             @endif
         </div>

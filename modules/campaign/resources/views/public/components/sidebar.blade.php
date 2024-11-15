@@ -1,7 +1,7 @@
 @props(['donation_options' => [], 'campaign' => null])
 <div class="col-span-1 md:col-span-4 p-4 sidebar">
     <div class="mb-4 text-2xl">
-        {{ __('Choose a reward') }}
+        {{ __('Choose your reward') }}
     </div>
     @foreach ($donation_options as $reward)
         <x-public::donation-card href="{{ route('public.checkout', ['campaign' => $campaign, 'reward' => $reward]) }}">
@@ -31,7 +31,7 @@
     <x-public::donation-card href="{{ route('public.checkout', ['campaign' => $campaign]) }}">
         <div class="flex gap-2 mb-2">
             <p class="title text-lg">
-                {{ 'Simple Donation' }}
+                {{ __('Simple Donation') }}
             </p>
         </div>
         <x-input
@@ -46,7 +46,7 @@
         </p>
         <div class="text-right">
             <span class="button-link underline underline-offset-4">
-                {{ __('Donate now') }}
+                {{ __('Donate an amount') }}
             </span>
         </div>
     </x-public::donation-card>
