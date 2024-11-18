@@ -6,7 +6,7 @@ return [
      * If enabled, a public route will be registered for "/" to display all campaigns.
      * If disabled, the root path "/" will be redirected to the app login.
      */
-    'public_campaign_overview' => false,
+    'public_campaign_overview' => env('PUBLIC_CAMPAIGN_OVERVIEW', false),
 
     'default_currency' => env('DEFAULT_CURRENCY', 'EUR'),
 
