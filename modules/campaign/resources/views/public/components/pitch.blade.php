@@ -60,6 +60,6 @@
     </div>
     <div class="col-span-full">
         @lang('Share this campaign')
-        <x-public::share-icons />
+        <x-public::share-icons :$campaign />
     </div>
 </section>

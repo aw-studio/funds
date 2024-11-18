@@ -39,7 +39,6 @@
             {{ $slot }}
         </main>
         <x-session-alerts />
-
     </div>
 </body>
 
