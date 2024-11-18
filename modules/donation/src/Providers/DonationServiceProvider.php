@@ -2,6 +2,9 @@
 
 namespace Funds\Donation\Providers;
 
+use Funds\Donation\Events\DonationIntentSucceeded;
+use Funds\Donation\Models\Donation;
+use Funds\Donation\Notifications\DonationReceivedNotification;
 use Funds\Donation\Payment\StripePaymentGateway;
 use Funds\Donation\Services\DonationIntentService;
 use Funds\Donation\Services\DonationService;
@@ -9,6 +12,7 @@ use Funds\Foundation\Contracts\DonationIntentServiceInterface;
 use Funds\Foundation\Contracts\DonationServiceInterface;
 use Funds\Foundation\Facades\Funds;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Volt\Volt;
 
@@ -39,6 +43,11 @@ class DonationServiceProvider extends ServiceProvider
         $this->app->singleton(DonationIntentServiceInterface::class, DonationIntentService::class);
 
         Blade::component('stripe-payment-elements', \Funds\Donation\Payment\StripePaymentElements::class);
+
+        Event::listen(DonationIntentSucceeded::class, function (DonationIntentSucceeded $event) {
+            $donation = Donation::find($event->donationIntentData->donationId);
+            $donation->donor->notify(new DonationReceivedNotification($donation));
+        });
 
     }
 }
