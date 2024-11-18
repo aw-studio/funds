@@ -1,6 +1,6 @@
 @if ($donation->order)
     @pushOnce('widgets')
-        <x-card-widget>
+        <x-card>
             <div class="flex justify-between">
                 <p class="font-serif text-xl">{{ __('Shipment') }}</p>
                 <x-order::order-shipment-status-badge :order="$donation->order" />
@@ -28,6 +28,6 @@
                 </div>
             </div>
 
-        </x-card-widget>
+        </x-card>
     @endpushOnce
 @endif

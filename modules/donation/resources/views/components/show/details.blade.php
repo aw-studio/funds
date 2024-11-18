@@ -1,4 +1,4 @@
-<x-card-widget class="mb-4">
+<x-card class="mb-4">
     <div class="">
         <p class="text-sm">{{ __('Transaction') }}</p>
         <div class="text-xl font-bold font-serif mb-2">
@@ -71,4 +71,4 @@
         @endif
     </div>
 
-</x-card-widget>
+</x-card>

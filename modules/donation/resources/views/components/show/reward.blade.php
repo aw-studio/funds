@@ -1,5 +1,5 @@
 @if ($donation->reward)
-    <x-card-widget {{ $attributes->only('class') }}>
+    <x-card {{ $attributes->only('class') }}>
         <span class="text-gray-500 text-sm">{{ __('Selected Reward') }}</span>
         <div class="text-xl font-serif">
             {{ $donation->reward->name }}
@@ -12,5 +12,5 @@
                 </p>
             @endif
         </div>
-    </x-card-widget>
+    </x-card>
 @endif

@@ -1,4 +1,4 @@
-<x-card-widget class="mb-8">
+<x-card class="mb-8">
     <div class="relative">
         <span class="text-gray-500 text-sm">{{ __('Donor') }}</span>
         <div>
@@ -18,4 +18,4 @@
             <x-icons.pencil />
         </x-button>
     </div>
-</x-card-widget>
+</x-card>
