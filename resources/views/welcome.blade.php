@@ -8,17 +8,7 @@
         content="width=device-width, initial-scale=1"
     >
 
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link
-        rel="preconnect"
-        href="https://fonts.bunny.net"
-    >
-    <link
-        href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap"
-        rel="stylesheet"
-    />
+    <title>Funds</title>
 
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -53,30 +43,14 @@
                         </div>
 
                         <div
-                            href="https://laracasts.com"
-                            class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10   :text-white/70 :ring-zinc-700 :ring-[#FF2D20]"
-                        >
-
-                            <div class="pt-3 sm:pt-5">
-                                A previous campaign
-                            </div>
-                        </div>
-
-                        <div
                             class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] lg:pb-10  ">
 
                             <div class="pt-3 sm:pt-5">
-                                Some other content
+                                {{ __('No other Campaigns to display') }}
                             </div>
                         </div>
                     </div>
                 </main>
-
-                <footer class="py-16 text-center text-sm text-black /70">
-                    @if (Route::has('login'))
-                        <livewire:welcome.navigation />
-                    @endif
-                </footer>
             </div>
         </div>
     </div>
