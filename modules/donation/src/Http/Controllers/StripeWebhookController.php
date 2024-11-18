@@ -2,7 +2,6 @@
 
 namespace Funds\Donation\Http\Controllers;
 
-use Funds\Donation\Actions\FetchPaymentMethodFromStripe;
 use Funds\Donation\Models\DonationIntent;
 use Illuminate\Http\Request;
 
@@ -31,9 +30,6 @@ class StripeWebhookController
 
             return;
         }
-
-        // $action = FetchPaymentMethodFromStripe::class;
-        // $pm = $action($paymentIntent['payment_method']);
 
         $intent->succeed();
     }

@@ -9,7 +9,7 @@ class FetchPaymentMethodFromStripe
     public function execute($paymentMethodId)
     {
         $stripe = new StripeClient([
-            'api_key' => env('STRIPE_SECRET_KEY'),
+            'api_key' => config('funds.stripe.secret_key'),
         ]);
 
         $paymentMethod = $stripe->paymentMethod->retrieve($paymentMethodId)->type;

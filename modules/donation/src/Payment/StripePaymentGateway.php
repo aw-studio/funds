@@ -38,7 +38,7 @@ class StripePaymentGateway implements PaymentGatewayInterface
     {
         if ($stripe === null) {
             $stripe = new \Stripe\StripeClient([
-                'api_key' => env('STRIPE_SECRET_KEY'),
+                'api_key' => config('funds.stripe.secret_key'),
             ]);
         }
 

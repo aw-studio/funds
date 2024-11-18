@@ -1,8 +1,6 @@
 <?php
 
 return [
-    'name' => 'Core',
-
     /**
      * Whether to enable a public campaign overview page.
      * If enabled, a public route will be registered for "/" to display all campaigns.
@@ -11,4 +9,9 @@ return [
     'public_campaign_overview' => false,
 
     'default_currency' => env('DEFAULT_CURRENCY', 'EUR'),
+
+    'stripe' => [
+        'publishable_key' => env('STRIPE_PUBLISHABLE_KEY'),
+        'secret_key' => env('STRIPE_SECRET_KEY'),
+    ],
 ];
