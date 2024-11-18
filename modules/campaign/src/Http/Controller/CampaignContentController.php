@@ -56,11 +56,11 @@ class CampaignContentController
                 ->toMediaCollection('intro_image');
         }
 
-        if ($request->input('header_image_delete')) {
+        if ($request->input('header_image_delete') && ! $request->hasFile('header_image')) {
             $campaign->clearMediaCollection('header_image');
         }
 
-        if ($request->input('intro_image_delete')) {
+        if ($request->input('intro_image_delete') && ! $request->hasFile('intro_image')) {
             $campaign->clearMediaCollection('intro_image');
         }
 

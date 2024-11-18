@@ -61,7 +61,6 @@
                 hasChanged: false,
                 shouldDelete: false,
                 init() {
-                    console.log(initialUrl)
                     this.$watch('imageUrl', (value) => {})
                 },
 

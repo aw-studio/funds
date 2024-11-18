@@ -33,6 +33,9 @@ class FoundationServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../../config/funds.php', 'funds');
+        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'funds');
+        $this->loadRoutesFrom(__DIR__.'/../Http/routes.php');
 
         if ($this->app->runningInConsole()) {
             $this->guessFactoryNamespaces();

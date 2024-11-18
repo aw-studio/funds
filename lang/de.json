@@ -1,4 +1,5 @@
 {
+    "My Profile": "Mein Profil",
     "Profile": "Profil",
     "Profile Information": "Dein Profil",
     "Update your account's profile information and email address.": "Aktualisiere die Profilinformationen deines Kontos und die E-Mail-Adresse.",
@@ -32,5 +33,15 @@
     "to": "bis",
     "of": "von",
     "results": "Ergebnissen",
-    "Amount": "Betrag"
+    "Amount": "Betrag",
+    "Organization Settings": "Meine Organisation",
+    "Settings": "Einstellungen",
+    "General Information": "Allgemeine Informationen",
+    "Your organization's name and logo will be displayed in the emails that your supporters receive.": "Der Name und das Logo deiner Organisation werden in den E-Mails angezeigt, die deine Unterstützer erhalten.",
+    "Organization Name": "Name der Organisation",
+    "Organization Logo": "Logo",
+    "Legal": "Rechtliches",
+    "Privacy Policy": "Datenschutzrichtlinie",
+    "Terms of Service": "Nutzungsbedingungen",
+    "Imprint": "Impressum"
 }
