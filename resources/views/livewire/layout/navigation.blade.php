@@ -178,11 +178,11 @@ new class extends Component {
     >
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link
-                :href="route('dashboard')"
-                :active="request()->routeIs('dashboard')"
+                :href="route('campaigns.index')"
+                :active="request()->routeIs('campaigns.index')"
                 wire:navigate
             >
-                {{ __('Dashboard') }}
+                {{ __('Campaigns') }}
             </x-responsive-nav-link>
 
             @foreach (Funds::navigation()->items() as $nav)

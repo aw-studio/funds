@@ -7,15 +7,10 @@ Route::get('/', function () {
         return view('welcome');
     }
 
-    return redirect()->to('app/dashboard');
+    return redirect()->route('dashboard');
 });
-Route::get('/app', fn () => redirect()->to('app/dashboard'));
-
-Route::view('app/dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
-Route::redirect('app/dashboard', 'campaigns');
+Route::get('/app', fn () => redirect()->route('dashboard'));
+Route::redirect('app/dashboard', 'campaigns')->name('dashboard');
 
 Route::view('app/profile', 'profile')
     ->middleware(['auth'])

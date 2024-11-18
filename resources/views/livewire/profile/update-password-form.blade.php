@@ -33,7 +33,10 @@ new class extends Component {
 
         $this->reset('current_password', 'password', 'password_confirmation');
 
-        $this->dispatch('password-updated');
+        $this->dispatch('notify', [
+            'message' => __('Password updated.'),
+            'type' => 'success',
+        ]);
     }
 }; ?>
 
@@ -111,13 +114,6 @@ new class extends Component {
 
         <div class="flex items-center gap-4">
             <x-button>{{ __('Save') }}</x-button>
-
-            <x-action-message
-                class="me-3"
-                on="password-updated"
-            >
-                {{ __('Saved.') }}
-            </x-action-message>
         </div>
     </form>
 </section>

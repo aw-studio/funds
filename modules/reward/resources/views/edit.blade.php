@@ -67,9 +67,12 @@
             >{{ $reward->packaging_instructions }}</x-textarea>
             <div class="flex items-end gap-4">
 
-                <x-outline-button :href="route('rewards.index')">
+                <x-button
+                    outlined
+                    :href="route('rewards.index')"
+                >
                     {{ __('Cancel') }}
-                </x-outline-button>
+                </x-button>
 
                 <x-button type="submit">
                     {{ __('Update') }}

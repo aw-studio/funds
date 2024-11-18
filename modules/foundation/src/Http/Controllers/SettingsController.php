@@ -32,6 +32,8 @@ class SettingsController
             $settings->set($key, $value);
         }
 
+        flash(__('Settings updated successfully'), 'success');
+
         return redirect()->route('settings.show');
     }
 }
