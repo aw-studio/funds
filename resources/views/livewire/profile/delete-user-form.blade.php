@@ -33,10 +33,11 @@ new class extends Component {
         </p>
     </header>
 
-    <x-danger-button
+    <x-button
         x-data=""
+        variant="danger"
         x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-    >{{ __('Delete Account') }}</x-danger-button>
+    >{{ __('Delete Account') }}</x-button>
 
     <x-modal
         name="confirm-user-deletion"

@@ -35,13 +35,6 @@ new class extends Component {
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    {{-- <x-nav-link
-                        :href="route('dashboard')"
-                        :active="request()->routeIs('dashboard')"
-                        wire:navigate
-                    >
-                        {{ __('Dashboard') }}
-                    </x-nav-link> --}}
                     <x-nav-link
                         :href="route('campaigns.index')"
                         :active="request()->routeIs('campaigns.*') ||
@@ -121,7 +114,14 @@ new class extends Component {
                             :href="route('profile')"
                             wire:navigate
                         >
-                            {{ __('Profile') }}
+                            {{ __('My Profile') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link
+                            :href="route('settings.show')"
+                            wire:navigate
+                        >
+                            {{ __('Organization Settings') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -178,12 +178,31 @@ new class extends Component {
     >
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link
-                :href="route('dashboard')"
-                :active="request()->routeIs('dashboard')"
+                :href="route('campaigns.index')"
+                :active="request()->routeIs('campaigns.index')"
                 wire:navigate
             >
-                {{ __('Dashboard') }}
+                {{ __('Campaigns') }}
             </x-responsive-nav-link>
+
+            @foreach (Funds::navigation()->items() as $nav)
+                <x-responsive-nav-link
+                    :href="$nav['route']"
+                    :active="$nav['active']"
+                    wire:navigate
+                >
+                    {{ __($nav['title']) }}
+
+                    @if ($nav['badge'])
+                        <span
+                            class="ml-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs text-white bg-orange-500"
+                        >
+                            {{ $nav['badge'] }}
+                        </span>
+                    @endif
+
+                </x-responsive-nav-link>
+            @endforeach
         </div>
 
         <!-- Responsive Settings Options -->
@@ -204,6 +223,12 @@ new class extends Component {
                     wire:navigate
                 >
                     {{ __('Profile') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link
+                    :href="route('settings.show')"
+                    wire:navigate
+                >
+                    {{ __('Organization Settings') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->

@@ -6,11 +6,23 @@ use Funds\Donation\Models\Donation;
 
 state(['campaign']);
 
-$isPublished = computed(function () {
-    return $this->campaign->isPublished();
-});
+$publish = function () {
+    if ($this->campaign->isPublished()) {
+        $this->campaign->unpublish();
+        $this->dispatch('notify', [
+            'message' => __('Campaign unpublished.'),
+            'type' => 'success',
+        ]);
 
-$publish = fn() => $this->campaign->isPublished() ? $this->campaign->unpublish() : $this->campaign->publish();
+        return;
+    }
+
+    $this->campaign->publish();
+    $this->dispatch('notify', [
+        'message' => __('Campaign published.'),
+        'type' => 'success',
+    ]);
+};
 
 ?>
 <div>
@@ -22,7 +34,7 @@ $publish = fn() => $this->campaign->isPublished() ? $this->campaign->unpublish()
             id="publish"
             wire:change="publish"
             size="sm"
-            :checked="$this->isPublished"
+            :checked="$this->campaign->isPublished()"
         />
         {{ __('Publish') }}
     </label>
