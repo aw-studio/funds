@@ -20,7 +20,12 @@ class Colors
             [
                 'key' => 'accent_1',
                 'label' => 'Accent 1',
-                'description' => 'The primary color used for interactive elements.',
+                'description' => 'The primary color used to highlight elements.',
+            ],
+            [
+                'key' => 'accent_2',
+                'label' => 'Accent 2',
+                'description' => 'The secondary color used for background elements.',
             ],
             [
                 'key' => 'interaction',
@@ -53,10 +58,7 @@ class Colors
         $value = implode(', ', self::hexToRgb($value));
 
         return implode("\n", [
-            "--color-$key-100: rgba($value, 1);",
-            "--color-$key-50: rgba($value, 0.5);",
-            "--color-$key-25: rgba($value, 0.25);",
-            "--color-$key-10: rgba($value, 0.1);",
+            "--color-$key-rgb: $value;",
         ]);
     }
 
