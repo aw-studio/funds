@@ -4,13 +4,12 @@
     :title="page_title($campaign->name, __('Campaigns'))"
 >
     <x-slot name="header">
-        <div class="flex">
+        <div class="flex mt-12">
             <a
-                class="font-bold text-2xl font-serif text-gray-800 leading-tight"
                 href="{{ $campaign->appRoute() }}"
                 wire:navigate
             >
-                {{ $campaign->name }}
+                <x-page-headline :value="$campaign->name" />
             </a>
 
             <div class="ml-auto flex items-center gap-4">

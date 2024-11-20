@@ -2,22 +2,15 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1"
-    >
-
-    <title>Funds</title>
+    @include('layouts.partials.meta')
 
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="antialiased font-sans">
-    <div class="bg-gray-50 text-black/50  /50">
-        <div
-            class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
+    <div class="bg-gray-50">
+        <div class="relative min-h-screen flex flex-col items-center justify-center ">
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                 <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
                     <div class="flex lg:justify-center lg:col-start-2">
@@ -28,27 +21,31 @@
 
                 <main class="mt-6">
                     <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
-                        <div
-                            class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10   :text-white/70 :ring-zinc-700 :ring-[#FF2D20]">
-                            Current Campaign
-                            @php
-                                $campaign = \Funds\Campaign\Models\Campaign::first();
-                            @endphp
-                            <a
-                                href="{{ route('campaigns.public.show', $campaign) }}"
-                                class="flex items-center gap-4 text-lg font-semibold text-black /80 hover:text-black/70 :text-white/70"
-                            >
-                                {{ $campaign->name }}
-                            </a>
-                        </div>
+                        @php
+                            $campaign = \Funds\Campaign\Models\Campaign::first();
+                        @endphp
+                        <a href="{{ route('campaigns.public.show', $campaign) }}">
+                            <x-card class="bg-white">
+                                <span class="text-sm text-gray-500">Current Campaign</span>
 
-                        <div
-                            class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] lg:pb-10  ">
+                                <x-section-headline :value="$campaign->name" />
+                                <p class="text-gray-700 my-4">{{ $campaign->description }}</p>
+                            </x-card>
+                        </a>
 
-                            <div class="pt-3 sm:pt-5">
-                                {{ __('No other Campaigns to display') }}
-                            </div>
-                        </div>
+                        @if (app()->environment(['local', 'staging']))
+                            <x-card class="bg-white">
+                                <span class="text-sm text-gray-500">{{ __('Quick Access') }}</span>
+                                @auth()
+                                    <p class="mb-4">Hi {{ auth()->user()->name }}!</p>
+                                @endauth
+                                <a href="{{ route('dashboard') }}">
+                                    <x-button>
+                                        {{ __('Go to Dashboard') }}
+                                    </x-button>
+                                </a>
+                            </x-card>
+                        @endif
                     </div>
                 </main>
             </div>

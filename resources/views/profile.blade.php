@@ -1,9 +1,6 @@
 <x-app-layout :title="page_title(__('Profile'))">
 
-    <x-form-page-container
-        class="py-12"
-        :title="__('Profile')"
-    >
+    <x-form-page-container :title="__('Profile')">
         <div class="p-4 sm:p-8 bg-gray-50 rounded-lg">
             <div class="max-w-xl">
                 <livewire:profile.update-profile-information-form />

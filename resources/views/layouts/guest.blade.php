@@ -6,7 +6,6 @@
 
 <head>
     @include('layouts.partials.meta')
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -26,7 +25,6 @@
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             {{ $slot }}
-
         </div>
     </div>
 </body>
