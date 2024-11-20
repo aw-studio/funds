@@ -7,45 +7,41 @@ $colors = Colors::all();
 $radii = Radii::all();
 ?>
 <style>
-    /*------ Style 2 ------*/
-    input[type="color"] {
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        appearance: none;
-        background: none;
-        border: 0;
-        cursor: pointer;
-        height: 50px;
-        padding: 0;
-        width: 50px;
-        border-radius: 100%;
-        border: 2px solid grey;
-    }
+    .color-settings {
+        input[type="color"] {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            background: none;
+            border: 0;
+            cursor: pointer;
+            height: 50px;
+            padding: 0;
+            width: 50px;
+            border-radius: 100%;
+            border: 2px solid grey;
+        }
 
-    *:focus {
-        border-radius: 0;
-        outline: none;
-    }
+        ::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
 
-    ::-webkit-color-swatch-wrapper {
-        padding: 0;
-    }
+        ::-webkit-color-swatch {
+            border: 0;
+            border-radius: 0;
+        }
 
-    ::-webkit-color-swatch {
-        border: 0;
-        border-radius: 0;
-    }
+        ::-moz-color-swatch,
+        ::-moz-focus-inner {
+            border: 0;
+        }
 
-    ::-moz-color-swatch,
-    ::-moz-focus-inner {
-        border: 0;
-    }
-
-    ::-moz-focus-inner {
-        padding: 0;
+        ::-moz-focus-inner {
+            padding: 0;
+        }
     }
 </style>
-<div class="max-w-xl my-10">
+<div class="max-w-xl my-10 color-settings">
     @foreach ($colors as $color)
         <div
             class="flex gap-2 border-b border-gray-200 py-2"
