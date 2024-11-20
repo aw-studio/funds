@@ -2,6 +2,7 @@
 
 use Funds\Campaign\Models\Campaign;
 use Funds\Donation\Models\Donation;
+use Funds\Donation\Models\DonationIntent;
 use Funds\Donation\Models\Donor;
 use Funds\Foundation\Support\Amount;
 use Funds\Order\Models\Order;
@@ -39,10 +40,12 @@ test('A donation returns the fee amount based on the campaign', function () {
         'fees' => 3,
     ]);
 
-    $donation = Donation::factory()->create([
+    $donation = Donation::factory([
         'campaign_id' => $campaign->id,
         'amount' => 2500,
-    ]);
+    ])->for(DonationIntent::factory([
+        'pays_fees' => true,
+    ]))->create();
 
     expect($donation->paidFeeAmount()->get())->toBe(72);
 });

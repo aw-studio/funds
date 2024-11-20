@@ -3,7 +3,7 @@
     <img
         src="{{ $settings->get('logo') }}"
         alt="Logo"
-        class="h-12 w-auto"
+        class="max-w-40 h-auto"
     />
 @elseif($settings->get('organization_name'))
     <span class="text-xl font-bold">{{ $settings->get('organization_name') }}</span>

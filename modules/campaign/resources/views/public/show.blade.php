@@ -20,6 +20,14 @@
                         <div class="prose my-8">
                             {!! $campaign->renderedContent !!}
                         </div>
+                        @auth
+                            <a
+                                href="{{ route('campaigns.content.story.edit', ['campaign' => $campaign]) }}"
+                                class="inline-flex gap-2 items-center underline text-sm text-gray-700"
+                            >
+                                {{ __('Edit Story') }}<x-icons.pencil class="w-4 h-4 stroke-current" />
+                            </a>
+                        @endauth
                     </x-campaign::tab-item>
                     @if ($faqs->count())
                         <x-campaign::tab-item index="1">

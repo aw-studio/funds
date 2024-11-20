@@ -6,8 +6,17 @@ use Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class);
 
+test('An unpublished campaign cant be viewed publically', function () {
+    $campaign = Campaign::factory([])->create();
+    $response = $this->get(route('campaigns.public.show', $campaign));
+
+    $response->assertViewIs('campaign::public.404');
+});
+
 test('A published campaign can be viewed publically', function () {
-    $campaign = Campaign::factory()->create();
+    $campaign = Campaign::factory([
+        'published_at' => now(),
+    ])->create();
     $response = $this->get(route('campaigns.public.show', $campaign));
 
     $response->assertViewIs('campaign::public.show');

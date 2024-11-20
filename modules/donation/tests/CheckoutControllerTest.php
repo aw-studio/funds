@@ -61,7 +61,7 @@ test('the donation intent contains the order details if a reward is selected', f
         'amount' => 100,
         'email' => 'foo@bar.com',
         'name' => 'Test Name',
-        'address' => 'Test Address 27',
+        'street' => 'Test Address 27',
         'postal_code' => '1245',
         'city' => 'Test City',
         'country' => 'Test Country',
@@ -86,7 +86,7 @@ test('The order details contain a reward_variant_id if a variant was selected', 
         'amount' => 100,
         'email' => 'user@user.com',
         'name' => 'Test Name',
-        'address' => 'Test Address 27',
+        'street' => 'Test Address 27',
         'postal_code' => '1245',
         'city' => 'Test City',
         'country' => 'Test Country',
@@ -111,7 +111,7 @@ test('A shipment address is required if a reward is selected', function () {
         'amount' => 100,
         'email' => 'foo@bar.com',
         'name' => 'Test Name',
-        'address' => null,
+        'street' => null,
         // 'city' => 'Test City',
         // 'country' => 'Test Country',
         'confirmation_token' => 'payment_confirmation_token',
@@ -119,7 +119,7 @@ test('A shipment address is required if a reward is selected', function () {
         'shipping_name' => 'Test Shipping',
     ]);
 
-    $response->assertInvalid(['address']);
+    $response->assertInvalid(['street']);
     // expect($response->assertSessionHasErrors('address'))->toBeTrue();
 });
 

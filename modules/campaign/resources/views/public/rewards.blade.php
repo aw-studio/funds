@@ -58,7 +58,7 @@
                 class="pointer-events-none"
             />
             <p class="description mb-4">
-                {{ 'Support us with a donation of any amount for nothing in return!' }}
+                {{ __('Support us with a donation of any amount for nothing in return!') }}
             </p>
             <div class="text-right">
                 <span class="button-link underline underline-offset-4">

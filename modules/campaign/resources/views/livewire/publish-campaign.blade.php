@@ -35,7 +35,7 @@ $publish = function () {
             wire:change="publish"
             size="sm"
             :checked="$this->campaign->isPublished()"
+            :label="__('Publish')"
         />
-        {{ __('Publish') }}
     </label>
 </div>

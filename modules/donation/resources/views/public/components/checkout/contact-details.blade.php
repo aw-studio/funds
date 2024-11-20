@@ -6,7 +6,7 @@
             type="text"
             label="{{ __('Full name') }}"
             placeholder="{{ __('Full name') }}"
-            value="{{ old('name') ?? fake()->name }}"
+            value="{{ old('name') }}"
             required
         />
 
@@ -15,7 +15,7 @@
             type="text"
             label="{{ __('Email address') }}"
             placeholder="{{ __('Email') }}"
-            value="{{ old('email') ?? fake()->email }}"
+            value="{{ old('email') }}"
             required
         />
     </div>

@@ -15,6 +15,7 @@ class CampaignServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../../resources/views/public', 'public');
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
         $this->loadJsonTranslationsFrom(__DIR__.'/../../resources/lang');
+        $this->loadJsonTranslationsFrom(__DIR__.'/../../resources/lang/public');
 
         Volt::mount([
             __DIR__.'/../../resources/views/livewire',
