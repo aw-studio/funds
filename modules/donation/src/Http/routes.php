@@ -8,6 +8,7 @@ use Funds\Donation\Http\Controllers\DonationReceiptAddressController;
 use Funds\Donation\Http\Controllers\DonationReceiptController;
 use Funds\Donation\Http\Controllers\DonorController;
 use Funds\Donation\Http\Controllers\StripeWebhookController;
+use Funds\Donation\Notifications\DonationReceivedNotification;
 use Illuminate\Support\Facades\Route;
 
 Route::app(function () {
@@ -44,6 +45,23 @@ Route::group([
     Route::get('campaign/{campaign:slug}/donate/{reward:slug?}', [CheckoutController::class, 'show'])->name('public.checkout');
     Route::post('campaign/{campaign:slug}/donate/{reward?}', [CheckoutController::class, 'store'])->name('public.checkout.store');
     Route::get('campaign/{campaign:slug}/checkout/return/{donationIntent}', [CheckoutController::class, 'return'])->name('public.checkout.return');
+});
+
+Route::get('test/notification/{id?}', function () {
+
+    $id = request()->route('id');
+    $donation = \Funds\Donation\Models\Donation::findOr($id, function () {
+        return \Funds\Donation\Models\Donation::first();
+    });
+
+    try {
+        $donation->donor->notify(new DonationReceivedNotification($donation));
+    } catch (Exception $e) {
+        dump($e->getMessage());
+    }
+
+    return (new DonationReceivedNotification($donation))
+        ->toMail($donation->donor);
 });
 
 Route::group([

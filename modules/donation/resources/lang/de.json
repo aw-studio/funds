@@ -32,5 +32,14 @@
     "Simple Donation": "Freie Spende",
     "Edit Receipt Address": "Quittungsadressse bearbeiten",
     "Edit Donor Details": "Spender:in bearbeiten",
-    "Donation Amount": "Spendenbetrag"
+    "Donation Amount": "Spendenbetrag",
+    "Hello!": "Hallo!",
+    "Regards,": "Viele Grüße,",
+    "We received your donation": "Wir haben deine Spende erhalten",
+    "Thank you for supporting our cause": "Vielen Dank für deine Unterstützung",
+    "Your donation of :amount has been received.": "Deine Spende in Höhe von :amount ist erfolgreich eingegangen.",
+    "The order of your reward :rewardName is being processed and will be shipped shortly.": "Die Bestellung deines Perks :rewardName wird bearbeitet und in Kürze versendet. ",
+    "We will notify you with the tracking information once your order has been shipped.": "Wir werden dich benachrichtigen, sobald deine Bestellung versandt wurde.",
+    "Your donation receipt will be attached to this email.": "Deine Spendenquittung ist dieser E-Mail angehängt.",
+    "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Wenn du Probleme beim Klicken des \":actionText\"-Buttons hast, kopiere diese URL in deinen Webbrowser:"
 }

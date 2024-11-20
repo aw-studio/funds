@@ -4,10 +4,12 @@ namespace Funds\Donation\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Donor extends Model
 {
     use HasFactory;
+    use Notifiable;
 
     public $fillable = [
         'name',

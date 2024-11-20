@@ -2,6 +2,7 @@
 
 namespace Funds\Donation\Models;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Funds\Campaign\Traits\BelongsToCampaign;
 use Funds\Donation\Builder\DonationBuilder;
 use Funds\Donation\Enums\DonationType;
@@ -95,8 +96,18 @@ class Donation extends Model
         return __('Single donation');
     }
 
+    public function receiptPdf(): \Barryvdh\DomPDF\PDF
+    {
+        return Pdf::loadView('donation::pdf.donation-receipt', [
+            'donation' => $this,
+        ]);
+    }
+
     public function paidFeeAmount(): Amount
     {
+        if (! $this->paidFees()) {
+            return new Amount(0);
+        }
         $feePercentage = $this->campaign->fees / 100;
         $amountWithoutFees = $this->amount->get() / (1 + $feePercentage);
         $feeAmount = $this->amount->get() - $amountWithoutFees;
