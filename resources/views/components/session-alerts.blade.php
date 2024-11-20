@@ -1,6 +1,6 @@
 @if (session('flashMessage'))
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('livewire:navigated', () => {
             window.dispatchEvent(new CustomEvent('notify', {
                 detail: [{
                     message: @js(session('flashMessage')['message']),

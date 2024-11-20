@@ -117,7 +117,7 @@
         <div class="border-t border-gray-200 mt-8 py-8 flex justify-end gap-4">
             <x-button
                 outlined
-                href="{{ $campaign->publicRoute() }}"
+                :href="$campaign->publicRoute()"
                 target="_blank"
             >
                 {{ __('View Campaign') }}

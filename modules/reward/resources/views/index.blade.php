@@ -3,7 +3,8 @@
         <div class="col-span-3 items-end flex">
             <x-button
                 class="ml-auto"
-                href="{{ route('rewards.create') }}"
+                :href="route('rewards.create')"
+                wire:navigate
             >
                 {{ __('Create Reward') }}
             </x-button>

@@ -2,11 +2,11 @@
     <livewire:donations-listing :campaign="$campaign" />
 
     @if ($pendingDonationsCount > 0)
-        <a
+        {{-- <a
             class="p-4 text-center block"
             href="{{ route('donations.intents.index') }}"
         >
             {{ __('Pending Donations') }}: {{ $pendingDonationsCount }}
-        </a>
+        </a> --}}
     @endif
 </x-campaign::layout>

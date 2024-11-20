@@ -19,3 +19,32 @@ Alpine.directive(
         });
     }
 );
+
+Alpine.data("imageInput", (initialUrl) => ({
+    imageUrl: initialUrl,
+    hasChanged: false,
+    shouldDelete: false,
+    init() {
+        this.$watch("imageUrl", (value) => {});
+    },
+
+    clear() {
+        this.imageUrl = "";
+        this.shouldDelete = true;
+        this.hasChanged = true;
+    },
+
+    selectFile(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        if (event.target.files.length < 1) {
+            return;
+        }
+
+        reader.readAsDataURL(file);
+
+        reader.onload = () => (this.imageUrl = reader.result);
+        this.hasChanged = true;
+    },
+}));

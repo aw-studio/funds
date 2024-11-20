@@ -25,7 +25,7 @@
 
                 </div>
                 <div class="grid grid-cols-2 gap-2 mb-4">
-                    <x-money-input
+                    <x-input-money
                         name="goal"
                         :value="$campaign->goal->get()"
                         :label="__('Donation Goal')"
@@ -57,6 +57,7 @@
                 <x-button
                     outlined
                     :href="route('campaigns.show', $campaign)"
+                    wire:navigate
                 >
                     {{ __('Cancel') }}
                 </x-button>

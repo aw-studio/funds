@@ -21,7 +21,7 @@
                     placeholder="{{ __('Reward Name') }}"
                     required
                 />
-                <x-money-input
+                <x-input-money
                     name="min_amount"
                     :value="$reward->min_amount->get()"
                     :label="__('Donation amount in €')"
@@ -70,6 +70,7 @@
                 <x-button
                     outlined
                     :href="route('rewards.index')"
+                    wire:navigate
                 >
                     {{ __('Cancel') }}
                 </x-button>

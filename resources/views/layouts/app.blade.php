@@ -19,6 +19,7 @@
                 <a
                     class="mb-2 flex items-center text-xs text-gray-500"
                     href="{{ $backLink }}"
+                    wire:navigate
                 >
                     <x-icons.arrow-left />
                     {{ __('Back') }}

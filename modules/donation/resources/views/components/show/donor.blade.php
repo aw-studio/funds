@@ -11,7 +11,8 @@
         <x-button
             round
             outlined
-            href="{{ route('donors.edit', ['donor' => $donation->donor->id, 'previous' => url()->current()]) }}"
+            :href="route('donors.edit', ['donor' => $donation->donor->id, 'previous' => url()->current()])"
+            wire:navigate
             iconButton
             class="w-10 h-10 absolute top-0 right-4"
         >

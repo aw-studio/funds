@@ -24,7 +24,7 @@
                 />
             </div>
             <div class="mb-4">
-                <x-money-input
+                <x-input-money
                     name="amount"
                     :label="__('Donation Amount')"
                     :value="old('amount')"
@@ -34,6 +34,7 @@
             <x-button
                 outlined
                 :href="$cancelRoute"
+                wire:navigate
             >
                 {{ __('Cancel') }}
             </x-button>

@@ -30,7 +30,8 @@
         @if (!$donation->receipt_address)
             <x-button
                 round
-                href="{{ route('donations.receipt-address.edit', $donation) }}"
+                :href="route('donations.receipt-address.edit', $donation)"
+                wire:navigate
                 class="w-10 h-10 "
                 outlined
                 iconButton
@@ -41,7 +42,8 @@
             <x-button
                 round
                 outlined
-                href="{{ route('donations.receipt-address.edit', $donation) }}"
+                :href="route('donations.receipt-address.edit', $donation)"
+                wire:navigate
                 iconButton
                 class="w-10 h-10 absolute top-0 right-8"
             >

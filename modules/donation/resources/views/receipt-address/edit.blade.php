@@ -46,6 +46,7 @@
                 <x-button
                     outlined
                     :href="route('donations.show', $donation)"
+                    wire:navigate
                 >
                     {{ __('Cancel') }}
                 </x-button>

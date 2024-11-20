@@ -24,7 +24,7 @@
                 />
             </div>
             <div class="mb-4">
-                <x-money-input
+                <x-input-money
                     name="min_amount"
                     :value="old('min_amount')"
                     :label="__('Min Donation amount')"

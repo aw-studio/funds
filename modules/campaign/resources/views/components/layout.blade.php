@@ -8,6 +8,7 @@
             <a
                 class="font-bold text-2xl font-serif text-gray-800 leading-tight"
                 href="{{ $campaign->appRoute() }}"
+                wire:navigate
             >
                 {{ $campaign->name }}
             </a>

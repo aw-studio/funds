@@ -9,7 +9,7 @@
         'cursor-pointer': target
     }" @endif
     {{ $attributes->merge([
-            'x-on:click' => $target ? 'window.location = target' : null,
+            'x-on:click' => $target ? 'Livewire.navigate(target)' : null,
         ])->class(['whitespace-nowrap px-4 py-2']) }}
 >
     {{ $slot }}

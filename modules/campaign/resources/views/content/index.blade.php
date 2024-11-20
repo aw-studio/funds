@@ -23,7 +23,7 @@
             <x-button
                 type="button"
                 outlined
-                href="{{ $campaign->publicRoute() }}"
+                :href="$campaign->publicRoute()"
                 target="_blank"
             >
                 {{ __('View Campaign') }}

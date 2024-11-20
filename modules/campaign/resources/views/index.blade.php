@@ -7,7 +7,8 @@
 
             <x-button
                 class="ml-auto"
-                href="{{ route('campaigns.create') }}"
+                :href="route('campaigns.create')"
+                wire:navigate
             >
                 {{ __('Create Campaign') }}
             </x-button>
@@ -23,6 +24,7 @@
                             <a
                                 class="font-serif text-xl font-semibold"
                                 href="{{ route('campaigns.show', $campaign) }}"
+                                wire:navigate
                             > {{ $campaign->name }}</a>
                         </div>
                         <div class="text-sm text-gray-500 mt-1">

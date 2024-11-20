@@ -23,6 +23,7 @@
                 <x-button
                     outlined
                     :href="$cancelRoute"
+                    wire:navigate
                 >
                     {{ __('Cancel') }}
                 </x-button>

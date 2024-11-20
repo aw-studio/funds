@@ -23,7 +23,7 @@
                     />
                 </div>
                 <div class="grid grid-cols-2 gap-2 mb-4">
-                    <x-money-input
+                    <x-input-money
                         name="goal"
                         :label="__('Donation Goal')"
                         placeholder="1000,00"
@@ -52,6 +52,7 @@
                 </div>
                 <x-button
                     outlined
+                    wire:navigate
                     :href="route('campaigns.index')"
                 >
                     {{ __('Cancel') }}

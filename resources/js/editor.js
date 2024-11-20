@@ -8,7 +8,7 @@ import Delimiter from "@editorjs/delimiter";
 import { Embed } from "./editor/embed";
 import localization from "./localization.json";
 
-window.addEventListener("DOMContentLoaded", (event) => {
+window.addEventListener("livewire:navigated", (event) => {
     const data = JSON.parse(document.getElementById("content")?.value || "{}");
     if (!document.getElementById("editorjs")) return;
 

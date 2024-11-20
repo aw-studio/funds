@@ -19,7 +19,8 @@
                     <x-button
                         outlined
                         round
-                        href="{{ route('orders.shipping-address.edit', $donation->order) }}"
+                        :href="route('orders.shipping-address.edit', $donation->order)"
+                        wire:navigate
                         class="w-10 h-10"
                         iconButton
                     >

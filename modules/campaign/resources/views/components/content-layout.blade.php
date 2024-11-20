@@ -33,7 +33,10 @@
                         'border-gray-50' => !$item['isActive'],
                         'bg-slate-100 text-black border-purple-500' => $item['isActive'],
                     ])>
-                        <a href="{{ $item['route'] }}">
+                        <a
+                            href="{{ $item['route'] }}"
+                            wire:navigate
+                        >
                             {{ $item['name'] }}
                         </a>
                     </li>

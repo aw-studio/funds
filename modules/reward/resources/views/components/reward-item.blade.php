@@ -32,7 +32,10 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    <x-dropdown-link :href="route('rewards.edit', ['reward' => $reward])">
+                    <x-dropdown-link
+                        :href="route('rewards.edit', ['reward' => $reward])"
+                        wire:navigate
+                    >
                         {{ __('Edit Reward') }}
                     </x-dropdown-link>
                     <x-dropdown-link
