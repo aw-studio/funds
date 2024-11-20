@@ -18,12 +18,12 @@ class CampaignPitchController
 
     public function store(Request $request, Campaign $campaign)
     {
-        // validate
         $request->validate([
             'description' => 'required|string',
             'header_image' => 'nullable|image|max:5000',
             'intro_image' => 'nullable|image|max:5000',
             'pitch_video' => 'nullable|file|mimetypes:video/*|max:50000',
+            'show_progress' => 'nullable|boolean',
         ]);
 
         if ($request->hasFile('pitch_video') && $request->file('pitch_video')->isValid()) {
@@ -53,7 +53,10 @@ class CampaignPitchController
 
         $campaign->update([
             'description' => strip_tags($request->description),
+            'settings->show_progress' => $request->boolean('show_progress'),
         ]);
+
+        flash(__('Campaign updated successfully'), 'success');
 
         return redirect()->back()->with('success', 'Pitch updated successfully');
     }

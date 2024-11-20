@@ -109,6 +109,22 @@
             </div>
 
         </div>
+        <div class="mb-4">
+            <p class="text-lg">
+                {{ __('Display donation progress') }}
+            </p>
+            <p class="text-xs text-gray-500 mb-4">
+                {{ __('The campaign\'s donation target and the amount already donated are displayed.') }}
+            </p>
+            <div class="flex items-center gap-2">
+                <x-input-toggle
+                    size="sm"
+                    name="show_progress"
+                    :checked="old('show_progress', $campaign->settings['show_progress'] ?? true)"
+                    :label="__('Show progress')"
+                />
+            </div>
+        </div>
         <div class="border-t border-gray-200 py-8 flex justify-end gap-4">
             <x-button
                 outlined

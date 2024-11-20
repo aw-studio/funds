@@ -37,6 +37,7 @@ class Campaign extends Model implements HasMedia
         'status',
         'fees',
         'slug',
+        'settings->show_progress',
         'published_at',
     ];
 
@@ -214,5 +215,10 @@ class Campaign extends Model implements HasMedia
     {
         $this->published_at = now();
         $this->save();
+    }
+
+    public function showDonationProgress()
+    {
+        return $this->settings['show_progress'] ?? true;
     }
 }
