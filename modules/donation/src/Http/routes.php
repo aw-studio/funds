@@ -54,6 +54,12 @@ Route::get('test/notification/{id?}', function () {
         return \Funds\Donation\Models\Donation::first();
     });
 
+    try {
+        $donation->donor->notify(new DonationReceivedNotification($donation));
+    } catch (Exception $e) {
+        dump($e->getMessage());
+    }
+
     return (new DonationReceivedNotification($donation))
         ->toMail($donation->donor);
 });

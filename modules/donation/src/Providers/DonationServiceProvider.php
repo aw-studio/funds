@@ -3,8 +3,7 @@
 namespace Funds\Donation\Providers;
 
 use Funds\Donation\Events\DonationIntentSucceeded;
-use Funds\Donation\Models\Donation;
-use Funds\Donation\Notifications\DonationReceivedNotification;
+use Funds\Donation\Listeners\DonationIntentSucceededListener;
 use Funds\Donation\Payment\StripePaymentGateway;
 use Funds\Donation\Services\DonationIntentService;
 use Funds\Donation\Services\DonationService;
@@ -20,7 +19,9 @@ class DonationServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // register the payment gateway used for donations
+        $this->app->singleton(DonationServiceInterface::class, DonationService::class);
+        $this->app->singleton(DonationIntentServiceInterface::class, DonationIntentService::class);
+
     }
 
     public function boot(): void
@@ -39,15 +40,9 @@ class DonationServiceProvider extends ServiceProvider
 
         Funds::payment()->register(StripePaymentGateway::class);
 
-        $this->app->singleton(DonationServiceInterface::class, DonationService::class);
-        $this->app->singleton(DonationIntentServiceInterface::class, DonationIntentService::class);
-
         Blade::component('stripe-payment-elements', \Funds\Donation\Payment\StripePaymentElements::class);
 
-        Event::listen(DonationIntentSucceeded::class, function (DonationIntentSucceeded $event) {
-            $donation = Donation::find($event->donationIntentData->donationId);
-            $donation->donor->notify(new DonationReceivedNotification($donation));
-        });
+        Event::listen(DonationIntentSucceeded::class, DonationIntentSucceededListener::class);
 
     }
 }

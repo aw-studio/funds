@@ -105,6 +105,9 @@ class Donation extends Model
 
     public function paidFeeAmount(): Amount
     {
+        if (! $this->paidFees()) {
+            return new Amount(0);
+        }
         $feePercentage = $this->campaign->fees / 100;
         $amountWithoutFees = $this->amount->get() / (1 + $feePercentage);
         $feeAmount = $this->amount->get() - $amountWithoutFees;

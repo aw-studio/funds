@@ -3,6 +3,7 @@
 namespace Funds\Donation\Notifications;
 
 use Funds\Donation\Models\Donation;
+use Funds\Foundation\SettingsService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -12,13 +13,15 @@ class DonationReceivedNotification extends Notification
 {
     use Queueable;
 
+    protected SettingsService $settings;
+
     /**
      * Create a new notification instance.
      */
     public function __construct(
-        public Donation $donation
+        public Donation $donation,
     ) {
-        //
+        $this->settings = new SettingsService;
     }
 
     /**
@@ -63,6 +66,8 @@ class DonationReceivedNotification extends Notification
             );
 
         }
+
+        $message->salutation(new HtmlString(__('Regards,').'<br>'.$this->settings->get('organization_name')));
 
         return $message;
 

@@ -63,6 +63,10 @@ class SettingsService
     {
         $setting = Setting::where('key', $key)->first();
 
+        if (! $setting) {
+            return;
+        }
+
         if (Str::of($setting->value)->startsWith('media::')) {
             $setting->clearMediaCollection('settings.'.$key);
         }
@@ -75,6 +79,7 @@ class SettingsService
 
     protected function setMediaSetting($key, $value)
     {
+        $this->clear($key);
         $setting = Setting::updateOrCreate(['key' => $key]);
 
         $collectionName = 'settings.'.$key;
