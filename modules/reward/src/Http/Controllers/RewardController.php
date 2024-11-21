@@ -39,11 +39,14 @@ class RewardController
             'min_amount' => 'required|numeric',
         ]);
 
-        // generate unique slug
-        $validated['slug'] = Str::slug($validated['name']);
+        $baseSlug = Str::slug($validated['name']);
+        $validated['slug'] = $baseSlug;
 
-        if ($count = Reward::where('slug', $validated['slug'])->count() > 0) {
-            $validated['slug'] .= '-'.$count;
+        // Ensure slug is unique
+        $counter = 1;
+        while (Reward::where('slug', $validated['slug'])->exists()) {
+            $validated['slug'] = "{$baseSlug}-{$counter}";
+            $counter++;
         }
 
         $reward = new Reward($validated);
@@ -74,8 +77,14 @@ class RewardController
 
         $validated['slug'] = Str::slug($validated['name']);
 
-        if ($count = Reward::where('slug', $validated['slug'])->count() > 0) {
-            $validated['slug'] .= '-'.$count + 1;
+        $baseSlug = Str::slug($validated['name']);
+        $validated['slug'] = $baseSlug;
+
+        // Ensure slug is unique
+        $counter = 1;
+        while (Reward::where('slug', $validated['slug'])->where('id', '!=', $reward->id)->exists()) {
+            $validated['slug'] = "{$baseSlug}-{$counter}";
+            $counter++;
         }
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
