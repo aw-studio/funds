@@ -37,6 +37,7 @@
             <x-public::checkout.amount-slider
                 :closable="true"
                 :defaultAmount="0"
+                :max="($reward->min_amount->get() / 100) * 5"
             />
         </template>
         <div
@@ -64,7 +65,6 @@
                     if (!this.showOptions) {
                         this.resetCheckBoxStates();
                     }
-                    console.log(this.amount);
                     this.optionalAmount = this.value * 100;
                 });
             },

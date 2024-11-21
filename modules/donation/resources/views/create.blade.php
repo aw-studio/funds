@@ -26,7 +26,7 @@
             <div class="mb-4">
                 <x-input-money
                     name="amount"
-                    :label="__('Donation Amount')"
+                    :label="__('Donation amount')"
                     :value="old('amount')"
                     placeholder="Amount"
                 />

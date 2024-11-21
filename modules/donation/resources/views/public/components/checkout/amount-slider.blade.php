@@ -1,4 +1,4 @@
-@props(['defaultAmount', 'closable' => false])
+@props(['defaultAmount', 'closable' => false, 'max' => 500])
 <div
     class="amountSlider flex gap-4"
     x-data="amountSlider(@js($defaultAmount))"
@@ -11,7 +11,7 @@
         <input
             id="input-group-1"
             type="number"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
             x-model="value"
         >
     </div>
@@ -69,11 +69,22 @@
         document.addEventListener('alpine:init', () => {
             Alpine.data('amountSlider', (defaultValue) => ({
                 value: 0,
-                max: 250,
+                max: @js(max($max, 500)),
                 step: 1,
                 defaultValue: null,
 
                 init() {
+
+                    if (this.max > 500) {
+                        this.step = 10
+                    }
+                    if (this.max > 1000) {
+                        this.step = 50
+                    }
+                    if (this.max > 5000) {
+                        this.step = 100
+                    }
+
                     this.$refs.slider.setAttribute('max', this.max);
                     this.$refs.slider.setAttribute('step', this.step);
 

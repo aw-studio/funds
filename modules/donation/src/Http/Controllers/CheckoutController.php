@@ -18,7 +18,7 @@ class CheckoutController
     {
         $countries = Countries::getNames(app()->getLocale());
 
-        if (! $reward->isAvailable()) {
+        if ($reward && ! $reward->isAvailable()) {
             $reward = null;
         }
 
