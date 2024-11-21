@@ -140,9 +140,25 @@
 
             <x-public::checkout.summary :$reward />
 
+            <div class="my-4">
+                <label for="terms">
+                    <input
+                        id="terms"
+                        type="checkbox"
+                        required
+                    >
+                    <span>
+                        @lang('I have read the :terms and accept them', [
+                            'terms' => '<a href="' . route('public.pages.terms') . '" target="_blank" class="underline">' . __('Terms of Service') . '</a>',
+                        ]).
+                    </span>
+
+                </label>
+            </div>
+
             <button
                 id="submit"
-                class="flex p-4 mt-4 disabled:opacity-50 fc-button"
+                class="flex p-4 mt-4 disabled:opacity-50 fc-button ml-auto"
                 @if ($campaign->isRunning()) x-bind:disabled="!canSubmit" @else disabled @endif
             >
                 <svg

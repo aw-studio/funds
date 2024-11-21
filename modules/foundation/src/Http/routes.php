@@ -8,7 +8,7 @@ Route::app(function () {
 });
 
 Route::group(['middleware' => 'web'], function () {
-    Route::view('/imprint', 'funds::public.pages.imprint')->name('pages.imprint');
-    Route::view('/privacy', 'funds::public.pages.privacy')->name('pages.privacy');
-    Route::view('/terms', 'funds::public.pages.terms')->name('pages.terms');
+    Route::view('/imprint', 'funds::public.pages.imprint')->name('public.pages.imprint');
+    Route::view('/privacy', 'funds::public.pages.privacy')->name('public.pages.privacy');
+    Route::view('/terms', 'funds::public.pages.terms')->name('public.pages.terms');
 });
