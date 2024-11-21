@@ -6,7 +6,7 @@
         <input
             wire:model.live.debounce.250ms="search"
             x-model="search"
-            class="mt-1 rounded-full border-gray-200 sm:text-s w-10 transition-all"
+            class="rounded-full border-gray-200 sm:text-s w-10 transition-all"
             :class="{ 'pl-8 w-48': showSearch }"
             x-on:focus="showSearch = true"
             x-on:blur="showSearch = (search === '') ? false : true"
@@ -18,7 +18,7 @@
             x-transition:leave-end="opacity-0 w-0"
         />
         <span
-            class="absolute pointer-events-none cursor-pointer inset-y-0 start-0 grid w-10 place-content-center text-gray-500 mt-1"
+            class="absolute pointer-events-none cursor-pointer inset-y-0 start-0 grid w-10 place-content-center text-gray-500"
         >
             <x-icons.search />
         </span>

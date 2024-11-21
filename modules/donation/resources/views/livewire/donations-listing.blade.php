@@ -1,11 +1,11 @@
 <?php
 
-use function Livewire\Volt\{state};
-use Funds\Foundation\Facades\Funds;
+use function Livewire\Volt\{state, uses, updated};
 use Funds\Donation\Models\Donation;
+use Funds\Foundation\Facades\Funds;
 use function Livewire\Volt\{with, usesPagination};
 
-state(['search', 'campaign', 'includeRecurring', 'filterReward']);
+state(['search', 'campaign', 'includeRecurring', 'filterReward', 'sortField' => 'created_at', 'sortDirection' => 'DESC', 'perPage' => 10]);
 usesPagination();
 
 with(
@@ -17,9 +17,19 @@ with(
             ->when($this->filterReward, fn($query) => $query->whereHas('order', fn($query) => $query->where('reward_id', $this->filterReward)))
             ->when(strlen($this->search) > 2, fn($query) => $query->search($this->search))
             ->latest()
-            ->paginate(10),
+            ->when($this->sortField, fn($query) => $query->orderBy($this->sortField, $this->sortDirection))
+            ->paginate($this->perPage),
     ],
 );
+
+$setSort = function ($field) {
+    $this->sortField = $field;
+    $direction = $this->sortDirection == 'ASC' ? 'DESC' : 'ASC';
+    $this->sortDirection = $direction;
+};
+
+updated(['perPage' => fn() => $this->resetPage()]);
+updated(['search' => fn() => $this->resetPage()]);
 
 ?>
 
@@ -51,6 +61,14 @@ with(
                     {{ __('Include recurring') }}
                 </label>
             @endif
+            <x-button
+                href="{{ route('donations.create', ['campaign' => $campaign]) }}"
+                wire:navigate
+                outlined
+            >
+                <x-icons.plus class="mr-2" />
+                {{ __('Add Donation') }}
+            </x-button>
         </div>
 
     </div>
@@ -59,7 +77,20 @@ with(
             <x-table.th>#</x-table.th>
             <x-table.th>{{ __('Date') }}</x-table.th>
             <x-table.th>{{ __('Donor') }}</x-table.th>
-            <x-table.th>{{ __('Amount') }}</x-table.th>
+            <x-table.th
+                class="cursor-pointer"
+                wire:click="setSort('amount')"
+            >
+                {{ __('Amount') }}
+
+                <span @class([
+                    'hidden' => $sortField != 'amount',
+                    'transform inline-block' => $sortField == 'amount',
+                    'rotate-90' => $sortField == 'amount' && $sortDirection == 'ASC',
+                    '-rotate-90' => $sortField == 'amount' && $sortDirection == 'DESC',
+                ])>
+                    < </span>
+            </x-table.th>
             <x-table.th>{{ __('Reward') }}</x-table.th>
             @foreach ($moduleHeaders ?? [] as $header)
                 <x-table.th>
@@ -96,7 +127,7 @@ with(
         @endif
     </x-table>
 
-    <div class="mt-8">
+    <div class="flex mt-8 justify-end mb-8">
         {{ $donations->onEachSide(0)->links('donation::components.pagination') }}
     </div>
 </section>
