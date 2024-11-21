@@ -14,10 +14,19 @@ $storeVariant = function () {
     $this->reward->variants()->create([
         'name' => $this->pull('new_variant_name'),
     ]);
+
+    $this->dispatch('notify', [
+        'message' => __('Variant added successfully.'),
+        'type' => 'success',
+    ]);
 };
 
 $removeVariant = function ($id) {
     $this->reward->variants()->find($id)->delete();
+    $this->dispatch('notify', [
+        'message' => __('Variant deleted successfully.'),
+        'type' => 'success',
+    ]);
 };
 
 $editVariant = function ($id) {
@@ -34,7 +43,12 @@ $updateVariant = function () {
 };
 
 $toggleVariant = function ($id) {
-    $this->variants->find($id)->toggle();
+    $this->reward->variants->find($id)->toggle();
+    $action = $this->reward->variants->find($id)->is_active ? 'enabled' : 'disabled';
+    $this->dispatch('notify', [
+        'message' => __('Variant :action successfully.', ['action' => $action]),
+        'type' => 'success',
+    ]);
 };
 
 $cancelEdit = function () {
@@ -47,9 +61,9 @@ $cancelEdit = function () {
         <span class="text-xl">{{ __('Variants') }}</span>
     </div>
     @foreach ($reward->variants as $variant)
-        <div class="flex items-center">
+        <div class="flex items-center mb-2">
             <div @class([
-                'flex flex-grow border border-gray-200 justify-between rounded-md p-2 px-4 mb-2',
+                'flex flex-grow border border-gray-200 justify-between rounded-md p-2 px-4',
                 'bg-gray-100 border-blue-100' => $edit_variant?->id === $variant->id,
             ])>
                 @if ($edit_variant?->id === $variant->id)
