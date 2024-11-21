@@ -18,8 +18,8 @@
     <div class="grid md:grid-cols-3 gap-4">
         @foreach ($donation_options as $reward)
             <x-public::donation-card
-                href="{{ route('public.checkout', ['campaign' => $campaign, 'reward' => $reward]) }}"
-            >
+                :href="route('public.checkout', ['campaign' => $campaign, 'reward' => $reward])"
+                @endif :disabled="!$reward->isAvailable()">
                 @if ($image = $reward->getFirstMedia('image'))
                     <div class="w-full mb-2">
                         {{ $image }}

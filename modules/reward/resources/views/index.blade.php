@@ -9,11 +9,23 @@
                 {{ __('Create Reward') }}
             </x-button>
         </div>
-        @forelse ($rewards as $reward)
-            <x-rewards::reward-item :$reward />
-        @empty
+        @empty($rewards)
             <p>No rewards found.</p>
-        @endforelse
+        @endempty
+
+        <div class="col-span-full">
+            <x-section-headline :value="__('Enabled Rewards')" />
+        </div>
+        @foreach ($rewards->where('is_active', true) as $reward)
+            <x-rewards::reward-item :$reward />
+        @endforeach
+
+        <div class="col-span-full mt-10">
+            <x-section-headline :value="__('Disabled Rewards')" />
+        </div>
+        @foreach ($rewards->where('is_active', false) as $reward)
+            <x-rewards::reward-item :$reward />
+        @endforeach
     </div>
 
 </x-campaign::layout>

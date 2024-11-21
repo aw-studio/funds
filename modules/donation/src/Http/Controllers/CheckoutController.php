@@ -18,6 +18,10 @@ class CheckoutController
     {
         $countries = Countries::getNames(app()->getLocale());
 
+        if (! $reward->isAvailable()) {
+            $reward = null;
+        }
+
         return view('donation::public.checkout', [
             'countries' => $countries,
             'campaign' => $campaign,

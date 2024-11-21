@@ -87,11 +87,16 @@ $cancelEdit = function () {
                         wire:click="editVariant({{ $variant->id }})"
                     >{{ $variant->name }}</span>
                 @endif
-                <span
-                    class="cursor-pointer"
+                <x-button
+                    outlined
+                    iconButton
+                    type="button"
+                    class="border-none  focus:text-red-500"
                     wire:click="removeVariant({{ $variant->id }})"
                     wire:confirm="Are you sure you want to delete this variant?"
-                >&times;</span>
+                >
+                    <x-icons.trash class="w-5 h-5" />
+                </x-button>
             </div>
             <div class="-mr-10 ml-2">
                 <x-input-toggle

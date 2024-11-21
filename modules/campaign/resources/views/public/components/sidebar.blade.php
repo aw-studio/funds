@@ -4,7 +4,10 @@
         {{ __('Choose your reward') }}
     </div>
     @foreach ($donation_options as $reward)
-        <x-public::donation-card href="{{ route('public.checkout', ['campaign' => $campaign, 'reward' => $reward]) }}">
+        <x-public::donation-card
+            :href="route('public.checkout', ['campaign' => $campaign, 'reward' => $reward])"
+            :disabled="!$reward->isAvailable()"
+        >
             @if ($image = $reward->getFirstMedia('image'))
                 <div class="w-full mb-2">
                     {{ $image }}

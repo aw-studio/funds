@@ -29,12 +29,14 @@ class Reward extends Model implements HasMedia
         'shipping_type',
         'packaging_instructions',
         'slug',
+        'is_active',
     ];
 
     public function casts(): array
     {
         return [
             'min_amount' => AmountCast::class,
+            'is_active' => 'boolean',
         ];
     }
 
@@ -56,5 +58,10 @@ class Reward extends Model implements HasMedia
     {
         $this->addMediaCollection('image')
             ->singleFile();
+    }
+
+    public function isAvailable()
+    {
+        return $this->is_active;
     }
 }

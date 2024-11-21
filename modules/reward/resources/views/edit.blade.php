@@ -65,19 +65,47 @@
                 :label="__('Shipping Details')"
                 class="mb-4"
             >{{ $reward->packaging_instructions }}</x-textarea>
-            <div class="flex items-end gap-4">
 
-                <x-button
-                    outlined
-                    :href="route('rewards.index')"
-                    wire:navigate
-                >
-                    {{ __('Cancel') }}
-                </x-button>
+            <div>
+                <div class="mt-10">
+                    <p class="text-xl">{{ __('Availability') }}</p>
+                    <p>{{ __('Set whether this reward should be available for selection in the campaign') }}</p>
 
-                <x-button type="submit">
-                    {{ __('Update') }}
-                </x-button>
+                    <div class="flex gap-4 items-center mt-4">
+                        <x-input-toggle
+                            name="is_active"
+                            :checked="$reward->is_active"
+                            class="mt-4"
+                        />
+                        <label
+                            for="is_active"
+                            class="block text"
+                        >
+                            <p>{{ __('Activate') }}</p>
+                            <p class="text-sm text-gray-700">
+                                {{ __('Donors can select this reward in the campaign') }}
+                            </p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-between gap-4 mt-10 border-t pt-8">
+                <div>
+                    <livewire:delete-reward :reward="$reward" />
+                </div>
+                <div class="flex gap-4">
+                    <x-button
+                        outlined
+                        :href="route('rewards.index')"
+                        wire:navigate
+                    >
+                        {{ __('Cancel') }}
+                    </x-button>
+
+                    <x-button type="submit">
+                        {{ __('Update') }}
+                    </x-button>
+                </div>
             </div>
         </form>
     </x-form-page-container>

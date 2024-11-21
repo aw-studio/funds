@@ -55,7 +55,7 @@ class RewardController
         $reward->campaign = $campaign;
         $reward->save();
 
-        return redirect()->route('rewards.index');
+        return redirect()->route('rewards.edit', $reward);
     }
 
     public function edit(Reward $reward)
@@ -73,6 +73,7 @@ class RewardController
             'min_amount' => 'required|numeric',
             'shipping_type' => 'nullable|string',
             'packaging_instructions' => 'nullable|string',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
@@ -91,7 +92,10 @@ class RewardController
             $reward->addMediaFromRequest('image')->toMediaCollection('image');
         }
 
-        $reward->update($validated);
+        $reward->update([
+            ...$validated,
+            'is_active' => $request->boolean('is_active'),
+        ]);
 
         flash(__('Reward updated.'), 'success');
 

@@ -22,6 +22,7 @@
         <div class="mt-6 flex justify-end">
             <x-button
                 outlined
+                type="button"
                 x-on:click="$dispatch('close')"
             >
                 {{ __('Cancel') }}

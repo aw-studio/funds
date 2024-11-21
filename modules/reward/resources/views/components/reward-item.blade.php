@@ -16,7 +16,7 @@
             </h3>
             <p>{{ $reward->min_amount }}</p>
             <p class="text-sm">
-                {{ __(':count Variants', ['count' => $reward->variants_count]) }}
+                {{ $reward->variants_count }} @choice('Variant|Variants', $reward->variants_count)
             </p>
         </div>
         <div class="flex shrink ml-auto p-3">
