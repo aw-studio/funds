@@ -35,7 +35,7 @@
 
                         @if (app()->environment(['local', 'staging']))
                             <x-card class="bg-white">
-                                <span class="text-sm text-gray-500">{{ __('Quick Access') }}</span>
+                                <p class="text-sm text-gray-500">{{ __('Quick Access') }}</p>
                                 @auth()
                                     <p class="mb-4">Hi {{ auth()->user()->name }}!</p>
                                 @endauth
