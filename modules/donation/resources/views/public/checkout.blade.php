@@ -48,14 +48,14 @@
                 submitting: false,
                 submitEnabled: true,
                 init() {},
-            
+
                 get canSubmit() {
                     return this.amount > 0 && this.submitEnabled;
                 },
                 get totalDonationAmount() {
                     return parseInt(this.amount) + this.optionalAmount;
                 },
-            
+
                 get totalFees() {
                     if (!this.paysFees) {
                         return 0;
@@ -75,11 +75,13 @@
                 {{-- we don't trust nobody... the feees are calculated in the backend --}}
             >
             @if ($reward && $reward->variants->isNotEmpty())
-                <p>{{ __('Select a variant') }}</p>
                 <x-select
                     name="reward_variant"
                     class="bg-transparent max-w-md"
+                    label="{{ __('Select a variant') }}"
+                    required
                 >
+                    <option value="">{{ __('Select a variant') }}</option>
                     @foreach ($reward->variants as $variant)
                         <option
                             value="{{ $variant->id }}"
