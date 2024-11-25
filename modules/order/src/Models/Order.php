@@ -3,6 +3,7 @@
 namespace Funds\Order\Models;
 
 use Funds\Donation\Models\Donation;
+use Funds\Donation\Models\Donor;
 use Funds\Order\Enums\OrderShipmentStatus;
 use Funds\Reward\Models\Reward;
 use Funds\Reward\Models\RewardVariant;
@@ -40,6 +41,18 @@ class Order extends Model
     public function donation()
     {
         return $this->belongsTo(Donation::class);
+    }
+
+    public function donor()
+    {
+        return $this->hasOneThrough(
+            Donor::class,
+            Donation::class,
+            'id',
+            'id',
+            'donation_id',
+            'donor_id'
+        );
     }
 
     public function reward()
