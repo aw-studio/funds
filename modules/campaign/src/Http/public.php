@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 //     return redirect()->route('campaigns.public.show', ['campaign' => $campaign]);
 // });
 
-Route::get('', [PublicCampaignController::class, 'show'])
+Route::get('campaign/{campaign:slug}', [PublicCampaignController::class, 'show'])
     ->name('campaigns.public.show')
     ->missing(fn () => response()->view('public::404', [], 404));
-Route::get('/rewards', [PublicCampaignController::class, 'rewards'])->name('campaigns.public.rewards');
+Route::get('campaign/{campaign:slug}/rewards', [PublicCampaignController::class, 'rewards'])->name('campaigns.public.rewards');
