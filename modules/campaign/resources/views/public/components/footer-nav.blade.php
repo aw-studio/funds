@@ -1,26 +1,17 @@
 @props(['settings'])
-@if ($settings->get('imprint'))
-    <a
-        href="{{ route('public.pages.imprint') }}"
-        class="text-black p-2"
-    >
-        @lang('Imprint')
-    </a>
-@endif
-@if ($settings->get('terms'))
-    <a
-        href="{{ route('public.pages.terms') }}"
-        class="text-black p-2"
-    >
-        @lang('Terms of Service')
-    </a>
-@endif
-
-@if ($settings->get('privacypolicy'))
-    <a
-        href="{{ route('public.pages.privacy') }}"
-        class="text-black p-2"
-    >
-        @lang('Privacy Policy')
-    </a>
-@endif
+@php
+    $legalPages = ['imprint' => 'Imprint', 'terms' => 'Terms of Service', 'privacypolicy' => 'Privacy Policy'];
+@endphp
+@foreach ($legalPages as $key => $value)
+    @if (!empty(($settingsContent = $settings->get($key))))
+        <a
+            @if (filter_var($settingsContent, FILTER_VALIDATE_URL)) href="{{ $settingsContent }}"
+            target="_blank"
+            @else
+            href="{{ route('public.legalpage', ['page' => $key]) }}" @endif
+            class="text-black p-2"
+        >
+            @lang($value)
+        </a>
+    @endif
+@endforeach

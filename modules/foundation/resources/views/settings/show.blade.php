@@ -48,17 +48,29 @@
                 <x-textarea
                     name="terms"
                     :label="__('Terms of Service')"
-                >{{ $settings['terms'] ?? '' }}</x-textarea>
+                    rows="5"
+                >{!! $settings['terms'] ?? '' !!}</x-textarea>
+                <span class="text-gray-600 text-sm">
+                    @lang('You can use either HTML or Markdown to format the text. Input a single url to link to an external page.')
+                </span>
 
                 <x-textarea
                     name="privacypolicy"
                     :label="__('Privacy Policy')"
-                >{{ $settings['privacypolicy'] ?? '' }}</x-textarea>
+                    rows="5"
+                >{!! $settings['privacypolicy'] ?? '' !!}</x-textarea>
+                <span class="text-gray-600 text-sm">
+                    @lang('You can use either HTML or Markdown to format the text. Input a single url to link to an external page.')
+                </span>
 
                 <x-textarea
                     name="imprint"
                     :label="__('Imprint')"
-                >{{ $settings['imprint'] ?? '' }}</x-textarea>
+                    rows="5"
+                >{!! $settings['imprint'] ?? '' !!}</x-textarea>
+                <span class="text-gray-600 text-sm">
+                    @lang('You can use either HTML or Markdown to format the text. Input a single url to link to an external page.')
+                </span>
                 <div class="flex justify-end">
                     <x-button type="submit">{{ __('Save') }}</x-button>
                 </div>

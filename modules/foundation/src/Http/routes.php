@@ -1,5 +1,6 @@
 <?php
 
+use Funds\Foundation\Http\Controllers\LegalPageController;
 use Funds\Foundation\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,7 +9,5 @@ Route::app(function () {
 });
 
 Route::group(['middleware' => 'web'], function () {
-    Route::view('/imprint', 'funds::public.pages.imprint')->name('public.pages.imprint');
-    Route::view('/privacy', 'funds::public.pages.privacy')->name('public.pages.privacy');
-    Route::view('/terms', 'funds::public.pages.terms')->name('public.pages.terms');
+    Route::get('/pages/{page}', LegalPageController::class)->name('public.legalpage');
 });

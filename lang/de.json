@@ -43,5 +43,7 @@
     "Legal": "Rechtliches",
     "Privacy Policy": "Datenschutzrichtlinie",
     "Terms of Service": "Nutzungsbedingungen",
-    "Imprint": "Impressum"
+    "Imprint": "Impressum",
+    "Please provide the legal information for your organization.": "Bitte gib die rechtlichen Informationen für deine Organisation an.",
+    "You can use either HTML or Markdown to format the text. Input a single url to link to an external page.": "Verwende HTML oder Markdown, zum formatieren des Textes oder trage eine URL ein, auf eine externe Seite zu verlinken."
 }
