@@ -1,12 +1,14 @@
-<div class="contactDetails mb-8">
-    <h2 class="checkout-section-header text-2xl">{{ __('Contact Details') }}</h2>
-    <div class="grid grid-cols-2 gap-2">
+<div class="contactDetails mb-16">
+    <x-public::checkout.section-headline :value="__('Contact Details')" />
+    <div class="grid md:grid-cols-2 gap-8">
         <x-input
+            ref="contactDetailsName"
             name="name"
             type="text"
             label="{{ __('Full name') }}"
             placeholder="{{ __('Full name') }}"
-            value="{{ old('name') }}"
+            x-model="name"
+            x-on:input="if (!shippingDirty) shipping_name = name"
             required
         />
 

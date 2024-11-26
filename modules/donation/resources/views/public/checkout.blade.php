@@ -5,33 +5,35 @@
     :$campaign
     bodyClass="page-checkout"
 >
-    <a
-        class="flex items-center text-sm text-gray-500 gap-2 mb-4"
-        href="{{ route('campaigns.public.show', ['campaign' => $campaign]) }}"
-    >
-        <x-icons.arrow-left />
-        {{ __('Back') }}
-    </a>
+    <div class="max-w-4xl mx-auto">
+        <a
+            class="flex items-center text-sm text-gray-500 gap-2 mb-4"
+            href="{{ route('campaigns.public.show', ['campaign' => $campaign]) }}"
+        >
+            <x-icons.arrow-left />
+            {{ __('Back') }}
+        </a>
 
-    <div>
-        {{ __('With your Donation you are supporting the Campaign:') }}
-        <h1 class="text-3xl mb-4">{{ $campaign->name }}</h1>
-        @if ($reward)
-            <div class="reward mb-4">
-                <p class="text-2xl mb-4">{{ __('Selected Reward') }}</span>
-                <div class="flex gap-2">
-                    <div class="mb-2 max-w-48">
-                        {{ $reward->getFirstMedia('image') }}
-                    </div>
-                    <div>
-                        <p class="mb-2">{{ $reward->name }}</p>
-                        <p>@lang('Donation amount'): {{ $reward->min_amount }}</p>
+        <div>
+            <p class="text-sm mb-2">{{ __('With your Donation you are supporting the Campaign:') }}</p>
+            <h1 class="text-3xl mb-4">{{ $campaign->name }}</h1>
+            @if ($reward)
+                <div class="reward mb-4">
+                    <p class="text-2xl mb-4">{{ __('Selected Reward') }}</span>
+                    <div class="md:flex gap-2 items-center">
+                        @if ($image = $reward->getFirstMedia('image'))
+                            <div class="mb-2 md:max-w-48">
+                                {{ $image }}
+                            </div>
+                        @endif
+                        <div class="mb-2">
+                            <p class="mb-2">{{ $reward->name }}</p>
+                            <p>@lang('Donation amount'): {{ $reward->min_amount }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endif
-    </div>
-    <main>
+            @endif
+        </div>
         <form
             id="payment-form"
             method="POST"
@@ -47,6 +49,9 @@
                 requiresReceipt: false,
                 submitting: false,
                 submitEnabled: true,
+                name: '',
+                shipping_name: '',
+                shippingDirty: false,
                 init() {},
 
                 get canSubmit() {
@@ -101,11 +106,15 @@
                 :$countries
             />
             <x-public::checkout.donation-types />
-            <div class="payment">
-                <p class="text-2xl checkout-section-header mb-4">@lang('Payment')</p>
+            <div class="payment mb-16">
+                <x-public::checkout.section-headline :value="__('Payment')" />
                 <x-stripe-payment-elements x-show="type == 'one_time'" />
                 <x-public::checkout.sepa-payment-elements x-show="type == 'recurring'" />
-                <div class="mt-8">
+
+            </div>
+
+            <div class="mt-4 mb-8">
+                <div class="mb-4">
                     <label class="flex items-center">
                         <input
                             type="checkbox"
@@ -117,32 +126,31 @@
                             class="ml-2">{{ __('I would like to pay the fees amounting to :amount% of the donation amount', ['amount' => $campaign->fees]) }}</span>
                     </label>
                 </div>
-            </div>
-
-            <div class="mt-4 mb-8">
-                <label class="flex items-center">
-                    <input
-                        type="checkbox"
-                        name="requires_receipt"
-                        value="1"
-                        x-model="requiresReceipt"
+                <div class="mb-8">
+                    <label class="flex items-center">
+                        <input
+                            type="checkbox"
+                            name="requires_receipt"
+                            value="1"
+                            x-model="requiresReceipt"
+                        >
+                        <span class="ml-2">{{ __('I would like to receive a donation receipt by e-mail') }}</span>
+                    </label>
+                    <div
+                        x-show="requiresReceipt"
+                        class="p-4"
                     >
-                    <span class="ml-2">{{ __('I would like to receive a donation receipt by e-mail') }}</span>
-                </label>
-                <div
-                    x-show="requiresReceipt"
-                    class="p-4"
-                >
-                    <x-public::checkout.receipt-address
-                        :$countries
-                        :$reward
-                    />
+                        <x-public::checkout.receipt-address
+                            :$countries
+                            :$reward
+                        />
+                    </div>
                 </div>
             </div>
 
             <x-public::checkout.summary :$reward />
 
-            <div class="my-4">
+            <div class="my-4 terms mb-16">
                 <label for="terms">
                     <input
                         id="terms"
@@ -190,5 +198,5 @@
                 </div>
             @endif
         </form>
-    </main>
+    </div>
 </x-public::campaign-layout>

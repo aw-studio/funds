@@ -1,8 +1,9 @@
 @props([
     'label' => null,
+    'wrapperClass' => null,
     'errorKey' => $attributes->get('name'),
 ])
-<div class="">
+<div @class([$wrapperClass])>
     @isset($label)
         <x-input-label
             :value="$label"

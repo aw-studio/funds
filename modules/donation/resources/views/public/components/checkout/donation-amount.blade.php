@@ -7,7 +7,7 @@
     x-data="donationAmount(@js($defaultAmount))"
     x-on:amount-slider:reset="onSliderReset"
     x-on:amount-slider:change="onSliderChange"
-    class="mt-10"
+    class="mb-16 mt-10"
 >
     @if ($rewardDonation)
         <p class="mb-2">@lang('Increase your donation amount')</p>
@@ -15,7 +15,7 @@
             @php
                 $options = [10, 25, 50, 100];
             @endphp
-            <div class="flex gap-2">
+            <div class="grid md:flex gap-2">
                 <ul class="flex gap-2">
                     @foreach ($options as $option)
                         <li>

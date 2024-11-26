@@ -1,8 +1,8 @@
 @props(['reward', 'countries' => []])
 @if ($reward !== null)
-    <div class="shipmentDetails">
-        <p class="checkout-section-header text-2xl">{{ __('Shipping') }}</p>
-        <div class="grid grid-cols-2 gap-2 mb-5">
+    <div class="shipmentDetails mb-16">
+        <x-public::checkout.section-headline :value="__('Shipping address')" />
+        <div class="grid md:grid-cols-6 gap-x-8  gap-y-4 mb-5 ">
             <x-input
                 name="shipping_name"
                 type="text"
@@ -11,8 +11,11 @@
                 autocomplete="name"
                 label="{{ __('Full name') }}"
                 required
-                class="mb-2"
+                x-model="shipping_name"
+                x-on:input="shippingDirty = true"
+                wrapperClass="col-span-3"
             />
+
             <x-input
                 name="street"
                 autocomplete="street-address"
@@ -21,7 +24,7 @@
                 value="{{ old('street') }}"
                 maxlength="300"
                 required
-                class="mb-2"
+                wrapperClass="col-start-1 col-span-3"
             />
             <x-input
                 name="address_addition"
@@ -30,6 +33,7 @@
                 label="{{ __('Address addition') }}"
                 value="{{ old('address_addition') }}"
                 class="mb-2"
+                wrapperClass="col-span-2"
             />
             <x-input
                 name="postal_code"
@@ -39,7 +43,7 @@
                 label="{{ __('Postal code') }}"
                 value="{{ old('postal_code') }}"
                 required
-                class="mb-2"
+                wrapperClass="col-start-1 md:col-span-2"
             />
             <x-input
                 name="city"
@@ -49,10 +53,10 @@
                 label="{{ __('City') }}"
                 value="{{ old('city') }}"
                 required
-                class="mb-2"
+                wrapperClass="col-span-2 md:col-span-3"
             />
 
-            <div class="mb-2">
+            <div class="mb-2 col-span-3">
                 <x-country-select selectedOption="{{ old('country') }}" />
             </div>
 

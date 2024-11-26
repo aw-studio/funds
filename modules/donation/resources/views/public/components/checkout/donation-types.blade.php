@@ -13,7 +13,7 @@ use Funds\Foundation\Facades\Funds;
 
 @if (count(Funds::donationTypes()) > 1)
     <div class="my-10">
-        <p class="checkout-section-header text-2xl mb-4"> {{ __('Select Donation Type') }}</p>
+        <x-public::checkout.section-headline :value="__('Select Donation Type')" />
         <p class="">{{ __('Select the type of donation you would like to make') }}</p>
         <div class="flex gap-2 my-5">
             @foreach (Funds::donationTypes() as $key => $type)

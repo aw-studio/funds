@@ -1,5 +1,5 @@
 @props(['reward' => null])
-<div class="p-4 summary">
+<div class="p-4 summary mb-16">
     <span class="text-xl"> {{ __('Summary') }}</span>
     @if ($reward)
         <div class="flex justify-between py-2">
