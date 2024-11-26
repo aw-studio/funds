@@ -10,8 +10,7 @@ export default {
         "./resources/views/**/*.blade.php",
         "./modules/**/*.blade.php",
         "./modules/**/**/*.blade.php",
-        "./extensions/**/*.blade.php",
-        "./extensions/**/**/*.blade.php",
+        "./extensions/**/resources/views/**/*.blade.php",
     ],
 
     theme: {

@@ -13,7 +13,7 @@
     <div class="min-h-screen bg-white">
         <livewire:layout.navigation />
 
-        @if (isset($header) || isset($backlink))
+        @if (isset($header) || isset($backLink))
             <header>
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 relative">
                     @isset($backLink)
@@ -26,7 +26,9 @@
                             {{ __('Back') }}
                         </a>
                     @endisset
-                    {{ $header }}
+                    @isset($header)
+                        {{ $header }}
+                    @endisset
                 </div>
             </header>
         @endif

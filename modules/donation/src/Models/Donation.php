@@ -93,7 +93,7 @@ class Donation extends Model
 
     public function label(): string
     {
-        return __('Single donation');
+        return __('One-time donation');
     }
 
     public function receiptPdf(): \Barryvdh\DomPDF\PDF

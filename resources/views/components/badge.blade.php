@@ -10,6 +10,6 @@ $colors = match ($variant) {
     default => 'bg-gray-200 text-gray-600',
 };
 ?>
-<span @class(['px-2 py-1 rounded-md text-xs', $colors])>
+<span {{ $attributes->class(['px-2 py-1 rounded-md text-xs', $colors]) }}>
     {{ $slot }}
 </span>
