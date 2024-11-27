@@ -42,12 +42,16 @@ Route::app(function () {
 Route::group([
     'middleware' => ['web'],
 ], function () {
-    Route::get('campaign/{campaign:slug}/donate/{reward:slug?}', [CheckoutController::class, 'show'])->name('public.checkout');
-    Route::post('campaign/{campaign:slug}/donate/{reward?}', [CheckoutController::class, 'store'])->name('public.checkout.store');
-    Route::get('campaign/{campaign:slug}/checkout/return/{donationIntent}', [CheckoutController::class, 'return'])->name('public.checkout.return');
+    Route::get('{campaign:slug}/donate/checkout/{reward:slug?}', [CheckoutController::class, 'show'])->name('public.checkout');
+    Route::post('{campaign:slug}/donate/checkout/{reward?}', [CheckoutController::class, 'store'])->name('public.checkout.store');
+    Route::get('{campaign:slug}/donate/checkout/return/{donationIntent}', [CheckoutController::class, 'return'])->name('public.checkout.return');
 });
 
 Route::get('test/notification/{id?}', function () {
+
+    if (app()->environment('production')) {
+        abort(404);
+    }
 
     $id = request()->route('id');
     $donation = \Funds\Donation\Models\Donation::findOr($id, function () {

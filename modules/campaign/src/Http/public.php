@@ -20,5 +20,5 @@ Route::group([
             return response()->view('public::404', [], 404);
         });
 
-    Route::get('{campaign:slug}/rewards', [PublicCampaignController::class, 'rewards'])->name('campaigns.public.rewards');
+    Route::get('{campaign:slug}/donate', [PublicCampaignController::class, 'rewards'])->name('campaigns.public.rewards');
 });
