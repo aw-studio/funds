@@ -159,7 +159,7 @@
                     >
                     <span>
                         @lang('I have read the :terms and accept them', [
-                            'terms' => '<a href="' . route('public.pages.terms') . '" target="_blank" class="underline">' . __('Terms of Service') . '</a>',
+                            'terms' => '<a href="' . route('public.legalpage', ['page' => 'terms']) . '" target="_blank" class="underline">' . __('Terms of Service') . '</a>',
                         ]).
                     </span>
 
