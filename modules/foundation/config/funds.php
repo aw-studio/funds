@@ -10,6 +10,8 @@ return [
 
     'single_campaign_mode' => env('SINGLE_CAMPAIGN_MODE', false),
 
+    'registration_enabled' => env('REGISTRATION_ENABLED', false),
+
     'default_currency' => env('DEFAULT_CURRENCY', 'EUR'),
 
     'stripe' => [
