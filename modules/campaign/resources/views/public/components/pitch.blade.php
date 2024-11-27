@@ -6,13 +6,13 @@
 
     $hasPitchImageOrVideo = $pitchVideo || $pitchImage;
 @endphp
-<section class="grid md:grid-cols-2 gap-8 mb-10 pitch relative">
+<section class="grid md:grid-cols-2 gap-8 md:gap-12 mb-10 pitch relative">
     @if ($headerImage = $campaign->getFirstMediaUrl('header_image'))
-        <div class="h-96 col-span-full mb-10">
+        <div class="md:h-96 col-span-full">
             <img
                 src="{{ $headerImage }}"
                 alt="{{ $campaign->name }}"
-                class="w-full h-96 object-cover"
+                class="w-full h-48 md:h-96 object-cover "
             >
         </div>
     @endif
@@ -45,7 +45,7 @@
                     {{ $campaign->goal }}
                 </p>
                 <x-public::progress-bar :$campaign />
-                <p class="mb-8">
+                <p class="mt-3 mb-8">
                     {{ $campaign->donations_count }} {{ __('Supporters') }}
                 </p>
 
@@ -62,7 +62,7 @@
 
     </div>
     <div class="col-span-full">
-        @lang('Share this campaign')
+        <p class="mb-3">@lang('Share this campaign')</p>
         <x-public::share-icons :$campaign />
     </div>
     @auth

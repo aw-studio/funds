@@ -9,7 +9,7 @@
     >
     <label
         for="optionAdd{{ $option }}"
-        class="choice-chip inline-flex items-center justify-center w-full p-2 px-4 text-gray-500 border cursor-pointer  hover:border-black hover:text-black
+        class="choice-chip inline-flex items-center justify-center w-full p-2 px-4 border cursor-pointer  hover:border-black hover:text-black
 
         "
     >

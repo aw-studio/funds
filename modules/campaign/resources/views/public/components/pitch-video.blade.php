@@ -1,7 +1,7 @@
  @props(['video', 'campaign'])
 
  <div
-     class="flex flex-col overflow-hidden pitch-video"
+     class="flex overflow-hidden pitch-video"
      x-data="{
          playing: false,
          paused: false,

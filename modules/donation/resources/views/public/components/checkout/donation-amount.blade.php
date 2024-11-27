@@ -7,10 +7,10 @@
     x-data="donationAmount(@js($defaultAmount))"
     x-on:amount-slider:reset="onSliderReset"
     x-on:amount-slider:change="onSliderChange"
-    class="mb-16 mt-10"
+    class="mb-16"
 >
     @if ($rewardDonation)
-        <p class="mb-2">@lang('Increase your donation amount')</p>
+        <p class="mb-2 text-sm">@lang('Increase your donation amount')</p>
         <div x-show="showOptions">
             @php
                 $options = [10, 25, 50, 100];
@@ -26,7 +26,7 @@
                 <div>
                     <button
                         x-on:click.prevent="toggleCustomAmount"
-                        class="border px-4 py-2 choice-chip text-gray-500 hover:border-black hover:text-black"
+                        class="border px-4 py-2 choice-chip hover:border-black hover:text-black"
                     >
                         @lang('Custom amount')
                     </button>
@@ -41,7 +41,7 @@
             />
         </template>
         <div
-            class="flex"
+            class="flex text-sm text-muted mt-2"
             x-show="optionalAmount != 0"
             x-cloak
         >

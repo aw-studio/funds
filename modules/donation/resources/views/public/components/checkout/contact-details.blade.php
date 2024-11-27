@@ -6,7 +6,6 @@
             name="name"
             type="text"
             label="{{ __('Full name') }}"
-            placeholder="{{ __('Full name') }}"
             x-model="name"
             x-on:input="if (!shippingDirty) shipping_name = name"
             required
@@ -16,7 +15,6 @@
             name="email"
             type="text"
             label="{{ __('Email address') }}"
-            placeholder="{{ __('Email') }}"
             value="{{ old('email') }}"
             required
         />

@@ -37,7 +37,7 @@
                 required
                 placeholder="A short description of your campaign"
                 rows="3"
-                maxlength="125"
+                maxlength="250"
             >{{ old('description', $campaign->description ?? '') }}</x-textarea>
         </div>
 

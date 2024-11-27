@@ -6,7 +6,6 @@
             <x-input
                 name="shipping_name"
                 type="text"
-                placeholder="Jane Doe"
                 value="{{ old('shipping_name') }}"
                 autocomplete="name"
                 label="{{ __('Full name') }}"
@@ -19,7 +18,6 @@
             <x-input
                 name="street"
                 autocomplete="street-address"
-                placeholder="{{ __('Street address') }}"
                 label="{{ __('Street address') }}"
                 value="{{ old('street') }}"
                 maxlength="300"
@@ -29,7 +27,6 @@
             <x-input
                 name="address_addition"
                 type="text"
-                placeholder="{{ __('Address addition') }}"
                 label="{{ __('Address addition') }}"
                 value="{{ old('address_addition') }}"
                 class="mb-2"
@@ -39,7 +36,6 @@
                 name="postal_code"
                 type="text"
                 autocomplete="postal-code"
-                placeholder="{{ __('Postal code') }}"
                 label="{{ __('Postal code') }}"
                 value="{{ old('postal_code') }}"
                 required
@@ -49,7 +45,6 @@
                 name="city"
                 type="text"
                 autocomplete="address-level2"
-                placeholder="{{ __('City') }}"
                 label="{{ __('City') }}"
                 value="{{ old('city') }}"
                 required

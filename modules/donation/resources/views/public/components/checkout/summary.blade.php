@@ -26,6 +26,9 @@
     <hr class="border-t border-black my-2">
     <div class="flex justify-between py-2">
         <span x-uppercase>{{ __('Total amount') }}</span>
-        <span x-money="totalAmount"></span>
+        <span
+            class="font-semibold"
+            x-money="totalAmount"
+        ></span>
     </div>
 </div>

@@ -3,7 +3,7 @@
     :header="false"
 >
     <x-public::pitch :$campaign />
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
         <div class="col-span-1 md:col-span-8 ">
             <x-campaign::tabs>
                 <x-slot name="buttons">

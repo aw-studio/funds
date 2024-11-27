@@ -8,7 +8,7 @@
     <div class="max-w-4xl mx-auto">
         <a
             class="flex items-center text-sm text-gray-500 gap-2 mb-4"
-            href="{{ route('campaigns.public.show', ['campaign' => $campaign]) }}"
+            href="{{ route('campaigns.public.rewards', ['campaign' => $campaign]) }}"
         >
             <x-icons.arrow-left />
             {{ __('Back') }}
@@ -16,10 +16,10 @@
 
         <div>
             <p class="text-sm mb-2">{{ __('With your Donation you are supporting the Campaign:') }}</p>
-            <h1 class="text-3xl mb-4">{{ $campaign->name }}</h1>
+            <h1 class="text-3xl mb-6">{{ $campaign->name }}</h1>
             @if ($reward)
                 <div class="reward mb-4">
-                    <p class="text-2xl mb-4">{{ __('Selected Reward') }}</span>
+                    <x-public::checkout.section-headline :value="__('Selected Reward')" />
                     <div class="md:flex gap-2 items-center">
                         @if ($image = $reward->getFirstMedia('image'))
                             <div class="mb-2 md:max-w-48">
@@ -32,12 +32,15 @@
                         </div>
                     </div>
                 </div>
+            @else
+                <x-public::checkout.section-headline :value="__('Your donation')" />
             @endif
         </div>
         <form
             id="payment-form"
             method="POST"
             action="{{ route('public.checkout.store', ['campaign' => $campaign, 'reward' => $reward]) }}"
+            class="mb-12"
             x-data="{
                 type: @js(old('donation_type') ?? 'one_time'),
                 amount: @js(old('amount') ?? $defaultAmount),
@@ -82,7 +85,7 @@
             @if ($reward && $reward->variants->isNotEmpty())
                 <x-select
                     name="reward_variant"
-                    class="bg-transparent max-w-md"
+                    class="bg-transparent max-w-md mb-8"
                     label="{{ __('Select a variant') }}"
                     required
                 >

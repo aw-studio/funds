@@ -156,6 +156,14 @@
         line-height: var(--line-height-3xl, 36px);
     }
 
+    .text-general {
+        color: rgba(var(--color-general-text-rgb, 0, 0, 0), 1);
+    }
+
+    .text-muted {
+        color: rgba(var(--color-general-text-rgb, 0, 0, 0), 0.6);
+    }
+
     .rounded-md {
         border-radius: var(--input-radius);
     }
@@ -170,7 +178,7 @@
     }
 
     [role="tab"] {
-        padding: 10px;
+        padding: 8px 20px;
         border-top-left-radius: var(--tab-radius);
         border-top-right-radius: var(--tab-radius);
         transition: background 0.1s;
@@ -274,7 +282,7 @@
 }
 
 .pitch-video {
-    border-radius: var(--card-radius);
+    border-radius: var(--image-radius);
 
     .video-container {
         position: relative;
@@ -296,7 +304,7 @@
     background: var(--accent-1-color);
     color: var(--interaction-text-color);
     border-radius: var(--button-radius);
-    padding: 10px 20px;
+    padding: 8px 20px;
     transition: background 0.1s;
 
     &:hover {

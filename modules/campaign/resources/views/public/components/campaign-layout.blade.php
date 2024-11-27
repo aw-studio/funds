@@ -48,7 +48,7 @@
 
 <body class="campaign {{ $attributes->get('bodyClass', '') }}">
     @if ($campaign && !$campaign->isPublished())
-        <div class="border-b border-purple-500 bg-purple-100 text-purple-500 text-center p-4 text-sm sticky top-0">
+        <div class="border-b border-purple-500 bg-purple-100 text-purple-500 text-center p-4 text-sm sticky top-0 z-10">
             {{ __('This campaign is not published yet.') }}
             {{ __('Some features may not work as expected.') }}
             <a
@@ -62,10 +62,8 @@
         <x-public::layout-header />
     @endif
     <main>
-        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            <div class="px-4 py-6 sm:px-0">
-                {{ $slot }}
-            </div>
+        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 px-4 py-6 sm:px-0">
+            {{ $slot }}
         </div>
     </main>
     <x-public::layout-footer />

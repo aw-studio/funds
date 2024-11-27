@@ -8,9 +8,8 @@ export default {
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
-        "./modules/**/*.blade.php",
-        "./modules/**/**/*.blade.php",
         "./extensions/**/resources/views/**/*.blade.php",
+        "./modules/**/resources/views/**/*.blade.php",
     ],
 
     theme: {
@@ -121,6 +120,13 @@ export default {
                     800: "#206318",
                     900: "#1a5215",
                     950: "#092d06",
+                },
+            },
+            typography: {
+                DEFAULT: {
+                    css: {
+                        maxWidth: "100ch",
+                    },
                 },
             },
         },
