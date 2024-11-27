@@ -2,25 +2,25 @@
 
 namespace Funds\Campaign\Http\Controller;
 
+use Funds\Campaign\Actions\ResolvePublicCampaignIndex;
+use Funds\Campaign\Actions\ShowPublicCampaign;
 use Funds\Campaign\Models\Campaign;
+use Illuminate\Http\Request;
 
 class PublicCampaignController
 {
-    public function show(Campaign $campaign)
+    public function index(ResolvePublicCampaignIndex $resolvePublicCampaignIndex)
     {
-        if (! $campaign->isPublic() && ! auth()->check()) {
-            return view('campaign::public.404');
+        return $resolvePublicCampaignIndex();
+    }
+
+    public function show(Request $request, Campaign $campaign, ShowPublicCampaign $showPublicCampaign)
+    {
+        if (! $request->user() && config('funds.single_campaign_mode')) {
+            return redirect()->route('campaigns.public.index');
         }
 
-        $campaign->loadCount('donations');
-
-        return view('campaign::public.show',
-            [
-                'campaign' => $campaign,
-                'donation_options' => $campaign->rewards,
-                'faqs' => $campaign->faqs,
-            ]
-        );
+        return $showPublicCampaign($campaign);
     }
 
     public function rewards(Campaign $campaign)

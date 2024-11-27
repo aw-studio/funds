@@ -6,6 +6,7 @@ use Funds\Foundation\Core;
 use Funds\Foundation\Navigation;
 use Funds\Foundation\PaymentGatewayResolver;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Number;
 use Illuminate\Support\ServiceProvider;
@@ -28,6 +29,7 @@ class FoundationServiceProvider extends ServiceProvider
         $this->app->singleton('funds.payment', PaymentGatewayResolver::class);
         $this->app->singleton('funds.navigation', Navigation::class);
         $this->app->register(ExtensionsServiceProvider::class);
+
     }
 
     public function boot(): void
@@ -51,6 +53,7 @@ class FoundationServiceProvider extends ServiceProvider
             return $formatter->formatCurrency($number, $in ?? Number::defaultCurrency());
         });
 
+        Event::dispatch('funds.foundation.booted');
     }
 
     protected function guessFactoryNamespaces()

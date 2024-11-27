@@ -8,6 +8,8 @@ return [
      */
     'public_campaign_overview' => env('PUBLIC_CAMPAIGN_OVERVIEW', false),
 
+    'single_campaign_mode' => env('SINGLE_CAMPAIGN_MODE', false),
+
     'default_currency' => env('DEFAULT_CURRENCY', 'EUR'),
 
     'stripe' => [

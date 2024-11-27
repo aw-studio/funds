@@ -35,18 +35,3 @@ Route::app(function () {
     });
 
 });
-
-// // Api
-Route::group([
-    'middleware' => ['api'],
-], function () {
-    // Route::get('/campaign/{campaign}', [CampaignApiController::class, 'show'])->name('campaigns.api.show');
-});
-
-// Public
-Route::group([
-    'middleware' => ['web'],
-], function () {
-
-    require __DIR__.'/public.php';
-});

@@ -137,6 +137,26 @@ class Campaign extends Model implements HasMedia
         ]);
     }
 
+    public function scopeCurrentCampaign($queryBuilder)
+    {
+        return $queryBuilder
+            ->running()
+            ->where('published_at', '!=', null)
+            ->first();
+
+    }
+
+    public function scopeRunning($query)
+    {
+        return $query->where('start_date', '<=', now())
+            ->where('end_date', '>=', now());
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('published_at', '!=', null);
+    }
+
     public function totalAmountDonated()
     {
         return new Amount($this->total_donated ?? 0);
