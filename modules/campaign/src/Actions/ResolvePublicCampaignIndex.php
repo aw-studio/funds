@@ -21,7 +21,7 @@ class ResolvePublicCampaignIndex
 
     protected function handleSingleCampaignMode()
     {
-        $currentCampaign = Campaign::currentCampaign();
+        $currentCampaign = Campaign::currentCampaign()->first();
 
         if (! $currentCampaign) {
             return $this->handleNoCurrentCampaign();
