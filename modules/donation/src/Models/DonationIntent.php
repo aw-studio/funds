@@ -6,12 +6,14 @@ use Funds\Campaign\Traits\BelongsToCampaign;
 use Funds\Donation\DTOs\DonationIntentDto;
 use Funds\Donation\Enums\DonationIntentStatus;
 use Funds\Donation\Events\DonationIntentSucceeded;
+use Funds\Donation\Notifications\DonationIntentFailedNotification;
 use Funds\Foundation\Facades\Funds;
 use Funds\Foundation\Support\Amount;
 use Funds\Reward\Models\Reward;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Notification;
 
 /**
  * @property $type
@@ -109,6 +111,9 @@ class DonationIntent extends Model
 
         $this->status = DonationIntentStatus::Failed;
         $this->save();
+
+        Notification::route('mail', $this->email)
+            ->notify(new DonationIntentFailedNotification($this->asDto()));
     }
 
     public function asDto(): DonationIntentDto
