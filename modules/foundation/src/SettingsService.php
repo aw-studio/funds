@@ -9,13 +9,13 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class SettingsService
 {
-    public function get($key, $default = null)
+    public function get($key, $default = '')
     {
         return Cache::rememberForever('settings.'.$key, function () use ($key, $default) {
             $setting = Setting::where('key', $key)->first();
 
-            if (Str::of($setting?->value)->startsWith('media::')) {
-                return $setting->getFirstMediaUrl('settings.'.$key);
+            if ($setting && Str::of($setting->value)->startsWith('media::')) {
+                return $setting->getFirstMediaUrl('settings.'.$key) ?? $default;
             }
 
             return $setting?->value ?? $default;
