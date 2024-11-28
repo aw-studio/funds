@@ -9,7 +9,7 @@
             target="_blank"
             @else
             href="{{ route('public.legalpage', ['page' => $key]) }}" @endif
-            class="text-black p-2"
+            class="text-black p-2 underline underline-offset-8 "
         >
             @lang($value)
         </a>

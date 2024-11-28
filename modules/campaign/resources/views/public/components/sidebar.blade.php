@@ -16,7 +16,7 @@
                     </div>
                 @endif
                 <div class="flex gap-2 mb-3">
-                    <div class="tag text-sm p-1 px-2">
+                    <div class="tag self-start text-sm p-1 px-2">
                         {{ $reward->min_amount }}
                     </div>
                     <p class="title text-lg">
