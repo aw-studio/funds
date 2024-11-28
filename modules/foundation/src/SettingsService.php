@@ -80,6 +80,7 @@ class SettingsService
     protected function setMediaSetting($key, $value)
     {
         $this->clear($key);
+
         $setting = Setting::updateOrCreate(['key' => $key]);
 
         $collectionName = 'settings.'.$key;
@@ -88,6 +89,8 @@ class SettingsService
             ->toMediaCollection($collectionName);
 
         $setting->update(['value' => 'media::'.$collectionName]);
+
+        Cache::forever('settings.'.$key, $setting->getFirstMediaUrl($collectionName));
 
         return $setting;
     }
