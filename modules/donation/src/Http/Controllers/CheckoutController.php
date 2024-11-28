@@ -68,7 +68,16 @@ class CheckoutController
         Campaign $campaign,
         DonationIntent $donationIntent
     ) {
-        $status = $request->get('redirect_status') ?? $donationIntent->status;
+        $redirect_status = $request->get('redirect_status');
+        $status = $donationIntent->status->value;
+
+        if ($donationIntent->donation && $donationIntent->donation->created_at->diffInMinutes() > 5) {
+            return redirect()->to($campaign->publicRoute());
+        }
+
+        if ($redirect_status == 'failed') {
+            $status = $redirect_status;
+        }
 
         return view('donation::public.checkout-completed', [
             'campaign' => $campaign,
