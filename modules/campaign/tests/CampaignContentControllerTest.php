@@ -8,7 +8,7 @@ uses(TestCase::class, RefreshDatabase::class);
 
 test('A user can see a page to edit a the campaigns pitch', function () {
     $response = $this->actingAs($user = User::factory()->create())
-        ->get('app/campaigns/'.$user->currentCampaign->id.'/content/pitch');
+        ->get(route('campaigns.content.pitch.edit', $user->currentCampaign));
 
     $response->assertViewIs('campaign::content.pitch');
 });

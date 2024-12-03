@@ -16,7 +16,7 @@ class PublicCampaignController
 
     public function show(Request $request, Campaign $campaign, ShowPublicCampaign $showPublicCampaign)
     {
-        if (! $request->user() && config('funds.single_campaign_mode')) {
+        if (config('funds.single_campaign_mode') && $request->user() == null) {
             return redirect()->route('campaigns.public.index');
         }
 

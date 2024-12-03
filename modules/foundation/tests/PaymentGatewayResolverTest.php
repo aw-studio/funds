@@ -3,7 +3,9 @@
 use Funds\Donation\Enums\DonationType;
 use Funds\Donation\Payment\StripePaymentGateway;
 use Funds\Foundation\PaymentGatewayResolver;
+use Tests\TestCase;
 
+uses(TestCase::class);
 test('It registers a payment gateway', function () {
     $resolver = new PaymentGatewayResolver;
     $resolver->register(StripePaymentGateway::class);

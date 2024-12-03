@@ -4,7 +4,12 @@ namespace Tests\Feature\Auth;
 
 use Livewire\Volt\Volt;
 
-test('registration screen can be rendered', function () {
+test('registration screen can be rendered if enabled', function () {
+
+    if (config('funds.registration_enabled') === false) {
+        $this->markTestSkipped('Registration is disabled.');
+    }
+
     $response = $this->get('app/register');
 
     $response
