@@ -16,9 +16,7 @@
         <div class="col-span-full">
             <x-section-headline :value="__('Enabled Rewards')" />
         </div>
-        @foreach ($rewards->where('is_active', true) as $reward)
-            <x-rewards::reward-item :$reward />
-        @endforeach
+        <livewire:sortable-rewards-list :rewards="$rewards->where('is_active', true)" />
 
         <div class="col-span-full mt-10">
             <x-section-headline :value="__('Disabled Rewards')" />

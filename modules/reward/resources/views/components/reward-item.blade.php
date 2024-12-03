@@ -1,5 +1,8 @@
 <div class="grid grid-cols-3 rounded-lg bg-gray-50">
-    <div class="bg-gray-200 min-w-sm  rounded-l-lg">
+    <div
+        class="bg-gray-200 min-w-sm  rounded-l-lg cursor-move"
+        wire:sortable.handle
+    >
         @if ($reward->getFirstMedia('image'))
             <img
                 src="{{ $reward->getFirstMediaUrl('image', 'thumb') }}"

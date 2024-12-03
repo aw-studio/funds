@@ -1,5 +1,6 @@
 import.meta.glob(["../fonts/**"]);
 import "./bootstrap";
+import "@wotz/livewire-sortablejs";
 
 Alpine.directive(
     "money",
