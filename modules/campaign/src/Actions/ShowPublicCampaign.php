@@ -17,7 +17,7 @@ class ShowPublicCampaign
         return view('campaign::public.show',
             [
                 'campaign' => $campaign,
-                'donation_options' => $campaign->rewards,
+                'donation_options' => $campaign->rewards->sortBy('order'),
                 'faqs' => $campaign->faqs,
             ]
         );
