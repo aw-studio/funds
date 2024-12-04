@@ -31,6 +31,7 @@ class Reward extends Model implements HasMedia
         'slug',
         'is_active',
         'order',
+        'expected_delivery',
     ];
 
     public function casts(): array

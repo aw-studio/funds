@@ -74,6 +74,7 @@ class RewardController
             'shipping_type' => 'nullable|string',
             'packaging_instructions' => 'nullable|string',
             'is_active' => 'nullable|boolean',
+            'expected_delivery' => 'nullable|string',
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);

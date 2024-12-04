@@ -35,6 +35,14 @@
                     :value="$reward->description"
                     required
                 />
+
+            </div>
+            <div class="mb-4">
+                <x-input
+                    name="expected_delivery"
+                    :label="__('Expected Delivery')"
+                    :value="$reward->expected_delivery"
+                />
             </div>
             <x-input-image
                 name="image"
