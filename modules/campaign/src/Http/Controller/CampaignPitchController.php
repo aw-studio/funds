@@ -19,7 +19,7 @@ class CampaignPitchController
     public function store(Request $request, Campaign $campaign)
     {
         $request->validate([
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'header_image' => 'nullable|image|max:5000',
             'intro_image' => 'nullable|image|max:5000',
             'pitch_video' => 'nullable|file|mimetypes:video/*|max:50000',
