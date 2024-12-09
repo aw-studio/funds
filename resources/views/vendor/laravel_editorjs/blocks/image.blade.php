@@ -18,7 +18,15 @@
         alt="{{ $data['caption'] ?: '' }}"
         loading="lazy"
     > --}}
-    {{ $data['media'] }}
+    @if ($data['media']->mime_type === 'image/gif')
+        <img
+            src="{{ $data['media']->getUrl() }}"
+            alt="{{ $data['caption'] ?: '' }}"
+            loading="lazy"
+        >
+    @else
+        {{ $data['media'] }}
+    @endif
     @if (!empty($data['caption']))
         <footer class="image-caption">
             {{ $data['caption'] }}
