@@ -34,6 +34,7 @@ class CampaignController
             'end_date' => 'required|date|after:start_date',
         ]);
 
+        // TODO: Unique slug
         $validated['slug'] = Str::slug($validated['name']);
 
         $campaign = Campaign::create($validated);
@@ -80,7 +81,10 @@ class CampaignController
             'end_date' => 'required|date|after:start_date',
         ]);
 
-        $validated['slug'] = Str::slug($validated['name']);
+        if (! $campaign->isPublished()) {
+            // TODO: Unique slug
+            $validated['slug'] = Str::slug($validated['name']);
+        }
 
         $campaign->update($validated);
 

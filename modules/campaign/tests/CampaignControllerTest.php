@@ -101,6 +101,58 @@ test('A user can update a campaign', function () {
     expect($response->status())->toBe(302);
 });
 
+test('The campaigns slug is generated from name', function () {
+    $this->actingAs(User::factory()->create())
+        ->post('app/campaigns', [
+            'name' => 'Test Campaign',
+            'goal' => 1000,
+            'fees' => 0,
+            'start_date' => now(),
+            'end_date' => now()->addDays(30),
+        ]);
+
+    expect(Campaign::where('name', 'Test Campaign')->first()->slug)->toBe('test-campaign');
+});
+
+test('the slug is updated when the name is updated', function () {
+    $campaign = Campaign::factory()->create([
+        'name' => 'Test Campaign',
+    ]);
+
+    $this->actingAs(User::factory()->create())
+        ->put('app/campaigns/'.$campaign->id, [
+            'name' => 'Updated Campaign',
+            'goal' => $campaign->goal->get(),
+            'fees' => $campaign->fees,
+            'start_date' => $campaign->start_date,
+            'end_date' => $campaign->end_date,
+        ]);
+
+    $campaign->refresh();
+
+    expect($campaign->slug)->toBe('updated-campaign');
+});
+
+test('The campaigns slug is not changed if the campaign was already published', function () {
+    $campaign = Campaign::factory()->create([
+        'name' => 'Test Campaign',
+        'published_at' => now(),
+    ]);
+
+    $this->actingAs(User::factory()->create())
+        ->put('app/campaigns/'.$campaign->id, [
+            'name' => 'Updated Campaign',
+            'goal' => $campaign->goal->get(),
+            'fees' => $campaign->fees,
+            'start_date' => $campaign->start_date,
+            'end_date' => $campaign->end_date,
+        ]);
+
+    $campaign->refresh();
+
+    expect($campaign->slug)->toBe('test-campaign');
+});
+
 test('A new campaign is a draft by default')->todo();
 test('A draft campaign is not visible to the public')->todo();
 test('A draft campaign can be published')->todo();
