@@ -89,6 +89,10 @@ class RewardController
             $counter++;
         }
 
+        if ($request->input('image_delete')) {
+            $reward->clearMediaCollection('image');
+        }
+
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $reward->addMediaFromRequest('image')->toMediaCollection('image');
         }
