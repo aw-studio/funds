@@ -93,7 +93,7 @@ class DonationIntentService implements DonationIntentServiceInterface
         if ($validatedData['use_shipping_address_for_receipt'] ?? false) {
             return [
                 'name' => $validatedData['shipping_name'],
-                'address' => $validatedData['address'],
+                'address' => $validatedData['street'],
                 'address_addition' => $validatedData['address_addition'] ?? null,
                 'postal_code' => $validatedData['postal_code'],
                 'city' => $validatedData['city'],
