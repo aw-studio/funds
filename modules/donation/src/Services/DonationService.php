@@ -25,7 +25,7 @@ class DonationService implements DonationServiceInterface
         $donation->type = $intentData->type;
         $donation->campaign = Campaign::find($intentData->campaignId);
         $donation->intent_id = $intentData->id;
-        $donation->receipt_address = $intentData->orderDetails['receipt_address'] ?? null;
+        $donation->receipt_address = $intentData->receiptAddress;
 
         $donation->save();
 
