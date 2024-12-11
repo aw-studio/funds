@@ -1,4 +1,5 @@
 <?php
+use Funds\Campaign\Models\Campaign;
 use Funds\Foundation\Support\Amount;
 use Funds\Campaign\Actions\GenerateRewardStats;
 use function Livewire\Volt\{state, computed, mount};
@@ -19,10 +20,8 @@ $calculateForecastAmount = function () {
 
 $rewardOrders = computed(function () {
     $totalForecast = intval($this->forecastAmount) * 100;
-
     $action = new GenerateRewardStats();
-
-    return $action->execute($this->campaign, $totalForecast);
+    return $action->execute(Campaign::find($this->campaign->id), $totalForecast);
 });
 
 $toggleForecast = function () {

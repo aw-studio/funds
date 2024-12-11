@@ -63,8 +63,13 @@ class Campaign extends Model implements HasMedia
     public static function booted()
     {
         static::addGlobalScope('total_donated_scope', function ($query) {
-            $query->withSum('donations as total_donated', 'amount');
+            $query->withTotalDonated();
         });
+    }
+
+    public function scopeWithTotalDonated($query)
+    {
+        return $query->withSum('donations as total_donated', 'amount');
     }
 
     public function getStageAttribute()

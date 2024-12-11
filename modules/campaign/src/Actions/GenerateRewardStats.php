@@ -21,10 +21,10 @@ class GenerateRewardStats
             ->groupBy(function ($donation) {
                 return $donation->order->reward->id;
             })
-            ->map(function ($donations) use ($rewardDonations, $totalForecast) {
+            ->map(function ($donations) use ($rewardDonations, $totalForecast, $campaign) {
                 $count = $donations->count();
                 $percentage = ($count / $rewardDonations->count()) * 100;
-                $sum = $forecastedAmount = ($count / $rewardDonations->totalAmount()->get()) * $totalForecast;
+                $forecastedAmount = ($count / $campaign->total_donated) * $totalForecast;
 
                 return [
                     'name' => $donations->first()->order->reward->name,
