@@ -2,8 +2,41 @@
     @pushOnce('widgets')
         <x-card>
             <div class="flex justify-between">
-                <p class="font-serif text-xl">{{ __('Shipment') }}</p>
+                <p class="font-serif text-xl">{{ __('Order') }}</p>
                 <x-order::order-shipment-status-badge :order="$donation->order" />
+            </div>
+            <div class="border-t border-gray-200 mt-4 pt-4 flex justify-between">
+                <div>
+                    <span class="text-gray-500 text-sm">{{ __('Selected Reward') }}</span>
+                    <div class="text-lg font-serif">
+                        {{ $donation->order->reward->name }}
+
+                    </div>
+                    <div class="mt-2">
+                        @if ($donation->order->rewardVariant)
+                            <p class="flex gap-2 items-center">
+                                <x-icons.tag />
+                                {{ $donation->order->rewardVariant->name }}
+                            </p>
+                        @endif
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-sm text-gray-500">{{ __('Note') }}</span>
+                        <div class="flex gap-2">
+                            {{ $donation->order->note }}
+                        </div>
+                    </div>
+                </div>
+                <x-button
+                    outlined
+                    round
+                    :href="route('orders.edit', $donation->order)"
+                    wire:navigate
+                    class="w-10 h-10"
+                    iconButton
+                >
+                    <x-icons.pencil />
+                </x-button>
             </div>
             <div class="border-t border-gray-200 mt-4 pt-4">
                 <span class="text-sm text-gray-500">{{ __('Shipment address') }}</span>
@@ -29,6 +62,24 @@
                 </div>
             </div>
 
+        </x-card>
+    @endpushOnce
+@else
+    @pushOnce('widgets')
+        <x-card>
+            <div class="flex justify-between">
+                <p class="font-serif
+            text-xl">{{ __('Order') }}</p>
+            </div>
+            <div class="border-t border-gray-200 mt-4 pt-4">
+                <x-button
+                    outlined
+                    :href="route('orders.create', ['donation' => $donation])"
+                    wire:navigate
+                >
+                    {{ __('Add Order') }}
+                </x-button>
+            </div>
         </x-card>
     @endpushOnce
 @endif

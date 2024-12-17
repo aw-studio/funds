@@ -41,12 +41,6 @@
                     required
                 />
             </div>
-            <x-input
-                label="Country"
-                name="country"
-                value="{{ $order->shipping_address['country'] }}"
-                required
-            />
             <x-country-select
                 label="Country"
                 name="country"

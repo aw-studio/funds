@@ -18,10 +18,6 @@
                         :donation="$donation"
                         class="w-full"
                     />
-                    <x-donation::show.reward
-                        :donation="$donation"
-                        class="w-full"
-                    />
                 </div>
                 @stack('widgets')
             </div>

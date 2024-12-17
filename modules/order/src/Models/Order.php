@@ -24,6 +24,7 @@ class Order extends Model
     public $fillable = [
         'shipment_status',
         'shipment_adress',
+        'note',
     ];
 
     protected $attributes = [

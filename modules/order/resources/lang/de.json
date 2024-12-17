@@ -1,4 +1,9 @@
 {
+    "Order": "Bestellung",
+    "Orders": "Bestellungen",
+    "Add Order": "Bestellung hinzufügen",
+    "Edit Order": "Bestellung bearbeiten",
+    "Create Order": "Bestellung erstellen",
     "shipment_pending": "Ausstehend",
     "Address addition": "Adresszusatz",
     "Pending": "Ausstehend"
