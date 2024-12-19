@@ -46,6 +46,7 @@ class CheckoutDonationRequest extends FormRequest
                 'postal_code' => ['required', 'string', 'min:4'],
                 'city' => ['required', 'string', 'min:2'],
                 'country' => ['required', 'string'],
+                'amount' => ['required', 'numeric', 'min:'.($this->route('reward')->min_amount->get())],
             ]);
 
             if ($this->route('reward')->variants()->exists()) {
