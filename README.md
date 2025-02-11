@@ -1,6 +1,10 @@
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f1ec5c5a-41c1-4148-9343-385905d5f860" width="250px" />
+</p>
+
 ## Funds
 
-A self hosted crowd-fundraising platform.
+Funds is a modular fundraising platform that can help you collect campaign-based donations for your cause.
 
 ## Core Modules
 
