@@ -25,13 +25,17 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('secret'),
         ]);
 
-        Reward::factory()->for($campaign, 'campaign')->count(5)->create();
+        Reward::factory()->for($campaign, 'campaign')->count(2)->create();
+        Reward::factory()->for($campaign, 'campaign')
+            ->has(\Funds\Reward\Models\RewardVariant::factory()->count(2), 'variants')->count(2)->create();
 
-        foreach ($campaign->rewards as $reward) {
+        foreach ($campaign->rewards()->with('variants')->get() as $reward) {
             Donation::factory()->for($campaign, 'campaign')->count(random_int(1, 15))->create();
             Donation::factory()->for($campaign, 'campaign')
                 ->has(\Funds\Order\Models\Order::factory([
                     'reward_id' => $reward->id,
+                    'reward_variant_id' => $reward->variants->count() > 0 ? $reward->variants->random()->id : null,
+                    'campaign_id' => $campaign->id,
                 ]))
                 ->count(random_int(0, 200))->create();
         }
