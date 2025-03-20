@@ -36,13 +36,18 @@ test('processing a donation intent creates a payment intent', function () {
     $stripe->shouldReceive('paymentIntents')
         ->andReturn($paymentIntentService);
 
+    $returnUrl = route('public.checkout.return', [
+        'campaign' => $intent->campaign,
+        'donationIntent' => $intent,
+    ]);
+
     $paymentIntentService->shouldReceive('create')
         ->with([
             'confirm' => true,
             'amount' => 1000,
             'currency' => 'eur',
             'confirmation_token' => 'my-confirmation-token',
-            'return_url' => 'http://funds.test/c/1/checkout/return/1',
+            'return_url' => $returnUrl,
         ])
         ->andReturn((object) [
             'id' => 'payment-intent-id',
@@ -64,5 +69,5 @@ test('processing a donation intent creates a payment intent', function () {
     expect($response->data)->toHaveKey('status');
     expect($response->data['status'])->toBe('requires_confirmation');
     expect($response->data)->toHaveKey('return_url');
-    expect($response->data['return_url'])->toBe('http://funds.test/c/1/checkout/return/1');
+    expect($response->data['return_url'])->toBe($returnUrl);
 });

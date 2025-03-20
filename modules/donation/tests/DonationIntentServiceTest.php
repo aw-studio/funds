@@ -40,7 +40,7 @@ test('It creates a donationIntent with a reward order', function () {
             'email' => 'user@example.org',
             'amount' => 1000,
             'shipping_name' => 'User foo',
-            'address' => '123 Main St',
+            'street' => '123 Main St',
             'city' => 'Anytown',
             'state' => 'NY',
             'postal_code' => '12345',
