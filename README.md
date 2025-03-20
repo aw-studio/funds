@@ -15,7 +15,7 @@ Funds is a self-hosted donation-based crowd-fundraising platform built with the 
 - **Orders**: Manage orders to send the rewards to your donors.
 - **Customizable**: Fully customizable to fit your needs.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
-
+- **Modular Approach**: Core functionalities are divided into modules to ensure better maintainability and easy extendability.
 
 ## Prerequisites
 
@@ -30,6 +30,7 @@ Funds is a self-hosted donation-based crowd-fundraising platform built with the 
 
 #### Optional
 - ffmpeg (to generate thumbnails for videos)
+
 
 
 ## License
