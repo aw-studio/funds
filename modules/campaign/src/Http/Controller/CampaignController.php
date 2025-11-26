@@ -47,7 +47,7 @@ class CampaignController
         //switch to campaign
         $request->user()->switchCurrentCampaignTo($campaign);
 
-        $adjustedTotalAmount = ($campaign->total_donated ?? 0) * (1 - $campaign->fees / 100);
+        $adjustedTotalAmount = ($campaign->total_donated ?? 0) * (1 - ($campaign->fees ?? 0) / 100);
         $adjustedTotalAmount = new Amount((int) $adjustedTotalAmount);
 
         $rewards = $campaign->topRewards()->get();
