@@ -6,5 +6,9 @@
     "Create Order": "Bestellung erstellen",
     "shipment_pending": "Ausstehend",
     "Address addition": "Adresszusatz",
-    "Pending": "Ausstehend"
+    "Pending": "Ausstehend",
+    "Mark as shipped": "Als versendet markieren",
+    "Pause shipping": "Versand pausieren",
+    "Continue shipping": "Versand fortsetzen",
+    "Are you sure you want to mark this order as shipped?": "Möchten Sie diese Bestellung wirklich als versendet markieren?"
 }
