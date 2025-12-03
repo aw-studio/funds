@@ -1,6 +1,6 @@
-<div class="contactDetails mb-16">
+<div class="mb-16 contactDetails">
     <x-public::checkout.section-headline :value="__('Contact Details')" />
-    <div class="grid md:grid-cols-2 gap-8">
+    <div class="grid gap-8 md:grid-cols-2">
         <x-input
             ref="contactDetailsName"
             name="name"
@@ -13,7 +13,7 @@
 
         <x-input
             name="email"
-            type="text"
+            type="email"
             label="{{ __('Email address') }}"
             value="{{ old('email') }}"
             required

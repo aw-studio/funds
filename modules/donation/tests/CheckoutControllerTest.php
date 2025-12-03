@@ -58,7 +58,7 @@ test('the donation intent contains the order details if a reward is selected', f
     $this->withoutExceptionHandling();
     $response = $this->post(route('public.checkout.store', [$campaign, $reward]), [
         'donation_type' => 'one_time',
-        'amount' => $reward->min_amount->get(),
+        'amount' => 100,
         'email' => 'foo@bar.com',
         'name' => 'Test Name',
         'street' => 'Test Address 27',
@@ -83,7 +83,7 @@ test('The order details contain a reward_variant_id if a variant was selected', 
 
     $response = $this->post(route('public.checkout.store', [$campaign, $reward]), [
         'donation_type' => 'one_time',
-        'amount' => $reward->min_amount->get(),
+        'amount' => 100,
         'email' => 'user@user.com',
         'name' => 'Test Name',
         'street' => 'Test Address 27',

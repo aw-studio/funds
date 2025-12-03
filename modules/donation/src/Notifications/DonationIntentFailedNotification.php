@@ -40,6 +40,7 @@ class DonationIntentFailedNotification extends Notification
     {
         return (new MailMessage)
             ->subject(__('Your Donation Failed'))
+            ->greeting(__('Hi,'))
             ->line(__('Unfortunately, something went wrong with your donation to :campaignName', ['campaignName' => $this->campaign->name]))
             ->line(__('We would be very happy if you try it again. Or contact us for further assictance.'));
     }

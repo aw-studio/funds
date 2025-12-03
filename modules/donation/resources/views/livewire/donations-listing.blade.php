@@ -1,11 +1,12 @@
 <?php
 
-use function Livewire\Volt\{state, uses, updated};
 use Funds\Donation\Models\Donation;
 use Funds\Foundation\Facades\Funds;
+use Funds\Order\Enums\OrderShipmentStatus;
+use function Livewire\Volt\{state, uses, updated};
 use function Livewire\Volt\{with, usesPagination};
 
-state(['search', 'campaign', 'includeRecurring', 'filterReward', 'sortField' => 'created_at', 'sortDirection' => 'DESC', 'perPage' => 10]);
+state(['search', 'campaign', 'includeRecurring', 'filterReward', 'sortField' => 'created_at', 'sortDirection' => 'DESC', 'perPage' => 10, 'filterShipmentStatus']);
 usesPagination();
 
 with(
@@ -16,8 +17,9 @@ with(
             ->when($this->includeRecurring == false, fn($query) => $query->where('type', '!=', 'recurring'))
             ->when($this->filterReward, fn($query) => $query->whereHas('order', fn($query) => $query->where('reward_id', $this->filterReward)))
             ->when(strlen($this->search) > 2, fn($query) => $query->search($this->search))
-            ->latest()
             ->when($this->sortField, fn($query) => $query->orderBy($this->sortField, $this->sortDirection))
+            ->when($this->filterShipmentStatus, fn($query) => $query->whereHas('order', fn($query) => $query->where('shipment_status', $this->filterShipmentStatus)))
+            ->latest()
             ->paginate($this->perPage),
     ],
 );
@@ -28,6 +30,8 @@ $setSort = function ($field) {
     $this->sortDirection = $direction;
 };
 
+updated(['filterReward' => fn() => $this->resetPage()]);
+updated(['filterShipmentStatus' => fn() => $this->resetPage()]);
 updated(['perPage' => fn() => $this->resetPage()]);
 updated(['search' => fn() => $this->resetPage()]);
 
@@ -44,6 +48,15 @@ updated(['search' => fn() => $this->resetPage()]);
                         value="{{ $reward->id }}"
                         {{ $reward->id == $filterReward ? 'selected' : '' }}
                     >{{ $reward->name }}</option>
+                @endforeach
+            </x-select>
+            <x-select wire:model.live="filterShipmentStatus">
+                <option value="">{{ __('Status') }}</option>
+                @foreach (OrderShipmentStatus::cases() as $status)
+                    <option
+                        value="{{ $status->value }}"
+                        {{ $status->value == $filterShipmentStatus ? 'selected' : '' }}
+                    >{{ __($status->label()) }}</option>
                 @endforeach
             </x-select>
         </div>
