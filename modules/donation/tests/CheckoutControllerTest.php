@@ -46,7 +46,6 @@ test('Donation intent is created when submitting a donation', function () {
     expect(DonationIntent::count())->toBe(1);
     expect(DonationIntent::first()->payment_intent)->not()->toBeNull();
     expect(DonationIntent::first()->status)->toBe(DonationIntentStatus::Pending);
-
 });
 
 test('the donation intent contains the order details if a reward is selected', function () {
@@ -55,10 +54,9 @@ test('the donation intent contains the order details if a reward is selected', f
         ->for($campaign)
         ->create();
 
-    $this->withoutExceptionHandling();
     $response = $this->post(route('public.checkout.store', [$campaign, $reward]), [
         'donation_type' => 'one_time',
-        'amount' => 100,
+        'amount' => $reward->min_amount->cents,
         'email' => 'foo@bar.com',
         'name' => 'Test Name',
         'street' => 'Test Address 27',
@@ -83,7 +81,7 @@ test('The order details contain a reward_variant_id if a variant was selected', 
 
     $response = $this->post(route('public.checkout.store', [$campaign, $reward]), [
         'donation_type' => 'one_time',
-        'amount' => 100,
+        'amount' => $reward->min_amount->cents,
         'email' => 'user@user.com',
         'name' => 'Test Name',
         'street' => 'Test Address 27',
@@ -172,7 +170,6 @@ test('A receipt address is required when a receipt is required', function () {
         'receipt_city',
         'receipt_country',
     ]);
-
 });
 
 test('A receipt_address is not required if the shipping address should be used ', function () {
