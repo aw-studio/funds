@@ -55,8 +55,8 @@
                     <p class="mb-4">{{ $campaign->description ?? '' }}</p>
                 </div>
 
-                @if ($campaign->showDonationProgress())
-                    <div class="flex flex-col justify-end flex-1">
+                <div class="flex flex-col justify-end flex-1">
+                        @if ($campaign->showDonationProgress())
                         <p class="mb-2">
                             {{ __('Donation goal') }}
                         </p>
@@ -65,6 +65,7 @@
                             {{ $campaign->goal }} erreicht
                         </p>
                         <x-public::progress-bar :$campaign />
+                        @endif
                         <p class="mt-3 mb-8">
                             @if ($campaign->totalAmountDonated() < $campaign->goal)
                                 {{ $campaign->donations_count }} {{ __('Supporters') }}
@@ -91,8 +92,7 @@
                                 </a>
                             </div>
                         @endif
-                    </div>
-                @endif
+                </div>
 
             </div>
             <div class="col-span-full">

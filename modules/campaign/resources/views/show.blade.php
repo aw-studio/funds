@@ -7,6 +7,10 @@
             :campaign="$campaign"
         />
         <x-campaign::widgets.average-donation :$averageDonationAmount />
+        <x-campaign::widgets.max-donation :$maxDonationAmount />
         <x-campaign::widgets.donation-sum :$adjustedTotalAmount />
+        <div class="col-span-full">
+            <x-campaign::widgets.donations-timeline :campaign="$campaign" />
+        </div>
     </div>
 </x-campaign::layout>

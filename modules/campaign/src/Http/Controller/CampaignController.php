@@ -44,6 +44,7 @@ class CampaignController
     {
         $campaign->loadCount('donations');
         $campaign->loadAvg('donations', 'amount');
+        $campaign->loadMax('donations', 'amount');
 
         //switch to campaign
         $request->user()->switchCurrentCampaignTo($campaign);
@@ -58,6 +59,7 @@ class CampaignController
                 'adjustedTotalAmount' => $adjustedTotalAmount,
                 'rewards' => [],
                 'averageDonationAmount' => new Amount($campaign->donations_avg_amount ?? 0),
+                'maxDonationAmount' => new Amount($campaign->donations_max_amount ?? 0),
             ]
         );
     }

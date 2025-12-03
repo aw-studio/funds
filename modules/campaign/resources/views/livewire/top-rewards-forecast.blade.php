@@ -8,6 +8,7 @@ state([
     'forecastAmount' => 0,
     'campaign',
     'showForecast' => false,
+    'showAllRewards' => false,
 ]);
 
 mount(function ($campaign) {
@@ -21,11 +22,21 @@ $calculateForecastAmount = function () {
 $rewardOrders = computed(function () {
     $totalForecast = intval($this->forecastAmount) * 100;
     $action = new GenerateRewardStats();
-    return $action->execute(Campaign::find($this->campaign->id), $totalForecast);
+    $allRewards = $action->execute(Campaign::find($this->campaign->id), $totalForecast);
+
+    if ($this->showAllRewards) {
+        return $allRewards;
+    }
+
+    return $allRewards->take(7);
 });
 
 $toggleForecast = function () {
     $this->showForecast = !$this->showForecast;
+};
+
+$toggleShowAllRewards = function () {
+    $this->showAllRewards = !$this->showAllRewards;
 };
 
 ?>
@@ -79,6 +90,22 @@ $toggleForecast = function () {
                         <span class="mb-0.5">€</span>
                     </x-slot>
                 </x-input>
+            @endif
+            @if ($this->rewardOrders->count() >= 7)
+                <x-button
+                    round
+                    outlined
+                    wire:click="toggleShowAllRewards"
+                    iconButton
+                    class="w-10 h-10"
+                    title="@if (!$showAllRewards)Alle anzeigen @else Ausblenden @endif"
+                >
+                    @if (!$showAllRewards)
+                        <x-icons.arrow-down class="w-4 h-4" />
+                    @else
+                        <x-icons.arrow-up class="w-4 h-4" />
+                    @endif
+                </x-button>
             @endif
         </div>
     @endif

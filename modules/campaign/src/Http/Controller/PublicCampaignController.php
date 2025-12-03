@@ -25,10 +25,11 @@ class PublicCampaignController
 
     public function rewards(Campaign $campaign)
     {
-        return view('campaign::public.rewards',
+        return view(
+            'campaign::public.rewards',
             [
                 'campaign' => $campaign,
-                'donation_options' => $campaign->rewards,
+                'donation_options' => $campaign->rewards->where('is_active')->sortBy('order'),
             ]
         );
     }
