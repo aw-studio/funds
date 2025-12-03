@@ -12,11 +12,9 @@ class CampaignController
     public function index()
     {
 
-        return view('campaign::index',
-            [
-                'campaigns' => Campaign::withCount('donations')->get(),
-            ]
-        );
+        return view('campaign::index', [
+            'campaigns' => Campaign::withCount('donations')->get(),
+        ]);
     }
 
     public function create()
@@ -44,30 +42,31 @@ class CampaignController
 
     public function show(Request $request, Campaign $campaign)
     {
+        $campaign->loadCount('donations');
+        $campaign->loadAvg('donations', 'amount');
+
         //switch to campaign
         $request->user()->switchCurrentCampaignTo($campaign);
 
         $adjustedTotalAmount = ($campaign->total_donated ?? 0) * (1 - ($campaign->fees ?? 0) / 100);
         $adjustedTotalAmount = new Amount((int) $adjustedTotalAmount);
 
-        $rewards = $campaign->topRewards()->get();
-
-        return view('campaign::show',
+        return view(
+            'campaign::show',
             [
                 'campaign' => $campaign,
                 'adjustedTotalAmount' => $adjustedTotalAmount,
-                'rewards' => $rewards,
+                'rewards' => [],
+                'averageDonationAmount' => new Amount($campaign->donations_avg_amount ?? 0),
             ]
         );
     }
 
     public function edit(Request $request, Campaign $campaign)
     {
-        return view('campaign::edit',
-            [
-                'campaign' => $campaign,
-            ]
-        );
+        return view('campaign::edit', [
+            'campaign' => $campaign,
+        ]);
     }
 
     public function update(Request $request, Campaign $campaign)

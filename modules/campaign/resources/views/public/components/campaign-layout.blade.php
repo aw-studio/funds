@@ -1,9 +1,12 @@
 @props(['header' => true, 'campaign' => null])
+@php
+    $metaDescription = $campaign?->meta_description ?? $campaign?->description ?? '';
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>{{ $campaign->name ?? '' }}</title>
+    <title>{{ $campaign?->name ?? '' }}</title>
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1"
@@ -32,23 +35,81 @@
         rel="manifest"
         href="/site.webmanifest"
     />
+
+    <!-- HTML Meta Tags -->
+    <meta
+        name="description"
+        content="{{ $metaDescription }}"
+    >
+
+    <!-- Facebook Meta Tags -->
+    <meta
+        property="og:url"
+        content="{{ url()->current() }}"
+    >
+    <meta
+        property="og:type"
+        content="website"
+    >
+    <meta
+        property="og:title"
+        content="{{ $campaign?->name }}"
+    >
+    <meta
+        property="og:description"
+        content="{{ $metaDescription }}"
+    >
+    @if ($og_image = $campaign?->getFirstMediaUrl('og_image'))
+        <meta
+            property="og:image"
+            content="{{ $og_image }}"
+        >
+    @endif
+
+    <!-- Twitter Meta Tags -->
+    <meta
+        name="twitter:card"
+        content="summary_large_image"
+    >
+    <meta
+        property="twitter:domain"
+        content="{{ request()->getHost() }}"
+    >
+    <meta
+        property="twitter:url"
+        content="{{ url()->current() }}"
+    >
+    <meta
+        name="twitter:title"
+        content="{{ $campaign?->name }}"
+    >
+    <meta
+        name="twitter:description"
+        content="{{ $metaDescription }}"
+    >
+     @if ($twitter_image = $campaign?->getFirstMediaUrl('twitter_image'))
+        <meta
+            name="twitter:image"
+            content="{{ $twitter_image }}"
+        >
+    @endif
     @vite(['resources/css/app.css', 'resources/js/app.js', 'modules/campaign/resources/css/public.css'])
     @if ($campaign)
         <style>
             :root {
-                {{ $campaign->getCssVariables() }}
+                {{ $campaign?->getCssVariables() }}
             }
 
-            {{ $campaign->settings['custom_css'] ?? '' }}
+            {{ $campaign?->settings['custom_css'] ?? '' }}
         </style>
     @endif
     @stack('scripts')
 
 </head>
 
-<body class="campaign {{ $attributes->get('bodyClass', '') }}">
-    @if ($campaign && !$campaign->isPublished())
-        <div class="border-b border-purple-500 bg-purple-100 text-purple-500 text-center p-4 text-sm sticky top-0 z-10">
+<body class="campaign   {{ $attributes->get('bodyClass', '') }}">
+    @if ($campaign && !$campaign?->isPublished())
+        <div class="sticky top-0 z-10 p-4 text-sm text-center text-purple-500 bg-purple-100 border-b border-purple-500">
             {{ __('This campaign is not published yet.') }}
             {{ __('Some features may not work as expected.') }}
             <a
@@ -62,7 +123,7 @@
         <x-public::layout-header />
     @endif
     <main>
-        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 px-4 py-6 sm:px-0">
+        <div class="pb-6 ">
             {{ $slot }}
         </div>
     </main>

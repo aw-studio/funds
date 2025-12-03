@@ -17,7 +17,7 @@
         return {
             selectedTab: 0,
             selectTab(index) {
-                this.selectedTab = index;
+                this.updateTabSelection(index);
             },
             isSelected(index) {
                 return this.selectedTab === index ? 'true' : 'false';
@@ -35,9 +35,51 @@
 
                 if (keyMap[event.key]) {
                     keyMap[event.key]();
+                    this.updateImageSizes();
                     event.preventDefault();
                 }
-            }
+
+                this.updateTabFocusAndHash();
+            },
+            updateImageSizes() {
+                const activePanel = document.querySelector('.tab-panels div[tabindex="' + this.selectedTab + '"]');
+                if (activePanel) {
+                    const images = activePanel.querySelectorAll('img');
+                    setTimeout(() => {
+                        images.forEach(image => {
+                            const rect = image.getBoundingClientRect();
+                            image.setAttribute('width', rect.width);
+                            image.setAttribute('height', rect.height);
+                            image.setAttribute('sizes', `${rect.width}px`);
+                        });
+                    }, 20);
+                }
+            },
+            updateTabSelection(index) {
+                this.selectedTab = index;
+                this.updateImageSizes();
+                this.updateTabFocusAndHash();
+            },
+            updateTabFocusAndHash() {
+                const tabButton = document.querySelector(`[tabindex="${this.selectedTab}"]`);
+                if (tabButton) {
+                    tabButton.focus();
+                    window.location.hash = tabButton.getAttribute('slug');
+                }
+            },
+            init() {
+                const hash = window.location.hash.substring(1);
+                if (hash) {
+                    const tabButton = document.querySelector(`[slug="${hash}"]`);
+                    if (tabButton) {
+                        const index = parseInt(tabButton.getAttribute('tabindex'), 10);
+                        if (!isNaN(index)) {
+                            this.selectedTab = index;
+                        }
+                    }
+                }
+                this.updateImageSizes();
+            },
         };
     }
 </script>

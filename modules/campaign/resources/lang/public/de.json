@@ -1,8 +1,9 @@
 {
     "Donation goal": "Spendenziel",
     "Supporters": "Unterstützende",
-    "Choose your reward": "Wähle deinen Perk",
-    "Select and Continue": "Auswählen und fortfahren",
+    "Goal reached": "Danke an :donations_count Unterstützende! Jetzt spenden und uns weiter unterstützen.",
+    "Choose your reward": "Wähle ein Geschenk",
+    "Select and Continue": "Auswählen",
     "Donate now": "Jetzt spenden",
     "Donate an amount": "Betrag spenden",
     "Share this campaign": "Spendenkampagne teilen",

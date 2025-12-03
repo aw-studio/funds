@@ -17,6 +17,11 @@
                 'isActive' => request()->routeIs('campaigns.content.faqs.edit'),
             ],
             [
+                'name' => __('Settings'),
+                'route' => route('campaigns.content.settings.edit', ['campaign' => $campaign]),
+                'isActive' => request()->routeIs('campaigns.content.settings.edit'),
+            ],
+            [
                 'name' => __('Design'),
                 'route' => route('campaigns.content.style-settings.edit', ['campaign' => $campaign]),
                 'isActive' => request()->routeIs('campaigns.content.style-settings.edit'),
@@ -24,7 +29,7 @@
         ];
     @endphp
 
-    <div class="lg:flex gap-4">
+    <div class="gap-4 lg:flex">
         <aside class="w-60">
             <ul>
                 @foreach ($navItems as $item)

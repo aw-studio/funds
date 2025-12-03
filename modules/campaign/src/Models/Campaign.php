@@ -30,6 +30,9 @@ class Campaign extends Model implements HasMedia
     public $fillable = [
         'name',
         'description',
+        'meta_description',
+        'social_share_text',
+        'youtube_id',
         'content',
         'goal',
         'start_date',
@@ -135,6 +138,13 @@ class Campaign extends Model implements HasMedia
         ]);
     }
 
+    public function getUrl()
+    {
+        return config('funds.single_campaign_mode') ?
+            url('/') :
+            route('campaigns.public.show', ['campaign' => $this]);
+    }
+
     public function publicRoute()
     {
         return route('campaigns.public.show', [
@@ -187,6 +197,13 @@ class Campaign extends Model implements HasMedia
         $this->addMediaCollection('content_images');
 
         $this->addMediaCollection('pitch_video')
+            ->singleFile();
+
+        // OG Image
+        $this->addMediaCollection('og_image')
+            ->singleFile();
+        // Twitter Image
+        $this->addMediaCollection('twitter_image')
             ->singleFile();
     }
 

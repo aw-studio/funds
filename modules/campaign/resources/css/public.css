@@ -1,6 +1,7 @@
 :root {
     --font-family-sans: Inter, sans-serif;
     --general-bg-color: rgba(var(--color-general-bg-rgb, 242, 242, 242), 1);
+    --header-bg-color: rgba(var(--color-header-bg-rgb, 0, 0, 0), 1);
     --general-text-color: rgba(var(--color-general-text-rgb, 0, 0, 0), 1);
     --accent-1-color: rgba(var(--color-accent-1-rgb, 39, 77, 186), 1);
     --accent-1-25-color: rgba(var(--color-accent-1-rgb, 39, 77, 186), 0.25);
@@ -58,7 +59,7 @@
     }
 
     .page-header {
-        background-color: var(--general-bg-color);
+        background-color: var(--header-bg-color);
     }
 
     .radio {
@@ -309,5 +310,19 @@
 
     &:hover {
         background: var(--interaction-color);
+    }
+}
+
+.fc-button-secondary {
+    border: 1px solid white;
+    border-radius: var(--button-radius);
+    padding: 8px 20px;
+    transition: background 0.1s;
+    color: white;
+
+    &:hover {
+        background: var(--interaction-color);
+
+        border: 1px solid var(--interaction-color);
     }
 }

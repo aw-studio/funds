@@ -19,11 +19,14 @@ class CampaignPitchController
     public function store(Request $request, Campaign $campaign)
     {
         $request->validate([
-            'description' => 'required|string',
+            'description' => 'nullable|string',
+            'youtube_id' => 'nullable|string',
             'header_image' => 'nullable|image|max:5000',
             'intro_image' => 'nullable|image|max:5000',
             'pitch_video' => 'nullable|file|mimetypes:video/*|max:50000',
             'show_progress' => 'nullable|boolean',
+            'og_image' => 'nullable|image|max:5000',
+            'twitter_image' => 'nullable|image|max:5000',
         ]);
 
         if ($request->hasFile('pitch_video') && $request->file('pitch_video')->isValid()) {
@@ -43,6 +46,18 @@ class CampaignPitchController
                 ->toMediaCollection('intro_image');
         }
 
+        if ($request->hasFile('og_image') && $request->file('og_image')->isValid()) {
+            $campaign->addMediaFromRequest('og_image')
+                ->withResponsiveImages()
+                ->toMediaCollection('og_image');
+        }
+
+        if ($request->hasFile('twitter_image') && $request->file('twitter_image')->isValid()) {
+            $campaign->addMediaFromRequest('twitter_image')
+                ->withResponsiveImages()
+                ->toMediaCollection('twitter_image');
+        }
+
         if ($request->input('header_image_delete')) {
             $campaign->clearMediaCollection('header_image');
         }
@@ -50,9 +65,16 @@ class CampaignPitchController
         if ($request->input('intro_image_delete')) {
             $campaign->clearMediaCollection('intro_image');
         }
+        if ($request->input('og_image_delete')) {
+            $campaign->clearMediaCollection('og_image');
+        }
+        if ($request->input('twitter_image_delete')) {
+            $campaign->clearMediaCollection('twitter_image');
+        }
 
         $campaign->update([
             'description' => strip_tags($request->description),
+            'youtube_id' => $request->youtube_id,
             'settings->show_progress' => $request->boolean('show_progress'),
         ]);
 

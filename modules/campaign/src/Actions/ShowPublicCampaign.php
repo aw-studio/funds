@@ -14,10 +14,11 @@ class ShowPublicCampaign
 
         $campaign->loadCount('donations');
 
-        return view('campaign::public.show',
+        return view(
+            'campaign::public.show',
             [
                 'campaign' => $campaign,
-                'donation_options' => $campaign->rewards->sortBy('order'),
+                'donation_options' => $campaign->rewards->where('is_active')->sortBy('order'),
                 'faqs' => $campaign->faqs,
             ]
         );

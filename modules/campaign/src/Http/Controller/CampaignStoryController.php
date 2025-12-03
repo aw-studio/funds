@@ -7,7 +7,7 @@ use Funds\Campaign\Actions\ExtractRemovedImageBlocks;
 use Funds\Campaign\Models\Campaign;
 use Illuminate\Http\Request;
 
-class CamapaignStoryController
+class CampaignStoryController
 {
     public function edit(Campaign $campaign)
     {

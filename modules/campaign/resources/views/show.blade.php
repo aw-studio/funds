@@ -6,7 +6,7 @@
             :rewards="$rewards"
             :campaign="$campaign"
         />
-        <x-campaign::widgets.average-donation :campaign="$campaign" />
+        <x-campaign::widgets.average-donation :$averageDonationAmount />
         <x-campaign::widgets.donation-sum :$adjustedTotalAmount />
     </div>
 </x-campaign::layout>
