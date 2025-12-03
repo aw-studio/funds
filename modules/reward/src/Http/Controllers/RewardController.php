@@ -75,6 +75,7 @@ class RewardController
             'packaging_instructions' => 'nullable|string',
             'is_active' => 'nullable|boolean',
             'expected_delivery' => 'nullable|string',
+            'show_image_in_overview' => 'nullable|boolean',
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
@@ -94,11 +95,14 @@ class RewardController
         }
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $reward->addMediaFromRequest('image')->toMediaCollection('image');
+            $reward->addMediaFromRequest('image')
+                ->withResponsiveImages()
+                ->toMediaCollection('image');
         }
 
         $reward->update([
             ...$validated,
+            'show_image_in_overview' => $request->boolean('show_image_in_overview'),
             'is_active' => $request->boolean('is_active'),
         ]);
 

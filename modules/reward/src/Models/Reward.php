@@ -32,6 +32,7 @@ class Reward extends Model implements HasMedia
         'is_active',
         'order',
         'expected_delivery',
+        'show_image_in_overview',
     ];
 
     public function casts(): array
@@ -39,6 +40,7 @@ class Reward extends Model implements HasMedia
         return [
             'min_amount' => AmountCast::class,
             'is_active' => 'boolean',
+            'show_image_in_overview' => 'boolean',
         ];
     }
 
@@ -59,7 +61,8 @@ class Reward extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('image')
-            ->singleFile();
+            ->singleFile()
+            ->withResponsiveImages();
     }
 
     public function isAvailable()

@@ -3,7 +3,7 @@
      :disabled="!$reward->isAvailable()"
      {{ $attributes }}
  >
-     @if($image = $reward->getFirstMedia('image'))
+     @if (($image = $reward->getFirstMedia('image')) && $reward->show_image_in_overview)
          <div class="w-full mb-3">
              {{ $image }}
          </div>
