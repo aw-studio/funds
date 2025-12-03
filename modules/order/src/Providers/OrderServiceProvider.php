@@ -4,6 +4,7 @@ namespace Funds\Order\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Volt\Volt;
 
 class OrderServiceProvider extends ServiceProvider
 {
@@ -18,6 +19,10 @@ class OrderServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'order');
         $this->loadRoutesFrom(__DIR__.'/../Http/routes.php');
+
+        Volt::mount([
+            __DIR__.'/../../resources/views/livewire',
+        ]);
 
         view()->composer('donation::show', function ($view) {
             $view->nest('widget:donation-order-widget', 'order::components.donation-order-widget', $view->getData());

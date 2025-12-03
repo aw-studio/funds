@@ -3,7 +3,7 @@
         <x-card>
             <div class="flex justify-between">
                 <p class="font-serif text-xl">{{ __('Order') }}</p>
-                <x-order::order-shipment-status-badge :order="$donation->order" />
+                <livewire:toggle-order-on-hold :order="$donation->order" />
             </div>
             <div class="border-t border-gray-200 mt-4 pt-4 flex justify-between">
                 <div>

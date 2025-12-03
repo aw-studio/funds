@@ -4,7 +4,7 @@
              Ø {{ __('Average Donation') }}
          </span>
          <p class="text-lg">
-             {{ $campaign->donations->averageAmount() }}</p>
+             {{ $averageDonationAmount }}</p>
          </p>
      </div>
  </div>

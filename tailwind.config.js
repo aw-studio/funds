@@ -11,6 +11,7 @@ export default {
         "./extensions/**/resources/views/**/*.blade.php",
         "./modules/**/resources/views/**/*.blade.php",
     ],
+    safelist: ["max-w-[50vw]", " whitespace-normal"],
 
     theme: {
         extend: {
@@ -141,6 +142,10 @@ export default {
             lg: ["18px", "24px"],
             xl: ["24px", "28px"],
             "2xl": ["32px", "36px"],
+        },
+        container: {
+            center: true,
+            padding: "1rem",
         },
     },
 

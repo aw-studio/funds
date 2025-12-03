@@ -3,6 +3,8 @@
 namespace Funds\Campaign\Actions;
 
 use Funds\Campaign\Models\Campaign;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class GenerateRewardStats
 {
@@ -11,30 +13,39 @@ class GenerateRewardStats
 
         $totalForecast = $forecastedAmount;
 
-        $rewardDonations = $campaign
-            ->donations()
-            ->whereHas('order')
-            ->with('order.reward')
-            ->get();
+        $rewardStats = Cache::remember("campaign_{$campaign->id}_reward_stats", 60, function () use ($campaign, $totalForecast) {
+            $rewardDonations = DB::table('donations')
+                ->selectRaw('
+                    rewards.id as reward_id,
+                    rewards.name as reward_name,
+                    COUNT(donations.id) as donation_count,
+                    SUM(donations.amount) as total_amount,
+                    AVG(donations.amount) as avg_amount
+                ')
+                ->join('orders', 'orders.donation_id', '=', 'donations.id')
+                ->join('rewards', 'orders.reward_id', '=', 'rewards.id')
+                ->where('donations.campaign_id', $campaign->id)
+                ->groupBy('rewards.id', 'rewards.name')
+                ->get();
 
-        return $rewardDonations
-            ->groupBy(function ($donation) {
-                return $donation->order->reward->id;
-            })
-            ->map(function ($donations) use ($rewardDonations, $totalForecast, $campaign) {
-                $count = $donations->count();
-                $percentage = ($count / $rewardDonations->count()) * 100;
-                $forecastedAmount = ($count / $campaign->total_donated) * $totalForecast;
+            $totalDonations = $rewardDonations->sum('donation_count');
+            $totalDonated = $campaign->total_donated;
+
+            return $rewardDonations->map(function ($reward) use ($totalDonations, $totalDonated, $totalForecast) {
+                $percentage = ($reward->donation_count / $totalDonations) * 100;
+                $forecastedAmount = ($reward->donation_count / $totalDonated) * $totalForecast;
 
                 return [
-                    'name' => $donations->first()->order->reward->name,
-                    'count' => $count,
-                    'sum' => (string) $donations->totalAmount(),
-                    'averageDonationAmount' => (string) $donations->averageAmount(),
+                    'name' => $reward->reward_name,
+                    'count' => $reward->donation_count,
+                    'sum' => (string) $reward->total_amount,
+                    'averageDonationAmount' => (string) $reward->avg_amount,
                     'percentage' => round($percentage, 1),
                     'forecastedAmount' => (int) $forecastedAmount,
                 ];
-            })
-            ->sortByDesc('count');
+            })->sortByDesc('count');
+        });
+
+        return $rewardStats;
     }
 }

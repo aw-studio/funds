@@ -41,6 +41,7 @@ test('It creates a donationIntent with a reward order', function () {
             'amount' => 1000,
             'shipping_name' => 'User foo',
             'street' => '123 Main St',
+            'address_addition' => 'Apt 4B',
             'city' => 'Anytown',
             'state' => 'NY',
             'postal_code' => '12345',

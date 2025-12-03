@@ -3,7 +3,7 @@
     <div class="text-center my-4">
         <span class="text-lg">
             {{ __('Total Donations') }}:
-            {{ $campaign->donations->count() }}
+            {{ $campaign->donations_count }}
         </span>
     </div>
 </div>

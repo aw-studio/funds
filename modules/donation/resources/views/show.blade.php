@@ -2,8 +2,8 @@
     :backLink="route('donations.index')"
     :title="page_title(__('Donation') . ' #' . $donation->id)"
 >
-    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-serif">
+    <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <h2 class="font-serif text-2xl">
             @lang('Donation') #{{ $donation->id }}
         </h2>
         <hr class="mt-4 mb-8" />

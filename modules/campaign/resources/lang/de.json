@@ -27,5 +27,7 @@
     "Display donation progress": "Spendenfortschritt anzeigen",
     "Show progress": "Fortschritt anzeigen",
     "Average Donation": "Durchschnittliche Spende",
-    "Total amount without fees": "Gesamtbetrag ohne Gebühren"
+    "Highest Donation": "Höchste Spende",
+    "Total amount without fees": "Gesamtbetrag ohne Gebühren",
+    "Amount per Period": "Betrag pro Zeitraum"
 }

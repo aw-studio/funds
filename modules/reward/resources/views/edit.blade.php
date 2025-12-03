@@ -9,7 +9,7 @@
             @csrf
             @method('PUT')
             <div class="mb-4">
-                <span class="text-xl mb-4">
+                <span class="mb-4 text-xl">
                     {{ __('General') }}
                 </span>
             </div>
@@ -48,15 +48,32 @@
                 name="image"
                 label="{{ __('Upload image') }}"
                 hint="{{ 'The maximum file size is 5 MB. Supported file formats are .jpg and .png.' }}"
-                class="md:max-w-sm mb-10"
+                class="mb-10 md:max-w-sm"
                 currentUrl="{{ $reward->getFirstMediaUrl('image', 'thumb') }}"
             />
+
+            <div class="flex items-center gap-4 mt-4">
+                    <x-input-toggle
+                        name="show_image_in_overview"
+                        :checked="$reward->show_image_in_overview"
+                        class="mt-4"
+                    />
+                    <label
+                        for="show_image_in_overview"
+                        class="block text"
+                    >
+                        <p>{{ __('Activate') }}</p>
+                        <p class="text-sm text-gray-700">
+                            {{ __('The image will be shown in the reward overview') }}
+                        </p>
+                    </label>
+                </div>
 
             <div class="max-w-md mt-10">
                 <livewire:reward-variants :reward="$reward" />
             </div>
             <div class="mt-10">
-                <p class="text-xl mb-4">{{ __('Shipment Settings') }}</p>
+                <p class="mb-4 text-xl">{{ __('Shipment Settings') }}</p>
             </div>
             <div class="mb-4">
                 <x-input-label
@@ -79,7 +96,7 @@
                     <p class="text-xl">{{ __('Availability') }}</p>
                     <p>{{ __('Set whether this reward should be available for selection in the campaign') }}</p>
 
-                    <div class="flex gap-4 items-center mt-4">
+                    <div class="flex items-center gap-4 mt-4">
                         <x-input-toggle
                             name="is_active"
                             :checked="$reward->is_active"
@@ -97,7 +114,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex justify-between gap-4 mt-10 border-t pt-8">
+            <div class="flex justify-between gap-4 pt-8 mt-10 border-t">
                 <div>
                     <livewire:delete-reward :reward="$reward" />
                 </div>
